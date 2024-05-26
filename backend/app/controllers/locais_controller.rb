@@ -3,7 +3,7 @@ class LocaisController < ApplicationController
 
   # GET /locais
   def index
-    @locais = Local.includes(:endereco).all
+    @locais = Local.includes(endereco: [cidade: :estado]).all
   end
 
   # GET /locais/1
@@ -38,7 +38,7 @@ class LocaisController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_local
-      @local = Local.includes(:endereco).find(params[:id])
+      @local = Local.includes(:subordinados, endereco: [cidade: :estado]).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

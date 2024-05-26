@@ -6,3 +6,10 @@ json.endereco do
     json.estado local.endereco.cidade.estado.sigla
   end
 end
+if subordinados && local.local_id.nil?
+  json.subordinados do
+    json.array! local.subordinados do |subordinado|
+      json.extract! subordinado, :id, :codigo, :descricao, :ativo, :created_at, :updated_at
+    end
+  end
+end

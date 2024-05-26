@@ -3,7 +3,7 @@ class GruposController < ApplicationController
 
   # GET /grupos
   def index
-    @grupos = Grupo.all
+    @grupos = Grupo.includes(:filhos).where(grupo_id: nil).all
   end
 
   # GET /grupos/1
@@ -38,7 +38,7 @@ class GruposController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_grupo
-      @grupo = Grupo.find(params[:id])
+      @grupo = Grupo.includes(:filhos).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_26_004150) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_26_203937) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,13 +68,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_26_004150) do
   end
 
   create_table "locais", force: :cascade do |t|
-    t.integer "codigo"
-    t.string "descricao"
-    t.integer "local_id"
-    t.boolean "ativo"
+    t.integer "codigo", null: false
+    t.string "descricao", null: false
+    t.boolean "ativo", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "local_id"
     t.index ["codigo"], name: "index_locais_on_codigo", unique: true
+    t.index ["local_id"], name: "index_locais_on_local_id"
+  end
+
+  create_table "localizacoes", force: :cascade do |t|
+    t.bigint "patrimonio_id", null: false
+    t.bigint "local_id", null: false
+    t.date "data", null: false
+    t.integer "motivo", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["local_id"], name: "index_localizacoes_on_local_id"
+    t.index ["patrimonio_id"], name: "index_localizacoes_on_patrimonio_id"
   end
 
   create_table "patrimonios", force: :cascade do |t|
@@ -95,7 +107,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_26_004150) do
     t.integer "ano_empnho"
     t.integer "numero_processo_compra"
     t.integer "ano_processo_compra"
-    t.bigint "fornecedor_id", null: false
+    t.bigint "fornecedor_id"
     t.index ["fornecedor_id"], name: "index_patrimonios_on_fornecedor_id"
     t.index ["grupo_id"], name: "index_patrimonios_on_grupo_id"
   end
@@ -106,6 +118,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_26_004150) do
     t.boolean "ativo", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["cpf"], name: "index_responsaveis_on_cpf", unique: true
   end
 
   create_table "responsavel_locais", force: :cascade do |t|
@@ -132,6 +145,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_26_004150) do
 
   add_foreign_key "cidades", "estados"
   add_foreign_key "grupos", "grupos"
+  add_foreign_key "locais", "locais"
+  add_foreign_key "localizacoes", "locais"
+  add_foreign_key "localizacoes", "patrimonios"
   add_foreign_key "patrimonios", "fornecedores"
   add_foreign_key "responsavel_locais", "locais"
   add_foreign_key "responsavel_locais", "responsaveis"

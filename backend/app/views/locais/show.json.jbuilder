@@ -1,1 +1,1 @@
-json.partial! "locais/local", local: @local
+json.partial! "locais/local", local: @local, subordinados: true

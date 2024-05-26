@@ -4,13 +4,10 @@ class ResponsaveisController < ApplicationController
   # GET /responsaveis
   def index
     @responsaveis = Responsavel.all
-
-    render json: @responsaveis
   end
 
   # GET /responsaveis/1
   def show
-    render json: @responsavel
   end
 
   # POST /responsaveis
@@ -18,7 +15,7 @@ class ResponsaveisController < ApplicationController
     @responsavel = Responsavel.new(responsavel_params)
 
     if @responsavel.save
-      render json: @responsavel, status: :created, location: @responsavel
+      render :show, status: :created, location: @responsavel
     else
       render json: @responsavel.errors, status: :unprocessable_entity
     end
@@ -27,7 +24,7 @@ class ResponsaveisController < ApplicationController
   # PATCH/PUT /responsaveis/1
   def update
     if @responsavel.update(responsavel_params)
-      render json: @responsavel
+      render :show
     else
       render json: @responsavel.errors, status: :unprocessable_entity
     end

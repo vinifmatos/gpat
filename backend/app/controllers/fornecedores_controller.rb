@@ -3,7 +3,7 @@ class FornecedoresController < ApplicationController
 
   # GET /fornecedores
   def index
-    @fornecedores = Fornecedor.all
+    @fornecedores = Fornecedor.includes(endereco: [cidade: :estado]).all
   end
 
   def tipos
@@ -42,11 +42,11 @@ class FornecedoresController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_fornecedor
-      @fornecedor = Fornecedor.find(params[:id])
+      @fornecedor = Fornecedor.includes(endereco: [cidade: :estado]).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def fornecedor_params
-      params.require(:fornecedor).permit(:tipo, :documento, :razao_social, :nome_fantasia, endereco_attributes: %i[id logradouro numero bairro complemento cep cidade_id principal])
+      params.require(:fornecedor).permit(:tipo, :documento, :razao_social, :nome_fantasia, enderecos_attributes: %i[id logradouro numero bairro complemento cep cidade_id principal])
     end
 end
