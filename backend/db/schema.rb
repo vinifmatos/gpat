@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_26_203937) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_27_031604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_26_203937) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "grupo_id"
+    t.index ["codigo", "grupo_id"], name: "index_grupos_on_codigo_and_grupo_id", unique: true
+    t.index ["codigo"], name: "index_grupos_on_codigo", unique: true, where: "(grupo_id IS NULL)"
     t.index ["grupo_id"], name: "index_grupos_on_grupo_id"
   end
 
@@ -74,19 +76,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_26_203937) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "local_id"
-    t.index ["codigo"], name: "index_locais_on_codigo", unique: true
+    t.index ["codigo", "local_id"], name: "index_locais_on_codigo_and_local_id", unique: true
+    t.index ["codigo"], name: "index_locais_on_codigo", unique: true, where: "(local_id IS NULL)"
     t.index ["local_id"], name: "index_locais_on_local_id"
   end
 
-  create_table "localizacoes", force: :cascade do |t|
+  create_table "movimentacao_itens", force: :cascade do |t|
+    t.bigint "movimentacao_id", null: false
     t.bigint "patrimonio_id", null: false
-    t.bigint "local_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movimentacao_id"], name: "index_movimentacao_itens_on_movimentacao_id"
+    t.index ["patrimonio_id"], name: "index_movimentacao_itens_on_patrimonio_id"
+  end
+
+  create_table "movimentacoes", force: :cascade do |t|
     t.date "data", null: false
+    t.bigint "local_id", null: false
     t.integer "motivo", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["local_id"], name: "index_localizacoes_on_local_id"
-    t.index ["patrimonio_id"], name: "index_localizacoes_on_patrimonio_id"
+    t.index ["local_id"], name: "index_movimentacoes_on_local_id"
   end
 
   create_table "patrimonios", force: :cascade do |t|
@@ -108,6 +118,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_26_203937) do
     t.integer "numero_processo_compra"
     t.integer "ano_processo_compra"
     t.bigint "fornecedor_id"
+    t.index ["codigo"], name: "index_patrimonios_on_codigo", unique: true
     t.index ["fornecedor_id"], name: "index_patrimonios_on_fornecedor_id"
     t.index ["grupo_id"], name: "index_patrimonios_on_grupo_id"
   end
@@ -146,8 +157,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_26_203937) do
   add_foreign_key "cidades", "estados"
   add_foreign_key "grupos", "grupos"
   add_foreign_key "locais", "locais"
-  add_foreign_key "localizacoes", "locais"
-  add_foreign_key "localizacoes", "patrimonios"
+  add_foreign_key "movimentacao_itens", "movimentacoes"
+  add_foreign_key "movimentacao_itens", "patrimonios"
+  add_foreign_key "movimentacoes", "locais"
   add_foreign_key "patrimonios", "fornecedores"
   add_foreign_key "responsavel_locais", "locais"
   add_foreign_key "responsavel_locais", "responsaveis"

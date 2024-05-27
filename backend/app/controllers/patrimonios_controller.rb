@@ -6,12 +6,16 @@ class PatrimoniosController < ApplicationController
     @patrimonios = Patrimonio.com_localizacao_atual.includes(:grupo, :fornecedor).all
   end
 
+  def movimentacoes
+    @movimentacoes = Patrimonio.find(params[:patrimonio_id]).movimentacoes.all
+  end
+
   # GET /patrimonios/1
   def show
   end
 
   def situacoes
-    render json: Patrimonio.situacoes
+    render json: Patrimonio.situacoes.keys
   end
 
   # POST /patrimonios

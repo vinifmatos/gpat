@@ -16,7 +16,7 @@ class Fornecedor < ApplicationRecord
 
   def unico_endereco_principal
     # Adiciona um erro se houver mais de um endereço principal
-    errors.add(:enderecos, 'Um fornecedor deve possuir apenas um endereço principal') if enderecos.select { |e| e.principal }.count > 1
+    errors.add(:enderecos_attributes, 'Um fornecedor deve possuir apenas um endereço principal') if enderecos.select { |e| e.principal }.count > 1
   end
 
   def validacao_documento

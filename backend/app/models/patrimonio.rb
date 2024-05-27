@@ -2,28 +2,32 @@ class Patrimonio < ApplicationRecord
   has_many :responsaveis, through: :responsavel_patrimonios
   belongs_to :grupo
   belongs_to :fornecedor
-  has_many :localizacoes
+  has_many :movimentacao_itens
+  has_many :movimentacoes, through: :movimentacao_itens
   enum :situacao, [:nao_incorporado, :incorporado, :em_manutencao, :desincorporado], validate: { message: "'%{value}' não é uma situação válida" }
-  validates :codigo, :descricao, :data_aquisicao, :data_incorporacao, :valor_aquisicao, :vida_util, :valor_residual, :situacao, presence: true
+  validates :codigo, :descricao, :data_aquisicao, :data_incorporacao, :valor_aquisicao, :vida_util, :valor_residual, :situacao, :grupo_id, presence: true
   validates :valor_aquisicao, :valor_residual, numericality: { greater_than: 0 }
   validates :vida_util, :numero_empenho, :ano_empnho, :numero_processo_compra, :ano_processo_compra, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validate :data_desincorporacao_maior_que_incorporacao
   validate :valida_situacao
   validate :valida_grupo_e_filho
   before_update :verifica_desincorporado
+  validates :codigo, uniqueness: true
 
   SQL_COM_LOCALIZACAO_ATUAL = '
   left join lateral (
     select
       locais.descricao localizacao_atual
     from
-      localizacoes
+      movimentacao_itens
+      left join movimentacoes on
+        movimentacoes.id = movimentacao_itens.movimentacao_id
       left join locais on
-        locais.id = localizacoes.local_id
+        locais.id = movimentacoes.local_id
     where
-      localizacoes.patrimonio_id = patrimonios.id
+      movimentacao_itens.patrimonio_id = patrimonios.id
     order by
-      localizacoes."data" desc
+    movimentacoes."data" desc
     limit 1
   ) localizacao_atual on true'.freeze
 
@@ -32,7 +36,7 @@ class Patrimonio < ApplicationRecord
   }
 
   def get_localizacao_atual
-    Localizacao.joins(:local).where('localizacoes.patrimonio_id = ?', id).order('localizacoes.data desc').limit(1).select('locais.descricao localizacao_atual').first&.localizacao_atual
+    Patrimonio.com_localizacao_atual.select('localizacao_atual.localizacao_atual').find(id)&.localizacao_atual
   end
 
   private

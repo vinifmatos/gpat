@@ -10,8 +10,9 @@ Rails.application.routes.draw do
     resources :responsaveis
     resources :locais
     resources :grupos
+    resources :movimentacoes
     resources :patrimonios do
-      resources :localizacoes
+      get '/movimentacoes', to: 'patrimonios#movimentacoes'
     end
     resources :cidades, only: :index
 
@@ -24,8 +25,8 @@ Rails.application.routes.draw do
         get 'tipos', to: 'fornecedores#tipos'
       end
 
-      scope 'localizacoes' do
-        get 'motivos', to: 'localizacoes#motivos'
+      scope 'movimentacoes' do
+        get 'motivos', to: 'movimentacoes#motivos'
       end
     end
   end

@@ -7,7 +7,7 @@ class FornecedoresController < ApplicationController
   end
 
   def tipos
-    render json: Fornecedor.tipos
+    render json: Fornecedor.tipos.keys
   end
 
   # GET /fornecedores/1
