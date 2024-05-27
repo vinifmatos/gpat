@@ -1,1 +1,1 @@
-json.array! @patrimonios, partial: "patrimonios/patrimonio", as: :patrimonio, localizacoes: false
+json.array! @patrimonios, partial: "patrimonios/patrimonio", as: :patrimonio

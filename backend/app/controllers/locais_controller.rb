@@ -36,13 +36,14 @@ class LocaisController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_local
-      @local = Local.includes(:subordinados, endereco: [cidade: :estado]).find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def local_params
-      params.require(:local).permit(:codigo, :descricao, :local_id, :ativo, endereco_attributes: %i[id logradouro numero bairro complemento cep cidade_id principal])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_local
+    @local = Local.includes(:subordinados, endereco: [cidade: :estado]).find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def local_params
+    params.require(:local).permit(:codigo, :descricao, :local_id, :ativo, endereco_attributes: %i[id logradouro numero bairro complemento cep cidade_id principal])
+  end
 end

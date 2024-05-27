@@ -1,53 +1,58 @@
 class LocalizacoesController < ApplicationController
+  before_action :set_patrimonio
   before_action :set_localizacao, only: %i[ show update destroy ]
 
-  # GET /localizacoes
-  # GET /localizacoes.json
+  # GET /patrimonios/:patrimonio_id/localizacoes
   def index
-    @localizacoes = Localizacao.all
+    @localizacoes = @patrimonio.localizacoes.all
   end
 
-  # GET /localizacoes/1
-  # GET /localizacoes/1.json
+  def motivos
+    render json: Localizacao.motivos
+  end
+
+  # GET /patrimonios/:patrimonio_id/localizacoes/:id
   def show
   end
 
-  # POST /localizacoes
-  # POST /localizacoes.json
+  # POST /patrimonios/:patrimonio_id/localizacoes
   def create
-    @localizacao = Localizacao.new(localizacao_params)
+    @localizacao = @patrimonio.localizacoes.build(localizacao_params)
 
     if @localizacao.save
-      render :show, status: :created, location: @localizacao
+      render :show, status: :created
     else
       render json: @localizacao.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /localizacoes/1
-  # PATCH/PUT /localizacoes/1.json
+  # PATCH/PUT /patrimonios/:patrimonio_id/localizacoes/:id
   def update
     if @localizacao.update(localizacao_params)
-      render :show, status: :ok, location: @localizacao
+      render :show, status: :ok
     else
       render json: @localizacao.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /localizacoes/1
-  # DELETE /localizacoes/1.json
+  # DELETE /patrimonios/:patrimonio_id/localizacoes/:id
   def destroy
     @localizacao.destroy!
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_localizacao
-      @localizacao = Localizacao.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def localizacao_params
-      params.require(:localizacao).permit(:patrimonio_id, :local_id, :data, :motivo)
-    end
+  def set_patrimonio
+    @patrimonio = Patrimonio.find(params[:patrimonio_id])
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_localizacao
+    @localizacao = @patrimonio.localizacoes.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def localizacao_params
+    params.require(:localizacao).permit(:patrimonio_id, :local_id, :data, :motivo)
+  end
 end

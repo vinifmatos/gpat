@@ -1,1 +1,1 @@
-json.partial! "patrimonios/patrimonio", patrimonio: @patrimonio, localizacoes: false
+json.partial! "patrimonios/patrimonio", patrimonio: @patrimonio

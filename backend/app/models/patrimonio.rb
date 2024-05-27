@@ -3,13 +3,13 @@ class Patrimonio < ApplicationRecord
   belongs_to :grupo
   belongs_to :fornecedor
   has_many :localizacoes
-  enum situacao: [:nao_incorporado, :incorporado, :em_manutencao, :desincorporado]
-  accepts_nested_attributes_for :localizacoes
+  enum :situacao, [:nao_incorporado, :incorporado, :em_manutencao, :desincorporado], validate: { message: "'%{value}' não é uma situação válida" }
   validates :codigo, :descricao, :data_aquisicao, :data_incorporacao, :valor_aquisicao, :vida_util, :valor_residual, :situacao, presence: true
   validates :valor_aquisicao, :valor_residual, numericality: { greater_than: 0 }
   validates :vida_util, :numero_empenho, :ano_empnho, :numero_processo_compra, :ano_processo_compra, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validate :data_desincorporacao_maior_que_incorporacao
   validate :valida_situacao
+  validate :valida_grupo_e_filho
   before_update :verifica_desincorporado
 
   SQL_COM_LOCALIZACAO_ATUAL = '
@@ -31,7 +31,17 @@ class Patrimonio < ApplicationRecord
     joins(SQL_COM_LOCALIZACAO_ATUAL).select('patrimonios.*, localizacao_atual.localizacao_atual')
   }
 
+  def get_localizacao_atual
+    Localizacao.joins(:local).where('localizacoes.patrimonio_id = ?', id).order('localizacoes.data desc').limit(1).select('locais.descricao localizacao_atual').first&.localizacao_atual
+  end
+
   private
+
+  def valida_grupo_e_filho
+    return if grupo.filho?
+
+    errors.add(:grupo_id, 'não pode ser um grupo pai')
+  end
 
   def verifica_desincorporado
     return unless desincorporado? || situacao_was == 'desincorporado' || data_desincorporacao != data_desincorporacao_was
