@@ -7,7 +7,7 @@ class Patrimonio < ApplicationRecord
   enum :situacao, [:nao_incorporado, :incorporado, :em_manutencao, :desincorporado], validate: { message: "'%{value}' não é uma situação válida" }
   validates :codigo, :descricao, :data_aquisicao, :data_incorporacao, :valor_aquisicao, :vida_util, :valor_residual, :situacao, :grupo_id, presence: true
   validates :valor_aquisicao, :valor_residual, numericality: { greater_than: 0 }
-  validates :vida_util, :numero_empenho, :ano_empnho, :numero_processo_compra, :ano_processo_compra, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
+  validates :vida_util, :numero_empenho, :ano_empenho, :numero_processo_compra, :ano_processo_compra, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validate :data_desincorporacao_maior_que_incorporacao
   validate :valida_situacao
   validate :valida_grupo_e_filho
