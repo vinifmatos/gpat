@@ -19,6 +19,7 @@ nav.nav {
   height: 100vh;
   padding: 1rem;
   display: flex;
+  overflow: auto;
   flex-direction: column;
   justify-content: space-between;
 
@@ -113,5 +114,7 @@ a.nav-link:hover:not(.active) {
 
 main {
   flex: 1 1 auto;
-  padding: 1rem;
+  padding: .75rem;
+  height: 100vh;
+  overflow: auto;
 }
