@@ -1,0 +1,29 @@
+.secoes {
+  display: grid;
+  grid-template-columns: calc(50% - (.75rem / 2)) calc(50% - (.75rem / 2));
+  grid-auto-rows: auto;
+  overflow: auto;
+  gap: .75rem;
+  width: 100%;
+  min-height: 100%;
+}
+
+.secao {
+  display: flex;
+  min-height: 300px;
+}
+
+:host ::ng-deep p-card.p-element {
+  width: 100%;
+  height: 100%;
+
+
+  .p-card.p-component {
+    height: 100%;
+    border: 1px solid var(--surface-border);
+  }
+
+  .p-card-body {
+    height: 100%;
+  }
+}

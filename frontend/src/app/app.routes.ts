@@ -1,17 +1,17 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { PatrimoniosComponent } from './patrimonios/patrimonios.component';
-import { GruposComponent } from './grupos/grupos.component';
-import { LocaisComponent } from './locais/locais.component';
-import { ResponsaveisComponent } from './responsaveis/responsaveis.component';
-import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
+import { HomeComponent } from './views/home/home.component';
+import { PatrimoniosIndexComponent } from './views/patrimonios/patrimonios-index/patrimonios-index.component';
+import { GruposIndexComponent } from './views/grupos/grupos-index/grupos-index.component';
+import { LocaisIndexComponent } from './views/locais/locais-index/locais-index.component';
+import { ResponsaveisIndexComponent } from './views/responsaveis/responsaveis-index/responsaveis-index.component';
+import { ConfiguracoesIndexComponent } from './views/configuracoes/configuracoes-index/configuracoes-index.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
-  { path: 'patrimonios', component: PatrimoniosComponent, pathMatch: 'full' },
-  { path: 'grupos', component: GruposComponent, pathMatch: 'full' },
-  { path: 'locais', component: LocaisComponent, pathMatch: 'full' },
-  { path: 'responsaveis', component: ResponsaveisComponent, pathMatch: 'full' },
-  { path: 'configuracoes', component: ConfiguracoesComponent, pathMatch: 'full' }
+  { path: 'patrimonios', component: PatrimoniosIndexComponent, pathMatch: 'full' },
+  { path: 'grupos', component: GruposIndexComponent, pathMatch: 'full' },
+  { path: 'locais', component: LocaisIndexComponent, pathMatch: 'full' },
+  { path: 'responsaveis', component: ResponsaveisIndexComponent, pathMatch: 'full' },
+  { path: 'configuracoes', component: ConfiguracoesIndexComponent, pathMatch: 'full' }
 ];

@@ -1,120 +1,125 @@
 // Importa os icones
 @import "primeicons/primeicons.css";
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
+@layer primeng, app;
 
-app-root {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-}
+@layer app {
 
-nav.nav {
-  border-right: 1px solid var(--surface-border);
-  flex: 0 0 250px;
-  height: 100vh;
-  padding: 1rem;
-  display: flex;
-  overflow: auto;
-  flex-direction: column;
-  justify-content: space-between;
-
-  @media (max-width: 768px) {
-    flex-basis: content;
+  html,
+  body {
+    margin: 0;
+    padding: 0;
   }
-}
 
-li.nav-item {
-  @media (max-width: 768px) {
-    width: fit-content;
-  }
-}
-
-ul.nav-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-
-  @media (max-width: 768px) {
-    width: fit-content;
-  }
-}
-
-a.nav-link.active {
-  background-color: var(--primary-color);
-  color: var(--primary-color-text);
-}
-
-.toggle-tema {
-  padding-top: .75rem;
-  border-top: 1px solid var(--surface-border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  p-button {
+  app-root {
+    width: 100%;
+    height: 100vh;
     display: flex;
-    flex: 1 1 auto;
+  }
 
-    button {
-      padding: .75rem 1rem;
-      border: none;
-      flex: 1 1 auto;
+  nav.nav {
+    border-right: 1px solid var(--surface-border);
+    flex: 0 0 250px;
+    height: 100vh;
+    padding: 1rem;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media (max-width: 768px) {
+      flex-basis: content;
+    }
+
+    li.nav-item {
+      @media (max-width: 768px) {
+        width: fit-content;
+      }
+    }
+
+    ul.nav-list {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
 
       @media (max-width: 768px) {
         width: fit-content;
+      }
+    }
 
-        span.pi.p-button-icon {
-          margin: 0;
-          font-size: 1.25rem;
+    a.nav-link.active {
+      background-color: var(--primary-color);
+      color: var(--primary-color-text);
+    }
+
+    .toggle-tema {
+      padding-top: .75rem;
+      border-top: 1px solid var(--surface-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      p-button {
+        display: flex;
+        flex: 1 1 auto;
+
+        button {
+          padding: .75rem 1rem;
+          border: none;
+          flex: 1 1 auto;
+
+          @media (max-width: 768px) {
+            width: fit-content;
+
+            span.pi.p-button-icon {
+              margin: 0;
+              font-size: 1.25rem;
+            }
+          }
         }
       }
     }
-  }
-}
 
-a.nav-link {
-  color: var(--text-color);
-  text-decoration: none;
-  padding: .75rem 1rem;
-  display: flex;
-  gap: .75rem;
-  align-items: center;
-  justify-items: center;
-  text-align: start;
-  border-radius: var(--border-radius);
+    a.nav-link {
+      color: var(--text-color);
+      text-decoration: none;
+      padding: .75rem 1rem;
+      display: flex;
+      gap: .75rem;
+      align-items: center;
+      justify-items: center;
+      text-align: start;
+      border-radius: var(--border-radius);
 
-  i {
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    font-size: 1.25rem;
-  }
+      i {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        font-size: 1.25rem;
+      }
 
-  @media (max-width: 768px) {
-    width: fit-content;
-    gap: unset;
+      @media (max-width: 768px) {
+        width: fit-content;
+        gap: unset;
 
-    span {
-      width: 0;
-      overflow: hidden;
+        span {
+          width: 0;
+          overflow: hidden;
+        }
+      }
+    }
+
+    a.nav-link:hover:not(.active) {
+      background-color: var(--highlight-bg);
+      color: var(--highlight-text-color);
     }
   }
-}
 
-a.nav-link:hover:not(.active) {
-  background-color: var(--highlight-bg);
-  color: var(--highlight-text-color);
-}
-
-main {
-  flex: 1 1 auto;
-  padding: .75rem;
-  height: 100vh;
-  overflow: auto;
+  main {
+    flex: 1 1 auto;
+    padding: .75rem;
+    height: 100vh;
+    overflow: auto;
+  }
 }

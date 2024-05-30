@@ -1,0 +1,40 @@
+<p-card id="wrapper">
+  <ng-template pTemplate="header">
+    <h1 class="p-card-title">
+      Patrimônios
+    </h1>
+    <button routerLink="novo" pButton pRipple label="Novo" class="p-button"></button>
+  </ng-template>
+  <div class="card">
+    <p-dataView #dv [value]="patrimonios" [emptyMessage]="'Nenhum patrimônio encontrado'">
+      <ng-template pTemplate="list">
+        <div class="grid grid-nogutter">
+          <div class="col-12" *ngFor="let patrimonio of patrimonios; let first = first" class="col-12">
+            <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3"
+              [ngClass]="{ 'border-top-1 surface-border': !first }">
+              <div class="md:w-10rem relative">
+                <img class="block xl:block mx-auto border-round w-full" [src]="patrimonio.url_imagem"
+                  [alt]="patrimonio.descricao" />
+                <p-tag [value]="patrimonio.situacao" [severity]="getSeverity(patrimonio)" class="absolute"
+                  [style.left.px]="4" [style.top.px]="4" />
+              </div>
+              <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+                <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
+                  <div>
+                    <span class="font-medium text-secondary text-sm">{{ patrimonio.grupo?.descricao }}</span>
+                    <div class="text-lg font-medium text-900 mt-2">{{ patrimonio.descricao }}</div>
+                  </div>
+                </div>
+                <div class="flex flex-column md:align-items-end gap-5">
+                  <span class="text-xl font-semibold text-900">{{ '$' + patrimonio.valor_aquisicao }}</span>
+                  <div class="flex flex-row-reverse md:flex-row gap-2">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataView>
+  </div>
+</p-card>

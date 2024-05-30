@@ -1,0 +1,33 @@
+export interface Patrimonio {
+  id?: number,
+  codigo: string,
+  descricao: string,
+  especificacao?: string,
+  data_aquisicao?: Date,
+  data_incorporacao?: Date,
+  valor_aquisicao?: number,
+  vida_util?: number,
+  valor_residual?: number,
+  data_desincorporacao?: Date,
+  situacao?: string,
+  grupo_id?: number,
+  numero_empenho?: number,
+  ano_empenho?: number,
+  numero_processo_compra?: number,
+  ano_processo_compra?: number,
+  fornecedor_id?: number,
+  created_at?: Date,
+  updated_at?: Date,
+  localizacao_atual?: string,
+  grupo?: {
+    id: number,
+    codigo: number,
+    descricao: string,
+  },
+  fornecedor?: {
+    id: number,
+    documento: string,
+    nome: string,
+  },
+  url_imagem: string
+}
