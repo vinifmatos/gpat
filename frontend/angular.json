@@ -52,7 +52,18 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/primeng/resources/primeng.min.css",
+              {
+                "input": "node_modules/primeng/resources/themes/aura-light-blue/theme.css",
+                "bundleName": "aura-light-blue",
+                "inject": false
+              },
+              {
+                "input": "node_modules/primeng/resources/themes/aura-dark-blue/theme.css",
+                "bundleName": "aura-dark-blue",
+                "inject": false
+              }
             ],
             "scripts": []
           },
