@@ -1,1 +1,93 @@
-<p>fornecedores-form works!</p>
+<app-formulario [template_campos]="campos" titulo="Novo Fornecedor" (submited)="onSubmit($event)"></app-formulario>
+<ng-template #campos>
+  <form [formGroup]="form">
+    <div class="row">
+      <div id="tipo-form-group" class="form-group">
+        <label>Tipo</label>
+        <div id="radios" class="radios">
+          <div *ngFor="let tipo of tipos" class="field-checkbox">
+            <p-radioButton [inputId]="tipo.tipo" [value]="tipo.tipo" formControlName="tipo" />
+            <label [for]="tipo.tipo">{{ tipo.descricao }}</label>
+          </div>
+        </div>
+      </div>
+      <div id="documento-form-group" class="form-group">
+        <label for="documento">Documento</label>
+        <input id="documento" formControlName="documento" type="text" pInputText />
+      </div>
+    </div>
+    <div class="row">
+      <div id="razao-social-form-group" class="form-group">
+        <label for="razao-social">Razão Social</label>
+        <input id="razao-social" formControlName="razao_social" type="text" pInputText />
+      </div>
+      <div id="nome-fantasia-form-group" class="form-group">
+        <label for="nome-fantasia">Nome Fantasia</label>
+        <input id="nome-fantasia" formControlName="nome_fantasia" type="text" pInputText />
+      </div>
+    </div>
+
+    <div class="row">
+      <div id="enderecos-form-group" class="form-group">
+        <div class="enderecos">
+          <div class="header-enderecos">
+            <label>Endereços</label>
+            <p-button icon="pi pi-plus" severity="success" (click)="novo_endereco()" />
+          </div>
+          <p-dataView #dv [value]="enderecos().controls">
+            <ng-template pTemplate="list" let-enderecos>
+              <div formArrayName="enderecos" class="lista-enderecos">
+                <div class="endereco" *ngFor="let endereco of enderecos; let first = first; let i = index"
+                  [formGroupName]="i">
+                  <div class="row">
+                    <div class="form-group">
+                      <label [for]="'logradouro-' + i">Logradouro</label>
+                      <input [id]="'logradouro-' + i" formControlName="logradouro" type="text" pInputText />
+                    </div>
+                    <div class="form-group numero">
+                      <label [for]="'numero-' + i">Nº</label>
+                      <input [id]="'numero-' + i" formControlName="numero" type="text" pInputText />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group">
+                      <label [for]="'complemento-' + i">Complemento</label>
+                      <input [id]="'complemento-' + i" formControlName="complemento" type="text" pInputText />
+                    </div>
+                    <div class="form-group">
+                      <label [for]="'bairro-' + i">Bairro</label>
+                      <input [id]="'bairro-' + i" formControlName="bairro" type="text" pInputText />
+                    </div>
+                  </div>
+                  <div class="row row-center-itens">
+                    <div class="form-group cidade-autocomplete">
+                      <label [for]="'cidade-' + i">Cidade</label>
+                      <p-autoComplete [inputId]="'cidade-' + i" formControlName="cidade" group="true"
+                        [suggestions]="cidades" (completeMethod)="get_cidades($event)" field="nome"
+                        optionGroupLabel="nome" optionGroupChildren="cidades">
+                        <ng-template let-group pTemplate="group">
+                          <div class="flex align-items-center">
+                            {{group.nome}}
+                          </div>
+                        </ng-template>
+                      </p-autoComplete>
+                    </div>
+                    <div class="form-group cep">
+                      <label [for]="'cep-' + i">CEP</label>
+                      <input [id]="'cep-' + i" formControlName="cep" type="text" pInputText />
+                    </div>
+                    <div class="form-group principal">
+                      <p-checkbox formControlName="principal" binary="true" [inputId]="'principal-' + i" />
+                      <label [for]="'principal-' + i">Principal</label>
+                    </div>
+                    <p-button icon="pi pi-trash" severity="danger" (click)="excluir_endereco(i)" />
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </p-dataView>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>

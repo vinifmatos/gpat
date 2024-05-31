@@ -1,30 +1,37 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import urlJoin from 'url-join';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  url_api = '/api'
+  url_base = '/api'
+
+  recursos = {
+    cidades: {
+      path: 'cidades'
+    }
+  }
 
   constructor(
     private http: HttpClient
   ) { }
 
-  get<T>(path: string): Observable<T> {
-    return this.http.get<T>(new URL(path, this.url_api).href)
+  get<T>(path: string[], params: any = {}): Observable<HttpResponse<T>> {
+    return this.http.get<T>(urlJoin(this.url_base, ...path), { observe: 'response', params: params })
   }
 
-  create<T>(path: string, recurso: T): Observable<T> {
-    return this.http.post<T>(new URL(path, this.url_api).href, recurso)
+  create<T>(path: string[], recurso: T): Observable<HttpResponse<T>> {
+    return this.http.post<T>(urlJoin(this.url_base, ...path), recurso, { observe: 'response' })
   }
 
-  update<T>(path: string, recurso: T): Observable<T> {
-    return this.http.put<T>(new URL(path, this.url_api).href, recurso)
+  update<T>(path: string[], recurso: T): Observable<HttpResponse<T>> {
+    return this.http.put<T>(urlJoin(this.url_base, ...path), recurso, { observe: 'response' })
   }
 
-  delete<T>(path: string): Observable<T> {
-    return this.http.delete<T>(new URL(path, this.url_api).href)
+  delete<T>(path: string[]): Observable<HttpResponse<T>> {
+    return this.http.delete<T>(urlJoin(this.url_base, ...path), { observe: 'response' })
   }
 }

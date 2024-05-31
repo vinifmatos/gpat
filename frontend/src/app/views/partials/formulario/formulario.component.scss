@@ -77,5 +77,82 @@
         width: 100%;
       }
     }
+
+    .field-checkbox {
+      display: flex;
+      align-items: center;
+
+      label {
+        display: flex !important;
+        margin-left: .5rem !important;
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .header-enderecos {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--surface-border);
+      padding: .5rem 1rem;
+
+      label {
+        margin: 0 !important;
+      }
+    }
+
+    .enderecos {
+      border: 1px solid var(--surface-border);
+      border-radius: var(--border-radius);
+      box-shadow: 0 0 #0000,
+        0 0 #0000,
+        0 1px 2px 0 rgba(18, 18, 23, 0.05);
+
+      .lista-enderecos {
+        padding: 1rem;
+      }
+
+      .endereco {
+        display: flex;
+        padding: .5rem;
+        flex-direction: column;
+        gap: 1rem;
+        border: 1px solid var(--surface-border);
+        border-radius: var(--border-radius);
+        box-shadow: 0 0 #0000,
+          0 0 #0000,
+          0 1px 2px 0 rgba(18, 18, 23, 0.05);
+      }
+
+      .row.row-center-itens {
+        align-items: flex-end;
+      }
+
+      .form-group.principal {
+        flex-direction: row;
+        margin-bottom: .5rem;
+
+        label {
+          margin-bottom: 0;
+          margin-left: .5rem;
+        }
+      }
+
+      .form-group.cep {
+        width: 15ch;
+      }
+
+      .form-group.numero {
+        width: 10ch;
+      }
+
+      .form-group.cidade-autocomplete {
+        width: fit-content;
+
+        p-autocomplete {
+          width: fit-content;
+        }
+      }
+    }
   }
 }

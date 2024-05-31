@@ -1,7 +1,7 @@
 export interface Cidade {
   id: number,
   nome: string,
-  estado: {
+  estado?: {
     id: number,
     nome: string,
     sigla: string

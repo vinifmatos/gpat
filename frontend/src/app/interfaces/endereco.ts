@@ -1,3 +1,5 @@
+import { Cidade } from "./cidade";
+
 export interface Endereco {
   id?: number,
   logradouro: string,
@@ -9,6 +11,5 @@ export interface Endereco {
   principal: boolean,
   created_at?: Date,
   updated_at?: Date,
-  nome_cidade?: string,
-  estado?: string
+  cidade?: Cidade
 }

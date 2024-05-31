@@ -1,19 +1,16 @@
 import { Component } from '@angular/core';
 import { FormularioComponent } from '../../partials/formulario/formulario.component';
-import { InputTextModule } from 'primeng/inputtext';
 import { ApiService } from '../../../api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Patrimonio } from '../../../interfaces/patrimonio';
 import { Router } from '@angular/router';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { CalendarModule } from 'primeng/calendar';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { ImportsModule } from '../../../imports.module';
 
 @Component({
   selector: 'app-patrimonios-form',
   standalone: true,
-  imports: [FormularioComponent, InputTextModule, ReactiveFormsModule, InputTextareaModule, CalendarModule, InputNumberModule, AutoCompleteModule],
+  imports: [FormularioComponent, ReactiveFormsModule, ImportsModule],
   templateUrl: './patrimonios-form.component.html',
   styleUrl: './patrimonios-form.component.scss'
 })
