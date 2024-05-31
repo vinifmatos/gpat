@@ -1,0 +1,10 @@
+<nav class="nav">
+  <ul class="nav-list">
+    <li *ngFor="let item of itens_menu" class="nav-item"><a class="nav-link" [routerLink]="[item.link]"
+        [routerLinkActive]="'active'"><i [className]="item.icon"></i><span>{{item.label}}</span></a>
+    </li>
+  </ul>
+  <div class="toggle-tema">
+    <p-button (click)="mudarTema()" [icon]="icone_tema" />
+  </div>
+</nav>
