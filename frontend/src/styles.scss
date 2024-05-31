@@ -1,7 +1,15 @@
 // Importa os icones
 @import "primeicons/primeicons.css";
 
-@layer primeng, app;
+@layer reset, primeng, app;
+
+@layer reset {
+  ul {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
 
 @layer app {
 
@@ -12,6 +20,8 @@
   }
 
   body {
+    background-color: var(--surface-ground);
+
     @media (min-width: 1400px) {
       width: 100vw;
       margin: 0 calc((100vw - 1400px) / 2);

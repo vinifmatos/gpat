@@ -10,7 +10,6 @@
       flex-direction: column;
       justify-content: space-between;
       overflow: auto;
-      transition: grid-template-rows 300ms ease;
     }
 
     ul.nav-list {
@@ -113,6 +112,7 @@
   @media (max-width: 576px) {
     :host {
       width: 100%;
+      background-color: var(--surface-ground);
     }
 
     :host ::ng-deep nav.nav {
@@ -131,22 +131,8 @@
 
       .collapse {
         height: 0;
-        display: grid;
         width: 100%;
-        overflow: hidden;
-        grid-template-columns: 100%;
-        grid-template-rows: 0;
-      }
-
-      ul.nav-list {
-        padding: 0;
-      }
-    }
-
-    :host ::ng-deep nav.nav.expandida {
-      .collapse {
-        height: fit-content;
-        grid-template-rows: auto;
+        transition: height 1s;
       }
 
       ul.nav-list {
@@ -162,6 +148,12 @@
 
       a.nav-link {
         gap: .75rem;
+      }
+    }
+
+    :host ::ng-deep nav.nav.expandida {
+      .collapse {
+        height: calc(100vh - 38px);
       }
     }
   }
