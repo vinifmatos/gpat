@@ -6,6 +6,9 @@ import { LocaisIndexComponent } from './views/locais/locais-index/locais-index.c
 import { ResponsaveisIndexComponent } from './views/responsaveis/responsaveis-index/responsaveis-index.component';
 import { ConfiguracoesIndexComponent } from './views/configuracoes/configuracoes-index/configuracoes-index.component';
 import { PatrimoniosFormComponent } from './views/patrimonios/patrimonios-form/patrimonios-form.component';
+import { FornecedoresIndexComponent } from './views/fornecedores/fornecedores-index/fornecedores-index.component';
+import { FornecedoresFormComponent } from './views/fornecedores/fornecedores-form/fornecedores-form.component';
+import { FornecedoresShowComponent } from './views/fornecedores/fornecedores-show/fornecedores-show.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -14,6 +17,18 @@ export const routes: Routes = [
     path: 'patrimonios', children: [
       { path: '', component: PatrimoniosIndexComponent, pathMatch: 'full' },
       { path: 'novo', component: PatrimoniosFormComponent, pathMatch: 'full' },
+    ]
+  },
+  {
+    path: 'fornecedores', children: [
+      { path: '', component: FornecedoresIndexComponent, pathMatch: 'full' },
+      { path: 'novo', component: FornecedoresFormComponent, pathMatch: 'full' },
+      {
+        path: ':id', children: [
+          { path: '', component: FornecedoresShowComponent, pathMatch: 'full' },
+          { path: 'editar', component: FornecedoresFormComponent, pathMatch: 'full' },
+        ]
+      },
     ]
   },
   { path: 'grupos', component: GruposIndexComponent, pathMatch: 'full' },

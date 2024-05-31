@@ -43,6 +43,11 @@ export class NavComponent {
       link: '/responsaveis'
     },
     {
+      label: 'Fornecedores',
+      icon: 'pi pi-box',
+      link: '/fornecedores'
+    },
+    {
       label: 'Configurações',
       icon: 'pi pi-cog',
       link: '/configuracoes'

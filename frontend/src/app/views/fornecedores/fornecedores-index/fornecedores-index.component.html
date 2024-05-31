@@ -1,0 +1,21 @@
+<p-card id="wrapper">
+  <ng-template pTemplate="header">
+    <h1 class="p-card-title">
+      Fornecedores
+    </h1>
+    <button routerLink="novo" pButton pRipple label="Novo" class="p-button"></button>
+  </ng-template>
+  <div class="card">
+    <p-dataView #dv [value]="fornecedores" [emptyMessage]="'Nenhum patrimônio encontrado'">
+      <ng-template pTemplate="list">
+        <div class="grid grid-nogutter">
+          <div class="col-12" *ngFor="let fornecedor of fornecedores; let first = first" class="col-12">
+            <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3"
+              [ngClass]="{ 'border-top-1 surface-border': !first }">
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataView>
+  </div>
+</p-card>
