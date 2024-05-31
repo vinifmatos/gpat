@@ -3,11 +3,11 @@
 <ng-template #campos>
   <form [formGroup]="form_patrimonio">
     <div class="row">
-      <div id="codigo_form_group" class="form-group">
+      <div id="codigo-form-group" class="form-group">
         <label for="codigo">Código</label>
         <input id="codigo" formControlName="codigo" type="text" pInputText />
       </div>
-      <div class="form-group">
+      <div id="descricao-form-group" class="form-group">
         <label for="descricao">Descrição</label>
         <input id="descricao" formControlName="descricao" type="text" pInputText />
       </div>
@@ -19,51 +19,62 @@
           rows="5"></textarea>
       </div>
     </div>
+    <div class="row row-wrap">
+      <div id="data-aquisicao-form-group" class="form-group">
+        <label for="data-aquisicao">Data de Aquisição</label>
+        <p-calendar inputId="data-aquisicao" formControlName="data_aquisicao" dateFormat="dd/mm/yy" />
+      </div>
+      <div id="data-incorporacao-form-group" class="form-group">
+        <label for="data-incorporacao">Data de Incorporação</label>
+        <p-calendar inputId="data-incorporacao" formControlName="data_incorporacao" dateFormat="dd/mm/yy" />
+      </div>
+      <div id="valor-aquisicao-form-group" class="form-group">
+        <label for="valor-aquisicao">Valor de Aquisição</label>
+        <p-inputNumber inputId="valor-aquisicao" formControlName="valor_aquisicao" mode="decimal" locale="pt-BR"
+          [minFractionDigits]="2" [maxFractionDigits]="2" />
+      </div>
+      <div id="vida-util-form-group" class="form-group">
+        <label for="vida-util">Vida Útil (Em Meses)</label>
+        <p-inputNumber inputId="vida-util" formControlName="vida_util" locale="pt-BR" />
+      </div>
+      <div id="valor-residual-form-group" class="form-group">
+        <label for="valor-residual">Valor Residual</label>
+        <p-inputNumber inputId="valor-residual" formControlName="valor_residual" mode="decimal" locale="pt-BR"
+          [minFractionDigits]="2" [maxFractionDigits]="2" />
+      </div>
+    </div>
+
     <div class="row">
-      <div id="codigo_form_data_aquisicao" class="form-group">
-        <label for="data_aquisicao">Data de Aquisição</label>
-        <p-calendar id="data_aquisicao" formControlName="data_aquisicao" />
-      </div>
-      <div id="codigo_form_data_incorporacao" class="form-group">
-        <label for="data_incorporacao">Data de Incorporação</label>
-        <p-calendar id="data_incorporacao" formControlName="data_incorporacao" />
+      <div class="form-group">
+        <label for="grupo-id">Grupo</label>
+        <p-autoComplete inputId="grupo-id" formControlName="grupo_id" [suggestions]="grupos"
+          (completeMethod)="get_grupos($event)" field="name" [inputStyle]="{ width: '100%' }" />
       </div>
     </div>
-    <div class="form-group">
-      <label for="valor_aquisicao">Valor de Aquisição</label>
-      <input id="valor_aquisicao" formControlName="valor_aquisicao" type="text" pInputText />
+    <div class="row">
+      <div class="form-group">
+        <label for="fornecedor-id">Fornecedor</label>
+        <p-autoComplete inputId="fornecedor-id" formControlName="fornecedor_id" [suggestions]="fornecedores"
+          (completeMethod)="get_fornecedores($event)" field="name" [inputStyle]="{ width: '100%' }" />
+      </div>
     </div>
-    <div class="form-group">
-      <label for="vida_util">Vida Útil</label>
-      <input id="vida_util" formControlName="vida_util" type="text" pInputText />
-    </div>
-    <div class="form-group">
-      <label for="valor_residual">Valor Residual</label>
-      <input id="valor_residual" formControlName="valor_residual" type="text" pInputText />
-    </div>
-    <div class="form-group">
-      <label for="grupo_id">Grupo</label>
-      <input id="grupo_id" formControlName="grupo_id" type="text" pInputText />
-    </div>
-    <div class="form-group">
-      <label for="numero_empenho">Número do Empenho</label>
-      <input id="numero_empenho" formControlName="numero_empenho" type="text" pInputText />
-    </div>
-    <div class="form-group">
-      <label for="ano_empenho">Ano do Empenho</label>
-      <input id="ano_empenho" formControlName="ano_empenho" type="text" pInputText />
-    </div>
-    <div class="form-group">
-      <label for="numero_processo_compra">Número do Processo de Compra</label>
-      <input id="numero_processo_compra" formControlName="numero_processo_compra" type="text" pInputText />
-    </div>
-    <div class="form-group">
-      <label for="ano_processo_compra">Ano do Processo de Compra</label>
-      <input id="ano_processo_compra" formControlName="ano_processo_compra" type="text" pInputText />
-    </div>
-    <div class="form-group">
-      <label for="fornecedor_id">Fornecedor</label>
-      <input id="fornecedor_id" formControlName="fornecedor_id" type="text" pInputText />
+    <div class="row row-wrap">
+      <div id="numero-empenho-form-group" class="form-group">
+        <label for="numero-empenho">Número do Empenho</label>
+        <input id="numero-empenho" formControlName="numero_empenho" type="text" pInputText />
+      </div>
+      <div id="ano-empenho-form-group" class="form-group">
+        <label for="ano-empenho">Ano do Empenho</label>
+        <input id="ano-empenho" formControlName="ano_empenho" type="text" pInputText />
+      </div>
+      <div id="numero-processo-compra-form-group" class="form-group">
+        <label for="numero-processo-compra">Número do Processo de Compra</label>
+        <input id="numero-processo-compra" formControlName="numero_processo_compra" type="text" pInputText />
+      </div>
+      <div id="ano-processo-compra-form-group" class="form-group">
+        <label for="ano-processo-compra">Ano do Processo de Compra</label>
+        <input id="ano-processo-compra" formControlName="ano_processo_compra" type="text" pInputText />
+      </div>
     </div>
   </form>
 </ng-template>

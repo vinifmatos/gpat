@@ -54,9 +54,10 @@
         flex-direction: column;
         width: 100%;
 
+
         label {
           display: block;
-          font-weight: bold;
+          font-weight: 600;
           margin-bottom: .25rem;
         }
       }
@@ -64,6 +65,16 @@
       .row {
         display: flex;
         gap: .75rem;
+        width: 100%;
+        align-items: end;
+      }
+
+      .row.row-wrap {
+        flex-wrap: wrap;
+      }
+
+      .p-autocomplete {
+        width: 100%;
       }
     }
   }

@@ -7,17 +7,21 @@ import { Patrimonio } from '../../../interfaces/patrimonio';
 import { Router } from '@angular/router';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 
 @Component({
   selector: 'app-patrimonios-form',
   standalone: true,
-  imports: [FormularioComponent, InputTextModule, ReactiveFormsModule, InputTextareaModule, CalendarModule],
+  imports: [FormularioComponent, InputTextModule, ReactiveFormsModule, InputTextareaModule, CalendarModule, InputNumberModule, AutoCompleteModule],
   templateUrl: './patrimonios-form.component.html',
   styleUrl: './patrimonios-form.component.scss'
 })
 export class PatrimoniosFormComponent {
   form_patrimonio: FormGroup
   patrimonio?: Patrimonio
+  grupos = []
+  fornecedores = []
 
   constructor(
     private api: ApiService,
@@ -34,7 +38,6 @@ export class PatrimoniosFormComponent {
       vida_util: undefined,
       valor_residual: undefined,
       data_desincorporacao: undefined,
-      situacao: '',
       grupo_id: undefined,
       numero_empenho: undefined,
       ano_empenho: undefined,
@@ -50,5 +53,13 @@ export class PatrimoniosFormComponent {
     } else {
       this.router.navigate(['/patrimonios'])
     }
+  }
+
+  get_grupos(event: AutoCompleteCompleteEvent) {
+    this.grupos = []
+  }
+
+  get_fornecedores(event: AutoCompleteCompleteEvent) {
+    this.fornecedores = []
   }
 }

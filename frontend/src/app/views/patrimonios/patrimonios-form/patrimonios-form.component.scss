@@ -6,7 +6,7 @@
   }
 
   :host ::ng-deep .formulario form {
-    #codigo_form_group {
+    #codigo-form-group {
       width: fit-content;
 
       input {
@@ -14,12 +14,19 @@
       }
     }
 
-    #codigo_form_data_aquisicao,
-    #codigo_form_data_incorporacao {
-      width: fit-content;
+    #data-aquisicao-form-group,
+    #data-incorporacao-form-group,
+    #valor-aquisicao-form-group,
+    #vida-util-form-group,
+    #valor-residual-form-group,
+    #numero-empenho-form-group,
+    #ano-empenho-form-group,
+    #numero-processo-compra-form-group,
+    #ano-processo-compra-form-group {
+      width: 10rem;
 
       input {
-        width: 10rem;
+        width: 100%;
       }
     }
   }
