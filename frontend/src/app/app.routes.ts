@@ -5,11 +5,17 @@ import { GruposIndexComponent } from './views/grupos/grupos-index/grupos-index.c
 import { LocaisIndexComponent } from './views/locais/locais-index/locais-index.component';
 import { ResponsaveisIndexComponent } from './views/responsaveis/responsaveis-index/responsaveis-index.component';
 import { ConfiguracoesIndexComponent } from './views/configuracoes/configuracoes-index/configuracoes-index.component';
+import { PatrimoniosFormComponent } from './views/patrimonios/patrimonios-form/patrimonios-form.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
-  { path: 'patrimonios', component: PatrimoniosIndexComponent, pathMatch: 'full' },
+  {
+    path: 'patrimonios', children: [
+      { path: '', component: PatrimoniosIndexComponent, pathMatch: 'full' },
+      { path: 'novo', component: PatrimoniosFormComponent, pathMatch: 'full' },
+    ]
+  },
   { path: 'grupos', component: GruposIndexComponent, pathMatch: 'full' },
   { path: 'locais', component: LocaisIndexComponent, pathMatch: 'full' },
   { path: 'responsaveis', component: ResponsaveisIndexComponent, pathMatch: 'full' },

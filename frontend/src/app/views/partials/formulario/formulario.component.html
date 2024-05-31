@@ -1,0 +1,10 @@
+<p-card class="formulario">
+  <ng-template pTemplate="header">
+    <h1>{{titulo}}</h1>
+  </ng-template>
+  <ng-container [ngTemplateOutlet]="template_campos"></ng-container>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancelar" severity="secondary" (onClick)="submit(false)" />
+    <p-button label="Salvar" severity="success" (onClick)="submit(true)" />
+  </ng-template>
+</p-card>

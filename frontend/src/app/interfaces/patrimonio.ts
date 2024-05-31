@@ -29,5 +29,5 @@ export interface Patrimonio {
     documento: string,
     nome: string,
   },
-  url_imagem: string
+  url_imagem?: string
 }

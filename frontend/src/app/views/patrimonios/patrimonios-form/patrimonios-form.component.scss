@@ -1,0 +1,26 @@
+@layer app {
+
+  :host,
+  app-formulario {
+    height: 100%;
+  }
+
+  :host ::ng-deep .formulario form {
+    #codigo_form_group {
+      width: fit-content;
+
+      input {
+        width: 15rem;
+      }
+    }
+
+    #codigo_form_data_aquisicao,
+    #codigo_form_data_incorporacao {
+      width: fit-content;
+
+      input {
+        width: 10rem;
+      }
+    }
+  }
+}
