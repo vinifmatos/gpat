@@ -3,7 +3,7 @@ class FornecedoresController < ApplicationController
 
   # GET /fornecedores
   def index
-    @fornecedores = Fornecedor.includes(endereco: [cidade: :estado]).all
+    @fornecedores = Fornecedor.includes(enderecos: [cidade: :estado]).all
   end
 
   def tipos
