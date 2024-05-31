@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
 import { FormularioComponent } from '../../partials/formulario/formulario.component';
 import { ApiService } from '../../../api.service';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormComponentBase } from '../../../form-component-base';
 import { Fornecedor } from '../../../interfaces/fornecedor';
 import { ImportsModule } from '../../../imports.module';
-import { Cidade } from '../../../interfaces/cidade';
-import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
-
+import { EnderecosComponent } from '../../partials/enderecos/enderecos.component';
 
 @Component({
   selector: 'app-fornecedores-form',
   standalone: true,
-  imports: [ImportsModule, FormularioComponent, ReactiveFormsModule],
+  imports: [ImportsModule, FormularioComponent, ReactiveFormsModule, EnderecosComponent],
   templateUrl: './fornecedores-form.component.html',
   styleUrl: './fornecedores-form.component.scss'
 })
@@ -22,7 +20,6 @@ export class FornecedoresFormComponent extends FormComponentBase {
     { tipo: 'pessoa_fisica', descricao: 'Pessoa Física' },
     { tipo: 'pessoa_juridica', descricao: 'Pessoa Jurídica' }
   ]
-  cidades: Cidade[] = []
   override recurso: Fornecedor
   constructor(
     api: ApiService,
@@ -55,37 +52,6 @@ export class FornecedoresFormComponent extends FormComponentBase {
       tipo: new FormControl('pessoa_fisica'),
       nome_fantasia: new FormControl(undefined)
     }))
-  }
-  enderecos() {
-    return this.form.controls['enderecos'] as FormArray
-  }
-
-  novo_endereco() {
-    let enderecos = this.form.controls['enderecos'] as FormArray
-    enderecos.push(this.fb.group({
-      bairro: '',
-      cep: '',
-      cidade: undefined,
-      complemento: '',
-      logradouro: '',
-      numero: '',
-      principal: false
-    }))
-  }
-
-  excluir_endereco(index: number) {
-    let enderecos = this.form.controls['enderecos'] as FormArray
-    enderecos.removeAt(index)
-  }
-
-  get_cidades(e: AutoCompleteCompleteEvent) {
-    this.api.get<Cidade[]>([this.api.recursos.cidades.path], { por_estado: true, nome: `${e.query}` }).subscribe((res) => {
-      if (res.ok)
-        this.cidades = res.body as Cidade[]
-      else {
-        console.error(res.status)
-      }
-    })
   }
 
   protected override before_submit(submited: boolean): void {
