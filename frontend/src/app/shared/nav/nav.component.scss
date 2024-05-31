@@ -3,17 +3,23 @@
     border-right: 1px solid var(--surface-border);
     flex: 0 0 250px;
     height: 100vh;
-    padding: 1rem;
-    display: flex;
-    overflow: auto;
-    flex-direction: column;
-    justify-content: space-between;
+
+    .collapse {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: auto;
+      transition: grid-template-rows 300ms ease;
+    }
 
     ul.nav-list {
       list-style-type: none;
-      margin: 0;
-      padding: 0;
+      padding: 1rem;
       box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
     }
 
     a.nav-link.active {
@@ -22,11 +28,13 @@
     }
 
     .toggle-tema {
+      margin: 0 1rem;
       padding-top: .75rem;
       border-top: 1px solid var(--surface-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-bottom: .75rem;
 
       p-button {
         display: flex;
@@ -62,6 +70,10 @@
     a.nav-link:hover:not(.active) {
       background-color: var(--highlight-bg);
       color: var(--highlight-text-color);
+    }
+
+    .btn-expandir {
+      display: none;
     }
   }
 
@@ -99,35 +111,57 @@
   }
 
   @media (max-width: 576px) {
-    :host ::ng-deep nav.nav {
-      flex-basis: content;
+    :host {
+      width: 100%;
+    }
 
-      li.nav-item {
-        width: fit-content;
+    :host ::ng-deep nav.nav {
+      height: fit-content;
+      width: 100%;
+      border: unset;
+
+      .btn-expandir {
+        display: inline-flex;
+        width: 100%;
+
+        button {
+          width: 100%;
+        }
+      }
+
+      .collapse {
+        height: 0;
+        display: grid;
+        width: 100%;
+        overflow: hidden;
+        grid-template-columns: 100%;
+        grid-template-rows: 0;
       }
 
       ul.nav-list {
-        width: fit-content;
+        padding: 0;
+      }
+    }
+
+    :host ::ng-deep nav.nav.expandida {
+      .collapse {
+        height: fit-content;
+        grid-template-rows: auto;
       }
 
+      ul.nav-list {
+        padding: 1rem;
+      }
 
-      .toggle-tema p-button button {
-        width: fit-content;
-
-        span.pi.p-button-icon {
-          margin: 0;
-          font-size: 1.25rem;
-        }
+      ul.nav-list,
+      li.nav-item,
+      a.nav-link,
+      a.nav-link span {
+        width: 100%;
       }
 
       a.nav-link {
-        width: fit-content;
-        gap: unset;
-
-        span {
-          width: 0;
-          overflow: hidden;
-        }
+        gap: .75rem;
       }
     }
   }

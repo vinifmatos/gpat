@@ -11,7 +11,9 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './nav.component.scss'
 })
 export class NavComponent {
+  expandido = false
   tema_dark = false
+  icone_btn_expandir = 'pi pi-chevron-down'
   icone_tema = 'pi pi-moon'
   label_tema = 'Modo Escuro'
   itens_menu = [
@@ -63,5 +65,10 @@ export class NavComponent {
       css = 'aura-light-blue'
     }
     linkTema.href = `${css}.css`
+  }
+
+  expandir() {
+    this.expandido = !this.expandido
+    this.icone_btn_expandir = !this.expandido ? 'pi pi-chevron-down' : 'pi pi-chevron-up'
   }
 }
