@@ -1,0 +1,64 @@
+:host {
+  width: 100%;
+
+  ::ng-deep {
+    .card-enderecos {
+      .p-card {
+        border: 1px solid var((--surface-border));
+      }
+
+      .logradouro-label {
+        display: flex;
+        gap: .5rem;
+      }
+
+      .lista {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      p-badge {
+        width: fit-content;
+      }
+
+      .p-card-body {
+        gap: 0;
+      }
+
+      .endereco {
+        border: 1px solid var((--surface-border));
+        border-radius: var(--border-radius);
+        padding: .5rem;
+      }
+
+      .endereco:last-child {
+        margin-bottom: 0;
+      }
+
+      .header-endereco:first-child {
+        margin-bottom: .25rem;
+      }
+
+      .row {
+        margin-bottom: 1rem;
+        gap: .5rem;
+      }
+
+      h2 {
+        margin: .5rem 0;
+        font-size: 1.25rem;
+      }
+
+      .campo {
+        width: fit-content;
+      }
+
+      .campo.logradouro,
+      .campo.complemento {
+        width: 100%;
+      }
+    }
+  }
+}

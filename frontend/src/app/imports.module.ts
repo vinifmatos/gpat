@@ -15,6 +15,7 @@ import { CardModule } from 'primeng/card';
 import { SkeletonModule } from 'primeng/skeleton';
 import { RouterModule } from '@angular/router';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
   declarations: [],
@@ -35,6 +36,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     SkeletonModule,
     RouterModule,
     ProgressSpinnerModule,
+    BadgeModule,
   ],
   exports: [
     CommonModule,
@@ -53,6 +55,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     SkeletonModule,
     RouterModule,
     ProgressSpinnerModule,
+    BadgeModule,
   ]
 })
 export class ImportsModule { }

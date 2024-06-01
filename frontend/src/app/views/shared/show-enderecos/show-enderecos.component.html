@@ -4,7 +4,42 @@
   </ng-template>
   <div class="lista">
     <div class="endereco" *ngFor="let endereco of enderecos">
-      {{endereco.id}}
+      <div class="header-endereco">
+        <p-badge value=" principal" [badgeDisabled]="!endereco.principal"
+          [style]="{'width': 'fit-content', 'font-size': '.8rem'}" />
+      </div>
+      <div class="row">
+        <div class="campo logradouro">
+          <label>Logradouro</label>
+          <span>{{endereco.logradouro}}</span>
+        </div>
+        <div class="campo">
+          <label>Nº</label>
+          <span>{{endereco.numero}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="campo complemento">
+          <label>Complemento</label>
+          <span>{{endereco.complemento}}</span>
+        </div>
+        <div class="campo">
+          <label>Bairro</label>
+          <span>{{endereco.bairro}}</span>
+        </div>
+        <div class="campo">
+          <label>CEP</label>
+          <span>{{endereco.cep}}</span>
+        </div>
+        <div class="campo">
+          <label>Cidade</label>
+          <span>{{endereco.cidade?.nome}}</span>
+        </div>
+        <div class="campo">
+          <label>Estado</label>
+          <span>{{endereco.cidade?.estado?.nome}}</span>
+        </div>
+      </div>
     </div>
   </div>
   <ng-template pTemplate="footer">
