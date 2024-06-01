@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ImportsModule } from '../../../imports.module';
 import { ComponentBase } from '../../../base-compoenents/component-base';
-import { ApiService } from '../../../api.service';
+import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Fornecedor } from '../../../interfaces/fornecedor';
 import { ShowComponent } from '../../shared/show/show.component';
@@ -29,7 +29,7 @@ export class FornecedoresShowComponent extends ComponentBase {
     private route: ActivatedRoute
   ) {
     super(api, router)
-    this.api.get<Fornecedor>([this.api.recursos.fornecedores, this.route.snapshot.paramMap.get('id') as string]).subscribe(
+    this.api.get<Fornecedor>([this.api.recursos['fornecedores'].rotas.show, this.route.snapshot.paramMap.get('id') as string]).subscribe(
       res => {
         this.fornecedor = res.body as Fornecedor
       }

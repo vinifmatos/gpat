@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormComponent } from '../../shared/form/form.component';
-import { ApiService } from '../../../api.service';
+import { ApiService } from '../../../services/api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Patrimonio } from '../../../interfaces/patrimonio';
 import { Router } from '@angular/router';

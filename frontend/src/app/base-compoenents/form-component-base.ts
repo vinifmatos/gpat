@@ -1,39 +1,44 @@
 import { FormBuilder, FormGroup } from "@angular/forms"
 import { ComponentBase } from "./component-base"
-import { ApiService } from "../api.service"
-import { Router } from "@angular/router"
+import { ApiService } from "../services/api.service"
+import { ActivatedRoute, Router } from "@angular/router"
+import { Recurso } from "../interfaces/recurso"
 
-export class FormComponentBase extends ComponentBase {
-  nome_recurso: string
-  recurso: any
+export abstract class FormComponentBase extends ComponentBase {
+  campos: any
   form: FormGroup
   erros: []
   constructor(
     api: ApiService,
     protected fb: FormBuilder,
+    protected route: ActivatedRoute,
     router: Router,
+    protected recurso: Recurso
   ) {
     super(api, router)
   }
 
-  protected inicializa_form(form_grupo: FormGroup) {
-    this.form = form_grupo
+  protected set_form() {
+    console.log(this.build_form())
+    this.form = this.build_form()
   }
+
+  protected abstract build_form(): FormGroup
 
   protected before_submit(submited: boolean) { }
 
   onSubmit(submited: boolean) {
-    this.recurso = this.form.getRawValue()
+    this.campos = this.form.getRawValue()
     if (submited) {
       this.before_submit(submited)
-      if (!this.recurso.id) {
-        this.api.create([`/${this.nome_recurso}`], this.recurso).subscribe(
-          (res) => this.router.navigate([`/${this.nome_recurso}/${res.body.id}`]),
+      if (!this.campos.id) {
+        this.api.create<any>([this.recurso.rotas.create], this.campos).subscribe(
+          (res) => this.router.navigate(['/', this.recurso.rotas.show, res.body.id]),
           (res) => { this.erros = res.body }
         )
       }
     } else {
-      this.router.navigate([`/${this.nome_recurso}`])
+      this.router.navigate([this.recurso.rotas.index])
     }
   }
 }

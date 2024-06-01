@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormComponent } from '../../shared/form/form.component';
-import { ApiService } from '../../../api.service';
-import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ApiService } from '../../../services/api.service';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Fornecedor } from '../../../interfaces/fornecedor';
 import { ImportsModule } from '../../../imports.module';
 import { FormEnderecosComponent } from '../../shared/form-enderecos/form-enderecos.component';
@@ -20,42 +20,67 @@ export class FornecedoresFormComponent extends FormComponentBase {
     { tipo: 'pessoa_fisica', descricao: 'Pessoa Física' },
     { tipo: 'pessoa_juridica', descricao: 'Pessoa Jurídica' }
   ]
-  override recurso: Fornecedor
+  override campos: Fornecedor
   constructor(
     api: ApiService,
     fb: FormBuilder,
+    route: ActivatedRoute,
     router: Router,
   ) {
-    super(api, fb, router)
-    this.nome_recurso = 'fornecedores'
-    this.recurso = {
+    super(api, fb, route, router, api.recursos['fornecedor'])
+    this.campos = {
+      id: null,
       documento: '',
-      enderecos: [],
+      enderecos: [{
+        bairro: '',
+        cep: '',
+        cidade: undefined,
+        complemento: '',
+        logradouro: '',
+        numero: '',
+        principal: true,
+        cidade_id: null
+      }],
       razao_social: '',
-      tipo: '',
+      tipo: 'pessoa_fisica',
       nome_fantasia: undefined
     }
-    this.inicializa_form(this.fb.group({
-      documento: new FormControl(''),
-      enderecos: this.fb.array([
-        this.fb.group({
-          bairro: '',
-          cep: '',
-          cidade: undefined,
-          complemento: '',
-          logradouro: '',
-          numero: '',
-          principal: true
-        })]
-      ),
-      razao_social: new FormControl(''),
-      tipo: new FormControl('pessoa_fisica'),
-      nome_fantasia: new FormControl(undefined)
-    }))
+    let id = route.snapshot.paramMap.get('id')
+    if (id) {
+      this.api.get([this.recurso.rotas.get, id]).subscribe(
+        (res => {
+          this.campos = res.body as Fornecedor
+          this.set_form()
+        })
+      )
+    }
+    else
+      this.set_form()
+  }
+
+  protected override build_form(): FormGroup<any> {
+    return this.fb.group({
+      id: new FormControl(this.campos.id),
+      documento: new FormControl(this.campos.documento),
+      enderecos: this.fb.array(this.campos.enderecos.map(e => this.fb.group({
+        id: e.id,
+        bairro: e.bairro,
+        cep: e.cep,
+        cidade: e.cidade,
+        complemento: e.complemento,
+        logradouro: e.logradouro,
+        numero: e.numero,
+        principal: e.principal,
+        cidade_id: e.cidade_id
+      }))),
+      razao_social: new FormControl(this.campos.razao_social),
+      tipo: new FormControl(this.campos.tipo),
+      nome_fantasia: new FormControl(this.campos.nome_fantasia)
+    })
   }
 
   protected override before_submit(submited: boolean): void {
-    this.recurso.enderecos.map((endereco) => {
+    this.campos.enderecos.map((endereco) => {
       endereco.cidade_id = endereco.cidade?.id || -1
     })
   }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Fornecedor } from '../../../interfaces/fornecedor';
 import { ImportsModule } from '../../../imports.module';
-import { ApiService } from '../../../api.service';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-fornecedores-index',
@@ -17,7 +17,7 @@ export class FornecedoresIndexComponent {
   constructor(
     private api: ApiService
   ) {
-    this.api.get<Fornecedor[]>([this.api.recursos.fornecedores]).subscribe(res => {
+    this.api.get<Fornecedor[]>([this.api.recursos['fornecedores'].rotas.index]).subscribe(res => {
       this.fornecedores = res.body || []
     })
   }

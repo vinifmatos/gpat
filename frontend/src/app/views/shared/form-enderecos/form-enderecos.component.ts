@@ -3,7 +3,7 @@ import { ImportsModule } from '../../../imports.module';
 import { ControlContainer, FormArray, FormBuilder, FormGroup, FormGroupDirective, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { Cidade } from '../../../interfaces/cidade';
-import { ApiService } from '../../../api.service';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-form-enderecos',
@@ -50,7 +50,7 @@ export class FormEnderecosComponent implements OnInit {
   }
 
   get_cidades(e: AutoCompleteCompleteEvent) {
-    this.api.get<Cidade[]>([this.api.recursos.cidades], { por_estado: true, nome: `${e.query}` }).subscribe((res) => {
+    this.api.get<Cidade[]>([this.api.recursos['cidades'].rotas.index], { por_estado: true, nome: `${e.query}` }).subscribe((res) => {
       if (res.ok)
         this.cidades = res.body as Cidade[]
       else {
