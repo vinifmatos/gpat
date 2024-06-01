@@ -11,5 +11,6 @@ export interface Endereco {
   principal: boolean,
   created_at?: Date,
   updated_at?: Date,
-  cidade?: Cidade
+  cidade?: Cidade,
+  _destroy?: boolean
 }

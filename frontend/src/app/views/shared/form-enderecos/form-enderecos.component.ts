@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ImportsModule } from '../../../imports.module';
-import { ControlContainer, FormArray, FormBuilder, FormGroup, FormGroupDirective, ReactiveFormsModule } from '@angular/forms';
+import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { Cidade } from '../../../interfaces/cidade';
 import { ApiService } from '../../../services/api.service';
@@ -46,7 +46,14 @@ export class FormEnderecosComponent implements OnInit {
 
   excluir_endereco(index: number) {
     let enderecos = this.form.controls['enderecos'] as FormArray
-    enderecos.removeAt(index)
+    let endereco = enderecos.at(index) as FormGroup
+    if (endereco.get('id')) {
+      endereco.addControl('_destroy', new FormControl(true))
+      let el = document.getElementById(`endereco-${index}`) as HTMLDivElement
+      el.style.visibility = 'hidden'
+    }
+    else
+      enderecos.removeAt(index)
   }
 
   get_cidades(e: AutoCompleteCompleteEvent) {
