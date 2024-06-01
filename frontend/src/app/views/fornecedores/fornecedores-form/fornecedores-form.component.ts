@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormularioComponent } from '../../shared/formulario/formulario.component';
+import { FormComponent } from '../../shared/form/form.component';
 import { ApiService } from '../../../api.service';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { FormComponentBase } from '../../../base-compoenents/form-component-base
 @Component({
   selector: 'app-fornecedores-form',
   standalone: true,
-  imports: [ImportsModule, FormularioComponent, ReactiveFormsModule, FormEnderecosComponent],
+  imports: [ImportsModule, FormComponent, ReactiveFormsModule, FormEnderecosComponent],
   templateUrl: './fornecedores-form.component.html',
   styleUrl: './fornecedores-form.component.scss'
 })

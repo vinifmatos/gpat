@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormularioComponent } from '../../shared/formulario/formulario.component';
+import { FormComponent } from '../../shared/form/form.component';
 import { ApiService } from '../../../api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Patrimonio } from '../../../interfaces/patrimonio';
@@ -10,7 +10,7 @@ import { ImportsModule } from '../../../imports.module';
 @Component({
   selector: 'app-patrimonios-form',
   standalone: true,
-  imports: [FormularioComponent, ReactiveFormsModule, ImportsModule],
+  imports: [FormComponent, ReactiveFormsModule, ImportsModule],
   templateUrl: './patrimonios-form.component.html',
   styleUrl: './patrimonios-form.component.scss'
 })

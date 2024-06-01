@@ -6,7 +6,7 @@ import { Cidade } from '../../../interfaces/cidade';
 import { ApiService } from '../../../api.service';
 
 @Component({
-  selector: 'app-enderecos',
+  selector: 'app-form-enderecos',
   standalone: true,
   imports: [ImportsModule, ReactiveFormsModule],
   templateUrl: './form-enderecos.component.html',

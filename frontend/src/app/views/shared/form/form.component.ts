@@ -2,13 +2,13 @@ import { Component, TemplateRef, Input, Output, EventEmitter } from '@angular/co
 import { ImportsModule } from '../../../imports.module';
 
 @Component({
-  selector: 'app-formulario',
+  selector: 'app-form',
   standalone: true,
   imports: [ImportsModule],
-  templateUrl: './formulario.component.html',
-  styleUrl: './formulario.component.scss'
+  templateUrl: './form.component.html',
+  styleUrl: './form.component.scss'
 })
-export class FormularioComponent {
+export class FormComponent {
   @Input() template_campos: TemplateRef<any>
   @Input() titulo: string
   @Output() submited = new EventEmitter<boolean>()

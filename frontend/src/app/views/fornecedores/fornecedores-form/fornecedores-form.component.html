@@ -1,4 +1,4 @@
-<app-formulario [template_campos]="campos" titulo="Novo Fornecedor" (submited)="onSubmit($event)"></app-formulario>
+<app-form [template_campos]="campos" titulo="Novo Fornecedor" (submited)="onSubmit($event)"></app-form>
 <ng-template #campos>
   <form [formGroup]="form">
     <div class="row">
@@ -28,7 +28,7 @@
     </div>
 
     <div class="row">
-      <app-enderecos></app-enderecos>
+      <app-form-enderecos></app-form-enderecos>
     </div>
   </form>
 </ng-template>
