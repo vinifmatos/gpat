@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router"
 import { Recurso } from "../interfaces/recurso"
 
 export abstract class FormComponentBase extends ComponentBase {
+  dados_carregados: boolean = false
   campos: any
   form: FormGroup
   erros: []
@@ -19,7 +20,6 @@ export abstract class FormComponentBase extends ComponentBase {
   }
 
   protected set_form() {
-    console.log(this.build_form())
     this.form = this.build_form()
   }
 
@@ -32,7 +32,12 @@ export abstract class FormComponentBase extends ComponentBase {
     if (submited) {
       this.before_submit(submited)
       if (!this.campos.id) {
-        this.api.create<any>([this.recurso.rotas.create], this.campos).subscribe(
+        this.api.create<any>([this.recurso.rotas.create], this.set_payload()).subscribe(
+          (res) => this.router.navigate(['/', this.recurso.rotas.show, res.body.id]),
+          (res) => { this.erros = res.body }
+        )
+      } else {
+        this.api.update<any>([this.recurso.rotas.update, this.campos.id], this.set_payload()).subscribe(
           (res) => this.router.navigate(['/', this.recurso.rotas.show, res.body.id]),
           (res) => { this.erros = res.body }
         )
@@ -40,5 +45,16 @@ export abstract class FormComponentBase extends ComponentBase {
     } else {
       this.router.navigate([this.recurso.rotas.index])
     }
+  }
+
+  protected set_payload(): any {
+    let payload: any = {}
+    payload[this.recurso.nome] = this.filtra_campos_payload(this.campos)
+    return payload
+  }
+
+  protected filtra_campos_payload(campos: any): any {
+    delete campos.id
+    return campos
   }
 }

@@ -9,8 +9,9 @@ import { ImportsModule } from '../../../imports.module';
   styleUrl: './form.component.scss'
 })
 export class FormComponent {
-  @Input() template_campos: TemplateRef<any>
+  @Input() campos: TemplateRef<any>
   @Input() titulo: string
+  @Input() dados_carregados: boolean = false
   @Output() submited = new EventEmitter<boolean>()
 
   submit(valor: boolean): void {

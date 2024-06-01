@@ -13,8 +13,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RippleModule } from 'primeng/ripple';
 import { CardModule } from 'primeng/card';
 import { SkeletonModule } from 'primeng/skeleton';
-import { ShowComponent } from './views/shared/show/show.component';
 import { RouterModule } from '@angular/router';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [],
@@ -33,7 +33,8 @@ import { RouterModule } from '@angular/router';
     CardModule,
     TagModule,
     SkeletonModule,
-    RouterModule
+    RouterModule,
+    ProgressSpinnerModule,
   ],
   exports: [
     CommonModule,
@@ -50,7 +51,8 @@ import { RouterModule } from '@angular/router';
     RippleModule,
     CardModule,
     SkeletonModule,
-    RouterModule
+    RouterModule,
+    ProgressSpinnerModule,
   ]
 })
 export class ImportsModule { }

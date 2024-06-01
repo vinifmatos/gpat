@@ -12,7 +12,7 @@ export class ApiService {
 
   recursos: Recursos = {
     cidades: {
-      nome: 'cidades',
+      nome: 'cidade',
       rotas: {
         index: 'cidades',
         show: '',
@@ -23,7 +23,7 @@ export class ApiService {
       }
     },
     fornecedores: {
-      nome: 'fornecedores',
+      nome: 'fornecedor',
       rotas: {
         index: 'fornecedores',
         show: 'fornecedores',
@@ -40,18 +40,18 @@ export class ApiService {
   ) { }
 
   get<T>(path: string[], params: any = {}): Observable<HttpResponse<T>> {
-    return this.http.get<T>(urlJoin(this.url_base, ...path), { observe: 'response', params: params })
+    return this.http.get<T>(urlJoin(this.url_base, ...path.map((p => String(p)))), { observe: 'response', params: params })
   }
 
   create<T>(path: string[], payload: any): Observable<HttpResponse<T>> {
-    return this.http.post<T>(urlJoin(this.url_base, ...path), payload, { observe: 'response' })
+    return this.http.post<T>(urlJoin(this.url_base, ...path.map((p => String(p)))), payload, { observe: 'response' })
   }
 
   update<T>(path: string[], payload: any): Observable<HttpResponse<T>> {
-    return this.http.put<T>(urlJoin(this.url_base, ...path), payload, { observe: 'response' })
+    return this.http.put<T>(urlJoin(this.url_base, ...path.map((p => String(p)))), payload, { observe: 'response' })
   }
 
   delete<T>(path: string[]): Observable<HttpResponse<T>> {
-    return this.http.delete<T>(urlJoin(this.url_base, ...path), { observe: 'response' })
+    return this.http.delete<T>(urlJoin(this.url_base, ...path.map((p => String(p)))), { observe: 'response' })
   }
 }

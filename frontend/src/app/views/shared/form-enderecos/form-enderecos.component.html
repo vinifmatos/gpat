@@ -34,7 +34,7 @@
                 <label [for]="'cidade-' + i">Cidade</label>
                 <p-autoComplete [inputId]="'cidade-' + i" formControlName="cidade" group="true" [suggestions]="cidades"
                   (completeMethod)="get_cidades($event)" field="nome" optionGroupLabel="nome"
-                  optionGroupChildren="cidades">
+                  optionGroupChildren="cidades" delay="500" minLength="3" forceSelection="true">
                   <ng-template let-group pTemplate="group">
                     <div class="flex align-items-center">
                       {{group.nome}}

@@ -27,7 +27,7 @@ export class FornecedoresFormComponent extends FormComponentBase {
     route: ActivatedRoute,
     router: Router,
   ) {
-    super(api, fb, route, router, api.recursos['fornecedor'])
+    super(api, fb, route, router, api.recursos['fornecedores'])
     this.campos = {
       id: null,
       documento: '',
@@ -51,11 +51,17 @@ export class FornecedoresFormComponent extends FormComponentBase {
         (res => {
           this.campos = res.body as Fornecedor
           this.set_form()
-        })
+          this.dados_carregados = true
+        }),
+        (res) => {
+          this.dados_carregados = false
+        }
       )
     }
-    else
+    else {
       this.set_form()
+      this.dados_carregados = true
+    }
   }
 
   protected override build_form(): FormGroup<any> {
@@ -83,5 +89,10 @@ export class FornecedoresFormComponent extends FormComponentBase {
     this.campos.enderecos.map((endereco) => {
       endereco.cidade_id = endereco.cidade?.id || -1
     })
+  }
+
+  protected override filtra_campos_payload(campos: any) {
+    campos.enderecos.forEach((e: any) => delete e.cidade)
+    return super.filtra_campos_payload(campos)
   }
 }

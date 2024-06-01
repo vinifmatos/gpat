@@ -1,4 +1,4 @@
-<app-form [template_campos]="campos" titulo="Novo Patrimônio" (submited)="onSubmit($event)"></app-form>
+<app-form [campos]="campos" titulo="Novo Patrimônio" (submited)="onSubmit($event)"></app-form>
 
 <ng-template #campos>
   <form [formGroup]="form_patrimonio">
