@@ -47,6 +47,8 @@ class FornecedoresController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def fornecedor_params
-      params.require(:fornecedor).permit(:tipo, :documento, :razao_social, :nome_fantasia, enderecos_attributes: %i[id logradouro numero bairro complemento cep cidade_id principal])
+      fornecedor_params = params.require(:fornecedor).permit(:tipo, :documento, :razao_social, :nome_fantasia, enderecos: %i[id logradouro numero bairro complemento cep cidade_id principal])
+      fornecedor_params[:enderecos_attributes] = fornecedor_params.delete[:enderecos]  if fornecedor_params[:enderecos]
+      fornecedor_params
     end
 end
