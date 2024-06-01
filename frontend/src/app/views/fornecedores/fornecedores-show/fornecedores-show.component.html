@@ -1,1 +1,36 @@
-<p>fornecedores-show works!</p>
+<app-show titulo="Fornecedor" [dados]="dados" [nome_recurso]="nome_recurso"></app-show>
+<ng-template #dados>
+  <div class="dados">
+    <div class="row">
+      <div class="campo id">
+        <label>ID</label>
+        <span>{{fornecedor.id}}</span>
+      </div>
+      <div class="timestamps">
+        <div>
+          <label>Criado em:</label>
+          <span>{{fornecedor.created_at | date : 'dd/MM/yyyy HH:mm:ss'}}</span>
+        </div>
+        <div>
+          <label>Atualizado em:</label>
+          <span>{{fornecedor.updated_at | date : 'dd/MM/yyyy HH:mm:ss'}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="campo documento">
+        <label>Documento</label>
+        <span>{{fornecedor.documento}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="campo razao-social">
+        <label>Razão Social</label>
+        <span>{{fornecedor.razao_social}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <app-show-enderecos [enderecos]="fornecedor.enderecos"></app-show-enderecos>
+    </div>
+  </div>
+</ng-template>

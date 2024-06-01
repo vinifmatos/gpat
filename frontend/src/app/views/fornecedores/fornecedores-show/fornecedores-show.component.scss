@@ -1,0 +1,32 @@
+:host {
+  ::ng-deep {
+    .row {
+      display: flex;
+      width: 100%;
+    }
+
+    .campo {
+
+      label,
+      span {
+        display: block;
+      }
+
+      label {
+        font-weight: 600;
+      }
+    }
+
+    .campo.id {
+
+      label,
+      span {
+        display: inline;
+      }
+
+      label {
+        margin-right: .25rem;
+      }
+    }
+  }
+}

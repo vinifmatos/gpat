@@ -1,0 +1,12 @@
+<p-card class="card-enderecos">
+  <ng-template pTemplate="header">
+    <h2>Endereços</h2>
+  </ng-template>
+  <div class="lista">
+    <div class="endereco" *ngFor="let endereco of enderecos">
+      {{endereco.id}}
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+  </ng-template>
+</p-card>

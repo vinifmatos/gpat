@@ -1,0 +1,50 @@
+:host {
+  width: 100%;
+}
+
+:host ::ng-deep {
+  #wrapper {
+    .p-card.p-component {
+      .p-card-header {
+        padding: 0 1rem;
+        border-bottom: 1px solid var(--surface-border);
+
+        h1 {
+          margin: .5rem 0;
+        }
+      }
+
+      .p-card-body {
+        padding: 1rem;
+      }
+    }
+
+    .botoes {
+      display: flex;
+      justify-content: end;
+      gap: .75rem;
+    }
+
+    .dados {
+      border: 1px solid var(--surface-border);
+      border-radius: var(--border-radius);
+      padding: 1rem;
+
+      .timestamps {
+        display: flex;
+        font-size: .8rem;
+        gap: 1rem;
+        margin-left: auto;
+
+        label {
+          font-weight: 600;
+        }
+
+        label,
+        span {
+          display: block;
+        }
+      }
+    }
+  }
+}
