@@ -1,7 +1,7 @@
 <app-show titulo="Fornecedor" [dados]="dados" [nome_recurso]="nome_recurso"></app-show>
 <ng-template #dados>
   <div class="dados">
-    <div class="row">
+    <div class="row id">
       <div class="campo id">
         <label>ID</label>
         <span>{{fornecedor.id}}</span>
@@ -17,13 +17,11 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row nome">
       <div class="campo documento">
         <label>Documento</label>
         <span>{{fornecedor.documento}}</span>
       </div>
-    </div>
-    <div class="row">
       <div class="campo razao-social">
         <label>Razão Social</label>
         <span>{{fornecedor.razao_social}}</span>

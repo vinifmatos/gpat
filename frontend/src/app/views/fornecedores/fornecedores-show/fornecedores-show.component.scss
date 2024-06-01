@@ -3,6 +3,7 @@
     .row {
       display: flex;
       width: 100%;
+      margin-bottom: 1rem;
     }
 
     .campo {
@@ -15,6 +16,16 @@
       label {
         font-weight: 600;
       }
+    }
+
+    .row.id {
+      align-items: last baseline;
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: .5rem;
+    }
+
+    .row.nome {
+      gap: 1rem;
     }
 
     .campo.id {
