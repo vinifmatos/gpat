@@ -9,11 +9,11 @@ import { ApiService } from '../../../api.service';
   selector: 'app-enderecos',
   standalone: true,
   imports: [ImportsModule, ReactiveFormsModule],
-  templateUrl: './enderecos.component.html',
-  styleUrl: './enderecos.component.scss',
+  templateUrl: './form-enderecos.component.html',
+  styleUrl: './form-enderecos.component.scss',
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
 })
-export class EnderecosComponent implements OnInit {
+export class FormEnderecosComponent implements OnInit {
   form: FormGroup
   cidades: Cidade[] = []
 

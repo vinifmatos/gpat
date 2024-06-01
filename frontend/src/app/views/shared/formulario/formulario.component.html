@@ -4,7 +4,7 @@
   </ng-template>
   <ng-container [ngTemplateOutlet]="template_campos"></ng-container>
   <ng-template pTemplate="footer">
-    <p-button label="Cancelar" severity="secondary" (onClick)="submit(false)" />
+    <button routerLink=".." pButton pRipple label="Cancelar" severity="secondary" class="p-button"></button>
     <p-button label="Salvar" severity="success" (onClick)="submit(true)" />
   </ng-template>
 </p-card>

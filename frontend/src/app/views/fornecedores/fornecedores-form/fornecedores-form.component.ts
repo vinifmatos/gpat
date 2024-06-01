@@ -5,13 +5,13 @@ import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Fornecedor } from '../../../interfaces/fornecedor';
 import { ImportsModule } from '../../../imports.module';
-import { EnderecosComponent } from '../../shared/enderecos/enderecos.component';
+import { FormEnderecosComponent } from '../../shared/form-enderecos/form-enderecos.component';
 import { FormComponentBase } from '../../../base-compoenents/form-component-base';
 
 @Component({
   selector: 'app-fornecedores-form',
   standalone: true,
-  imports: [ImportsModule, FormularioComponent, ReactiveFormsModule, EnderecosComponent],
+  imports: [ImportsModule, FormularioComponent, ReactiveFormsModule, FormEnderecosComponent],
   templateUrl: './fornecedores-form.component.html',
   styleUrl: './fornecedores-form.component.scss'
 })
