@@ -42,7 +42,7 @@ class FornecedoresController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_fornecedor
-      @fornecedor = Fornecedor.includes(endereco: [cidade: :estado]).find(params[:id])
+      @fornecedor = Fornecedor.includes(enderecos: [cidade: :estado]).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
