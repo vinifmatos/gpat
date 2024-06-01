@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { FormularioComponent } from '../../partials/formulario/formulario.component';
+import { FormularioComponent } from '../../shared/formulario/formulario.component';
 import { ApiService } from '../../../api.service';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormComponentBase } from '../../../form-component-base';
 import { Fornecedor } from '../../../interfaces/fornecedor';
 import { ImportsModule } from '../../../imports.module';
-import { EnderecosComponent } from '../../partials/enderecos/enderecos.component';
+import { EnderecosComponent } from '../../shared/enderecos/enderecos.component';
+import { FormComponentBase } from '../../../base-compoenents/form-component-base';
 
 @Component({
   selector: 'app-fornecedores-form',
