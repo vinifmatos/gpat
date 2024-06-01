@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { CommonModule } from '@angular/common';
-import { NavComponent } from './shared/nav/nav.component';
+import { NavComponent } from './views/shared/nav/nav.component';
 
 @Component({
   selector: 'app-root',

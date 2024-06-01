@@ -12,6 +12,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RippleModule } from 'primeng/ripple';
 import { CardModule } from 'primeng/card';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   declarations: [],
@@ -28,7 +29,8 @@ import { CardModule } from 'primeng/card';
     CheckboxModule,
     RippleModule,
     CardModule,
-    TagModule
+    TagModule,
+    SkeletonModule
   ],
   exports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { CardModule } from 'primeng/card';
     DataViewModule,
     CheckboxModule,
     RippleModule,
-    CardModule
+    CardModule,
+    SkeletonModule
   ]
 })
 export class ImportsModule { }

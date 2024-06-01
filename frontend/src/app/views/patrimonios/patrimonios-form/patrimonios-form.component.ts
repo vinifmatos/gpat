@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormularioComponent } from '../../partials/formulario/formulario.component';
+import { FormularioComponent } from '../../shared/formulario/formulario.component';
 import { ApiService } from '../../../api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Patrimonio } from '../../../interfaces/patrimonio';

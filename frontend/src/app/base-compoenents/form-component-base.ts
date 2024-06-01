@@ -1,17 +1,20 @@
 import { FormBuilder, FormGroup } from "@angular/forms"
+import { ComponentBase } from "./component-base"
+import { ApiService } from "../api.service"
 import { Router } from "@angular/router"
-import { ApiService } from "./api.service"
 
-export class FormComponentBase {
+export class FormComponentBase extends ComponentBase {
   nome_recurso: string
   recurso: any
   form: FormGroup
   erros: []
   constructor(
-    protected api: ApiService,
+    api: ApiService,
     protected fb: FormBuilder,
-    protected router: Router,
-  ) { }
+    router: Router,
+  ) {
+    super(api, router)
+  }
 
   protected inicializa_form(form_grupo: FormGroup) {
     this.form = form_grupo
