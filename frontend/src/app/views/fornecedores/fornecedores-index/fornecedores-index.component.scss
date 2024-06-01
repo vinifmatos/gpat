@@ -17,7 +17,39 @@
     }
 
     .p-card-body {
-      padding: 1rem 0;
+      padding: 0;
+    }
+
+    .p-dataview-content {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+
+      .fornecedor {
+
+        a {
+          border-radius: var(--border-radius);
+          color: var(--text-color);
+          text-decoration: none;
+          cursor: pointer;
+          display: block;
+          width: 100%;
+          padding: 1rem;
+        }
+
+        a:visited {
+          color: var(--text-color);
+        }
+
+        a:hover {
+          color: var(--highlight-text-color);
+          background-color: var(--highlight-bg);
+        }
+      }
+
+      .fornecedor.border-top {
+        border-top: 1px solid var(--surface-border);
+      }
     }
   }
 }

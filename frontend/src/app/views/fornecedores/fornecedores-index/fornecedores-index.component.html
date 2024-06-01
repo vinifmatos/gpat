@@ -8,12 +8,9 @@
   <div class="card">
     <p-dataView #dv [value]="fornecedores" [emptyMessage]="'Nenhum patrimônio encontrado'">
       <ng-template pTemplate="list">
-        <div class="grid grid-nogutter">
-          <div class="col-12" *ngFor="let fornecedor of fornecedores; let first = first" class="col-12">
-            <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3"
-              [ngClass]="{ 'border-top-1 surface-border': !first }">
-            </div>
-          </div>
+        <div class="fornecedor" *ngFor="let fornecedor of fornecedores; let first = first"
+          [ngClass]="{'border-top': !first}">
+          <a [routerLink]="[fornecedor.id]">{{fornecedor.documento}} - {{fornecedor.razao_social}}</a>
         </div>
       </ng-template>
     </p-dataView>

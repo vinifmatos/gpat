@@ -50,7 +50,7 @@ export class EnderecosComponent implements OnInit {
   }
 
   get_cidades(e: AutoCompleteCompleteEvent) {
-    this.api.get<Cidade[]>([this.api.recursos.cidades.path], { por_estado: true, nome: `${e.query}` }).subscribe((res) => {
+    this.api.get<Cidade[]>([this.api.recursos.cidades], { por_estado: true, nome: `${e.query}` }).subscribe((res) => {
       if (res.ok)
         this.cidades = res.body as Cidade[]
       else {

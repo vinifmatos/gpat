@@ -1,20 +1,24 @@
 import { Component } from '@angular/core';
-import { DataViewModule } from 'primeng/dataview';
-import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
-import { CardModule } from 'primeng/card';
 import { RouterModule } from '@angular/router';
-import { RippleModule } from 'primeng/ripple';
 import { Fornecedor } from '../../../interfaces/fornecedor';
+import { ImportsModule } from '../../../imports.module';
+import { ApiService } from '../../../api.service';
 
 @Component({
   selector: 'app-fornecedores-index',
   standalone: true,
-  imports: [DataViewModule, CommonModule, TagModule, ButtonModule, CardModule, RouterModule, RippleModule],
+  imports: [RouterModule, ImportsModule],
   templateUrl: './fornecedores-index.component.html',
   styleUrl: './fornecedores-index.component.scss'
 })
 export class FornecedoresIndexComponent {
   fornecedores: Fornecedor[]
+
+  constructor(
+    private api: ApiService
+  ) {
+    this.api.get<Fornecedor[]>([this.api.recursos.fornecedores]).subscribe(res => {
+      this.fornecedores = res.body || []
+    })
+  }
 }

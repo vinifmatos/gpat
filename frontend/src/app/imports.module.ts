@@ -10,6 +10,8 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { DataViewModule } from 'primeng/dataview';
 import { CheckboxModule } from 'primeng/checkbox';
+import { RippleModule } from 'primeng/ripple';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [],
@@ -23,7 +25,10 @@ import { CheckboxModule } from 'primeng/checkbox';
     RadioButtonModule,
     TableModule,
     DataViewModule,
-    CheckboxModule
+    CheckboxModule,
+    RippleModule,
+    CardModule,
+    TagModule
   ],
   exports: [
     CommonModule,
@@ -36,7 +41,9 @@ import { CheckboxModule } from 'primeng/checkbox';
     TableModule,
     TagModule,
     DataViewModule,
-    CheckboxModule
+    CheckboxModule,
+    RippleModule,
+    CardModule
   ]
 })
 export class ImportsModule { }

@@ -10,9 +10,8 @@ export class ApiService {
   url_base = '/api'
 
   recursos = {
-    cidades: {
-      path: 'cidades'
-    }
+    cidades: 'cidades',
+    fornecedores: 'fornecedores'
   }
 
   constructor(
