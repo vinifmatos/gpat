@@ -33,6 +33,50 @@ export class ApiService {
         delete: 'fornecedores'
       }
     },
+    grupos: {
+      nome: 'grupo',
+      rotas: {
+        index: 'grupos',
+        show: 'grupos',
+        get: 'grupos',
+        create: 'grupos',
+        update: 'grupos',
+        delete: 'grupos'
+      }
+    },
+    responsaveis: {
+      nome: 'responsavel',
+      rotas: {
+        index: 'responsaveis',
+        show: 'responsaveis',
+        get: 'responsaveis',
+        create: 'responsaveis',
+        update: 'responsaveis',
+        delete: 'responsaveis'
+      }
+    },
+    locais: {
+      nome: 'local',
+      rotas: {
+        index: 'locais',
+        show: 'locais',
+        get: 'locais',
+        create: 'locais',
+        update: 'locais',
+        delete: 'locais'
+      }
+    },
+    patrimonios: {
+      nome: 'patrimonio',
+      rotas: {
+        index: 'patrimonios',
+        show: 'patrimonios',
+        get: 'patrimonios',
+        create: 'patrimonios',
+        update: 'patrimonios',
+        delete: 'patrimonios'
+      }
+    },
   }
 
   constructor(
