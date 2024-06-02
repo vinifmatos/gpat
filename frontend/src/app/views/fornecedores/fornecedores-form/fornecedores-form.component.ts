@@ -27,8 +27,7 @@ export class FornecedoresFormComponent extends FormComponentBase {
     route: ActivatedRoute,
     router: Router,
   ) {
-    super(api, fb, route, router, api.recursos['fornecedores'])
-    this.campos = {
+    let campos = {
       id: null,
       documento: '',
       enderecos: [{
@@ -45,23 +44,7 @@ export class FornecedoresFormComponent extends FormComponentBase {
       tipo: 'pessoa_fisica',
       nome_fantasia: undefined
     }
-    let id = route.snapshot.paramMap.get('id')
-    if (id) {
-      this.api.get([this.recurso.rotas.get, id]).subscribe(
-        (res => {
-          this.campos = res.body as Fornecedor
-          this.set_form()
-          this.carregando = true
-        }),
-        (res) => {
-          this.carregando = false
-        }
-      )
-    }
-    else {
-      this.set_form()
-      this.carregando = true
-    }
+    super(api, campos, fb, route, router, api.recursos['fornecedores'])
   }
 
   protected override build_form(): FormGroup<any> {

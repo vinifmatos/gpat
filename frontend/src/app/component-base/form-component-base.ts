@@ -10,12 +10,15 @@ export abstract class FormComponentBase extends ComponentBase {
   erros: []
   constructor(
     api: ApiService,
+    campos: any,
     protected fb: FormBuilder,
     route: ActivatedRoute,
     router: Router,
-    protected recurso: Recurso
+    protected recurso: Recurso,
   ) {
     super(api, router, route)
+    this.campos = campos
+    this.atualiza_form()
   }
 
   protected set_form() {
@@ -55,5 +58,27 @@ export abstract class FormComponentBase extends ComponentBase {
   protected filtra_campos_payload(campos: any): any {
     delete campos.id
     return campos
+  }
+
+  protected atualiza_form() {
+    let id = this.route.snapshot.paramMap.get('id')
+    if (id) {
+      this.api.get([this.recurso.rotas.get, id]).subscribe(
+        (res => {
+          this.campos = res.body as any
+          this.set_form()
+          this.carregando = false
+          this.erro = false
+        }),
+        (res) => {
+          this.carregando = false
+          this.erro = false
+        }
+      )
+    }
+    else {
+      this.set_form()
+      this.carregando = true
+    }
   }
 }

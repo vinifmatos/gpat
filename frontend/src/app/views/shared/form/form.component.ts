@@ -13,7 +13,8 @@ import { NavegacaoService } from '../../../services/navegacao.service';
 export class FormComponent {
   @Input() campos: TemplateRef<any>
   @Input() titulo: string
-  @Input() carregando: boolean = false
+  @Input() carregando: boolean = true
+  @Input() erro: boolean = false
   @Output() submited = new EventEmitter<boolean>()
 
   constructor(

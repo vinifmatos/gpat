@@ -10,6 +10,10 @@
   :host ::ng-deep .formulario {
     height: 100%;
 
+    .erro {
+      color: red;
+    }
+
     .p-card.p-component {
       border: 1px solid var(--surface-border);
       height: 100%;
