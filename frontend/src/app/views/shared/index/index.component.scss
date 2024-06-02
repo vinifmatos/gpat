@@ -1,0 +1,29 @@
+@layer app {
+  :host ::ng-deep #wrapper {
+    .p-card.p-component {
+      border: 1px solid var(--surface-border);
+    }
+
+    .p-card-header {
+      display: flex;
+      border-bottom: 1px solid var(--surface-border);
+      padding: .75rem;
+      justify-content: space-between;
+      align-items: center;
+
+      h1.p-card-title {
+        margin: 0;
+      }
+    }
+
+    .p-card-body {
+      padding: 0;
+    }
+
+    .p-dataview-content {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+  }
+}

@@ -1,1 +1,25 @@
-<p>index works!</p>
+<p-card id="wrapper">
+  <ng-template pTemplate="header">
+    <h1 class="p-card-title">{{titulo}}</h1>
+    <button routerLink="novo" pButton pRipple label="Novo" class="p-button"></button>
+  </ng-template>
+  <div class="card">
+    <p-dataView #dv [value]="dados">
+      <ng-template pTemplate="empty">
+        <app-spinner *ngIf="!dados_carregados"></app-spinner>
+        <div *ngIf="dados_carregados" class="empty-message">
+          @if (this.erro) {
+          <span style="color: red;">Ocorreu um erro ao carregar os itens</span>
+          } @else {
+          Nenhum item cadastrado
+          }
+        </div>
+      </ng-template>
+      <ng-template pTemplate="list">
+        @if (dados_carregados && !erro) {
+        <ng-container *ngTemplateOutlet="layout; context: { $implicit: dados}"></ng-container>
+        }
+      </ng-template>
+    </p-dataView>
+  </div>
+</p-card>
