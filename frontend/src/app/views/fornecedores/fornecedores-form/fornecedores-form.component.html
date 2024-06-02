@@ -1,4 +1,4 @@
-<app-form [campos]="campos" [erro]="erro" [carregando]="carregando" titulo="Novo Fornecedor"
+<app-form [campos]="campos" [erro_ao_carregar]="erro_ao_carregar" [carregando]="carregando" titulo="Novo Fornecedor"
   (submited)="onSubmit($event)"></app-form>
 <ng-template #campos>
   <form [formGroup]="form">

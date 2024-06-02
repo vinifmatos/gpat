@@ -26,11 +26,11 @@ export class FornecedoresIndexComponent extends ComponentBase {
       res => {
         this.fornecedores = res.body as Fornecedor[]
         this.carregando = false
-        this.erro = false
+        this.erro_ao_carregar = false
       },
       res => {
         this.carregando = false
-        this.erro = false
+        this.erro_ao_carregar = false
       }
     )
   }

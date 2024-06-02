@@ -27,12 +27,12 @@ export class GruposIndexComponent extends ComponentBase {
       (res) => {
         this.grupos = this.tree_node_grupos(res.body as Grupo[])
         this.carregando = false
-        this.erro = false
+        this.erro_ao_carregar = false
       },
       (res) => {
         this.grupos = []
         this.carregando = false
-        this.erro = true
+        this.erro_ao_carregar = true
       }
     )
   }

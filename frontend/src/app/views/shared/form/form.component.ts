@@ -14,7 +14,7 @@ export class FormComponent {
   @Input() campos: TemplateRef<any>
   @Input() titulo: string
   @Input() carregando: boolean = true
-  @Input() erro: boolean = false
+  @Input() erro_ao_carregar: boolean = false
   @Output() submited = new EventEmitter<boolean>()
 
   constructor(

@@ -8,14 +8,14 @@
       <ng-template pTemplate="empty">
         @if (carregando) {
         <app-spinner></app-spinner>
-        } @else if (!carregando && erro) {
+        } @else if (!carregando && erro_ao_carregar) {
         <div class="erro">Não foi possível carregar as informações</div>
         } @else {
         Nenhum item cadastrado
         }
       </ng-template>
       <ng-template pTemplate="list">
-        @if (!carregando && !erro) {
+        @if (!carregando && !erro_ao_carregar) {
         <ng-container *ngTemplateOutlet="layout; context: { $implicit: dados}"></ng-container>
         }
       </ng-template>

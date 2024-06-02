@@ -68,18 +68,18 @@ export abstract class FormComponentBase extends ComponentBase {
           this.campos = res.body as any
           this.set_form()
           this.carregando = false
-          this.erro = false
+          this.erro_ao_carregar = false
         }),
         (res) => {
           this.carregando = false
-          this.erro = true
+          this.erro_ao_carregar = true
         }
       )
     }
     else {
       this.set_form()
       this.carregando = false
-      this.erro = false
+      this.erro_ao_carregar = false
     }
   }
 }

@@ -28,11 +28,11 @@ export class GruposShowComponent extends ComponentBase {
         res => {
           this.grupo = res.body as Grupo
           this.carregando = false
-          this.erro = false
+          this.erro_ao_carregar = false
         },
         res => {
           this.carregando = false
-          this.erro = true
+          this.erro_ao_carregar = true
         }
       )
     })

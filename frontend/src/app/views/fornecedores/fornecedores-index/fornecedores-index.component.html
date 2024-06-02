@@ -1,4 +1,4 @@
-<app-index [erro]="erro" [layout]="layout" titulo="Fornecedores" [carregando]="carregando"
+<app-index [erro_ao_carregar]="erro_ao_carregar" [layout]="layout" titulo="Fornecedores" [carregando]="carregando"
   [dados]="fornecedores"></app-index>
 <ng-template #layout>
   <p-dataView #dv [value]="fornecedores" [emptyMessage]="'Nenhum patrimônio encontrado'">

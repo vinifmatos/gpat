@@ -12,7 +12,7 @@ import { SpinnerComponent } from '../spinner/spinner.component';
 })
 export class IndexComponent {
   @Input() carregando: boolean = true
-  @Input() erro: boolean = false
+  @Input() erro_ao_carregar: boolean = false
   @Input() dados: any
   @Input() layout: TemplateRef<any>
   @Input() titulo: string

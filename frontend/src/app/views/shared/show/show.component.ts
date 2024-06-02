@@ -14,7 +14,7 @@ export class ShowComponent {
   @Input() titulo: string
   @Input() layout: TemplateRef<any>
   @Input() carregando: boolean = true
-  @Input() erro: boolean = false
+  @Input() erro_ao_carregar: boolean = false
 
   constructor(
     private navegacao: NavegacaoService

@@ -4,14 +4,14 @@
   </ng-template>
   @if(carregando) {
   <app-spinner></app-spinner>
-  } @else if (!carregando && erro) {
+  } @else if (!carregando && erro_ao_carregar) {
   <div class="erro">Não foi possível carregar as informações</div>
   } @else {
   <ng-container [ngTemplateOutlet]="campos" *ngIf="!carregando"></ng-container>
   }
 
   <ng-template pTemplate="footer">
-    @if (!carregando && !erro) {
+    @if (!carregando && !erro_ao_carregar) {
     <button [routerLink]="get_url_anterior()" pButton pRipple label="Cancelar" severity="secondary"
       class="p-button"></button>
     <p-button label="Salvar" severity="success" (onClick)="submit(true)" />

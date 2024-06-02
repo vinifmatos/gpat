@@ -4,7 +4,7 @@
   </ng-template>
   @if (carregando) {
   <app-spinner></app-spinner>
-  } @else if (!carregando && !erro) {
+  } @else if (!carregando && !erro_ao_carregar) {
   <div class="dados">
     <ng-container [ngTemplateOutlet]="layout"></ng-container>
   </div>
@@ -12,7 +12,7 @@
   <div class="erro">Não foi possível carregar as informações</div>
   }
   <ng-template pTemplate="footer">
-    @if (!carregando && !erro) {
+    @if (!carregando && !erro_ao_carregar) {
     <div class="botoes">
       <button [routerLink]="get_url_anterior()" pButton pRipple label="Voltar" severity="secondary"
         class="p-button"></button>
