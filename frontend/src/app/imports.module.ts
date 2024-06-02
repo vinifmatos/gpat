@@ -18,7 +18,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { BadgeModule } from 'primeng/badge';
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -43,6 +43,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     TreeModule,
     TreeTableModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   exports: [
     CommonModule,
@@ -65,6 +66,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     TreeModule,
     TreeTableModule,
     ReactiveFormsModule,
+    FormsModule,
   ]
 })
 export class ImportsModule { }

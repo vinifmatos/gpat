@@ -6,5 +6,6 @@ export interface Grupo {
   ativo: boolean | null,
   created_at?: Date | null,
   updated_at?: Date | null,
+  pai?: Grupo
   filhos?: Grupo[]
 }
