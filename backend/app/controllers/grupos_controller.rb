@@ -3,6 +3,13 @@ class GruposController < ApplicationController
 
   # GET /grupos
   def index
+    if params[:pais]
+      codigo = params[:query].to_i if params[:query] =~ /^\d+$/
+      descricao = params[:query]
+      @grupos = Grupo.where("grupo_id is null and ativo and (descricao ~* ? or codigo = ?)", descricao, codigo).all
+      render :pais
+    end
+
     @grupos = Grupo.includes(:filhos).where(grupo_id: nil).order('grupos.codigo, filhos_grupos.codigo').references(:filhos).all
   end
 
@@ -37,13 +44,13 @@ class GruposController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_grupo
-      @grupo = Grupo.includes(:filhos).find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_grupo
+    @grupo = Grupo.includes(:filhos).find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def grupo_params
-      params.require(:grupo).permit(:codigo, :grupo_id, :descricao, :ativo)
-    end
+  # Only allow a list of trusted parameters through.
+  def grupo_params
+    params.require(:grupo).permit(:codigo, :grupo_id, :descricao, :ativo)
+  end
 end
