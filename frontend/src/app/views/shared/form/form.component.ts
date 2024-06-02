@@ -1,10 +1,11 @@
 import { Component, TemplateRef, Input, Output, EventEmitter } from '@angular/core';
 import { ImportsModule } from '../../../imports.module';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [ImportsModule],
+  imports: [ImportsModule, SpinnerComponent],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })

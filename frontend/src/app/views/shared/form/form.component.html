@@ -2,9 +2,7 @@
   <ng-template pTemplate="header">
     <h1>{{titulo}}</h1>
   </ng-template>
-  <div class="spinner" *ngIf="!dados_carregados">
-    <p-progressSpinner ariaLabel="Carregando" animationDuration="3s" />
-  </div>
+  <app-spinner *ngIf="!dados_carregados"></app-spinner>
   <ng-container [ngTemplateOutlet]="campos" *ngIf="dados_carregados"></ng-container>
   <ng-template pTemplate="footer">
     <button routerLink=".." pButton pRipple label="Cancelar" severity="secondary" class="p-button"></button>
