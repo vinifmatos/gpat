@@ -16,6 +16,8 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { RouterModule } from '@angular/router';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { BadgeModule } from 'primeng/badge';
+import { TreeModule } from 'primeng/tree';
+import { TreeTableModule } from 'primeng/treetable';
 
 @NgModule({
   declarations: [],
@@ -37,6 +39,8 @@ import { BadgeModule } from 'primeng/badge';
     RouterModule,
     ProgressSpinnerModule,
     BadgeModule,
+    TreeModule,
+    TreeTableModule,
   ],
   exports: [
     CommonModule,
@@ -56,6 +60,8 @@ import { BadgeModule } from 'primeng/badge';
     RouterModule,
     ProgressSpinnerModule,
     BadgeModule,
+    TreeModule,
+    TreeTableModule,
   ]
 })
 export class ImportsModule { }

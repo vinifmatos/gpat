@@ -1,12 +1,57 @@
 import { Component } from '@angular/core';
+import { ImportsModule } from '../../../imports.module';
+import { IndexComponent } from '../../shared/index/index.component';
+import { Grupo } from '../../../interfaces/grupo';
+import { ComponentBase } from '../../../component-base/component-base';
+import { ApiService } from '../../../services/api.service';
+import { Router } from '@angular/router';
+import { TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'app-grupos-index',
   standalone: true,
-  imports: [],
+  imports: [ImportsModule, IndexComponent],
   templateUrl: './grupos-index.component.html',
   styleUrl: './grupos-index.component.scss'
 })
-export class GruposIndexComponent {
+export class GruposIndexComponent extends ComponentBase {
+  dados_carregados: boolean = false
+  grupos: TreeNode<Grupo>[] = [] //  
+  erro: boolean = false
 
+  constructor(
+    api: ApiService,
+    router: Router
+  ) {
+    super(api, router)
+    this.api.get<Grupo[]>([this.api.recursos['grupos'].rotas.index]).subscribe(
+      (res) => {
+        this.grupos = this.tree_node_grupos(res.body as Grupo[])
+        this.dados_carregados = true
+        this.erro = false
+      },
+      (res) => {
+        this.grupos = []
+        this.dados_carregados = true
+        this.erro = true
+      }
+    )
+  }
+
+  tree_node_grupos(grupos: Grupo[]): TreeNode<Grupo>[] {
+    return grupos.map((grupo) => {
+      return {
+        key: String(grupo.id),
+        label: grupo.descricao,
+        data: grupo,
+        children: grupo.filhos?.map((filho) => {
+          return {
+            key: `${String(grupo.id)}-${String(filho.id)}`,
+            label: filho.descricao,
+            data: filho
+          } as TreeNode<Grupo>
+        })
+      } as TreeNode<Grupo>
+    }) as TreeNode<Grupo>[]
+  }
 }

@@ -1,0 +1,21 @@
+@layer app {
+  :host {
+    width: 100%;
+
+    ::ng-deep {
+      .p-treetable-scrollable-header-box {
+        padding-right: 0 !important;
+      }
+
+      .lista {
+        padding: 0 .5rem;
+      }
+
+      tr.link-grupo:hover {
+        cursor: pointer;
+        background-color: var(--highlight-bg);
+        color: var(--highlight-text-color);
+      }
+    }
+  }
+}

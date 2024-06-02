@@ -1,1 +1,25 @@
-<p>grupos-index works!</p>
+<app-index [erro]="erro" [layout]="layout" titulo="Grupos" [dados_carregados]="dados_carregados"
+  [dados]="grupos"></app-index>
+<ng-template #layout let-grupos>
+  <div class="lista">
+    <p-treeTable [value]="grupos" [scrollable]="true" [tableStyle]="{'width':'100%'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Código</th>
+          <th>Descrição</th>
+          <th>Ativo</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowNode let-grupo="rowData">
+        <tr [ttRow]="rowNode" [routerLink]="grupo.id" class="link-grupo">
+          <td>
+            <p-treeTableToggler [rowNode]="rowNode" />
+            {{ grupo.codigo }}
+          </td>
+          <td>{{ grupo.descricao }}</td>
+          <td>{{ grupo.ativo ? 'Sim' : 'Não' }}</td>
+        </tr>
+      </ng-template>
+    </p-treeTable>
+  </div>
+</ng-template>
