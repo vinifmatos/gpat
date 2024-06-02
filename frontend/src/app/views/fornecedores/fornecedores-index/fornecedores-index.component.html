@@ -1,18 +1,12 @@
-<p-card id="wrapper">
-  <ng-template pTemplate="header">
-    <h1 class="p-card-title">
-      Fornecedores
-    </h1>
-    <button routerLink="novo" pButton pRipple label="Novo" class="p-button"></button>
-  </ng-template>
-  <div class="card">
-    <p-dataView #dv [value]="fornecedores" [emptyMessage]="'Nenhum patrimônio encontrado'">
-      <ng-template pTemplate="list">
-        <div class="fornecedor" *ngFor="let fornecedor of fornecedores; let first = first"
-          [ngClass]="{'border-top': !first}">
-          <a [routerLink]="[fornecedor.id]">{{fornecedor.documento}} - {{fornecedor.razao_social}}</a>
-        </div>
-      </ng-template>
-    </p-dataView>
-  </div>
-</p-card>
+<app-index [erro]="erro" [layout]="layout" titulo="Fornecedores" [carregando]="carregando"
+  [dados]="fornecedores"></app-index>
+<ng-template #layout>
+  <p-dataView #dv [value]="fornecedores" [emptyMessage]="'Nenhum patrimônio encontrado'">
+    <ng-template pTemplate="list">
+      <div class="fornecedor" *ngFor="let fornecedor of fornecedores; let first = first"
+        [ngClass]="{'border-top': !first}">
+        <a [routerLink]="[fornecedor.id]">{{fornecedor.documento}} - {{fornecedor.razao_social}}</a>
+      </div>
+    </ng-template>
+  </p-dataView>
+</ng-template>
