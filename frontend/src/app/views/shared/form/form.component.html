@@ -2,8 +2,8 @@
   <ng-template pTemplate="header">
     <h1>{{titulo}}</h1>
   </ng-template>
-  <app-spinner *ngIf="!dados_carregados"></app-spinner>
-  <ng-container [ngTemplateOutlet]="campos" *ngIf="dados_carregados"></ng-container>
+  <app-spinner *ngIf="!carregando"></app-spinner>
+  <ng-container [ngTemplateOutlet]="campos" *ngIf="carregando"></ng-container>
   <ng-template pTemplate="footer">
     <button [routerLink]="get_url_anterior()" pButton pRipple label="Cancelar" severity="secondary"
       class="p-button"></button>

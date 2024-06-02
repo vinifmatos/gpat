@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from "@angular/router"
 import { Recurso } from "../interfaces/recurso"
 
 export abstract class FormComponentBase extends ComponentBase {
-  dados_carregados: boolean = false
   campos: any
   form: FormGroup
   erros: []

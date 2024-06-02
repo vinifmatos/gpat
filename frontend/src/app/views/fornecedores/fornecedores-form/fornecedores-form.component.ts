@@ -11,7 +11,7 @@ import { FormComponentBase } from '../../../component-base/form-component-base';
 @Component({
   selector: 'app-fornecedores-form',
   standalone: true,
-  imports: [ImportsModule, FormComponent, ReactiveFormsModule, FormEnderecosComponent],
+  imports: [ImportsModule, FormComponent, FormEnderecosComponent],
   templateUrl: './fornecedores-form.component.html',
   styleUrl: './fornecedores-form.component.scss'
 })
@@ -51,16 +51,16 @@ export class FornecedoresFormComponent extends FormComponentBase {
         (res => {
           this.campos = res.body as Fornecedor
           this.set_form()
-          this.dados_carregados = true
+          this.carregando = true
         }),
         (res) => {
-          this.dados_carregados = false
+          this.carregando = false
         }
       )
     }
     else {
       this.set_form()
-      this.dados_carregados = true
+      this.carregando = true
     }
   }
 
