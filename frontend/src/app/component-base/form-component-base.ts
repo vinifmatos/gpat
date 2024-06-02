@@ -12,11 +12,11 @@ export abstract class FormComponentBase extends ComponentBase {
   constructor(
     api: ApiService,
     protected fb: FormBuilder,
-    protected route: ActivatedRoute,
+    route: ActivatedRoute,
     router: Router,
     protected recurso: Recurso
   ) {
-    super(api, router)
+    super(api, router, route)
   }
 
   protected set_form() {

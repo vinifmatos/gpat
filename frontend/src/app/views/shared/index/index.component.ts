@@ -11,9 +11,9 @@ import { SpinnerComponent } from '../spinner/spinner.component';
   styleUrl: './index.component.scss'
 })
 export class IndexComponent {
-  @Input() dados_carregados: boolean = false
+  @Input() carregando: boolean = true
+  @Input() erro: boolean = false
   @Input() dados: any
   @Input() layout: TemplateRef<any>
   @Input() titulo: string
-  @Input() erro: boolean = false
 }

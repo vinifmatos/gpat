@@ -5,7 +5,8 @@
   <app-spinner *ngIf="!dados_carregados"></app-spinner>
   <ng-container [ngTemplateOutlet]="campos" *ngIf="dados_carregados"></ng-container>
   <ng-template pTemplate="footer">
-    <button routerLink=".." pButton pRipple label="Cancelar" severity="secondary" class="p-button"></button>
+    <button [routerLink]="get_url_anterior()" pButton pRipple label="Cancelar" severity="secondary"
+      class="p-button"></button>
     <p-button label="Salvar" severity="success" (onClick)="submit(true)" />
   </ng-template>
 </p-card>

@@ -1,5 +1,4 @@
-<app-index [erro]="erro" [layout]="layout" titulo="Grupos" [dados_carregados]="dados_carregados"
-  [dados]="grupos"></app-index>
+<app-index [erro]="erro" [layout]="layout" titulo="Grupos" [carregando]="carregando" [dados]="grupos"></app-index>
 <ng-template #layout let-grupos>
   <div class="lista">
     <p-treeTable [value]="grupos" [scrollable]="true" [tableStyle]="{'width':'100%'}">

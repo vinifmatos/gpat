@@ -4,7 +4,7 @@ import { IndexComponent } from '../../shared/index/index.component';
 import { Grupo } from '../../../interfaces/grupo';
 import { ComponentBase } from '../../../component-base/component-base';
 import { ApiService } from '../../../services/api.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TreeNode } from 'primeng/api';
 
 @Component({
@@ -15,24 +15,23 @@ import { TreeNode } from 'primeng/api';
   styleUrl: './grupos-index.component.scss'
 })
 export class GruposIndexComponent extends ComponentBase {
-  dados_carregados: boolean = false
-  grupos: TreeNode<Grupo>[] = [] //  
-  erro: boolean = false
+  grupos: TreeNode<Grupo>[] = []
 
   constructor(
     api: ApiService,
-    router: Router
+    router: Router,
+    route: ActivatedRoute,
   ) {
-    super(api, router)
+    super(api, router, route)
     this.api.get<Grupo[]>([this.api.recursos['grupos'].rotas.index]).subscribe(
       (res) => {
         this.grupos = this.tree_node_grupos(res.body as Grupo[])
-        this.dados_carregados = true
+        this.carregando = false
         this.erro = false
       },
       (res) => {
         this.grupos = []
-        this.dados_carregados = true
+        this.carregando = false
         this.erro = true
       }
     )

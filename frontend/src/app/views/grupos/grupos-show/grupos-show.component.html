@@ -1,1 +1,60 @@
-<p>grupos-show works!</p>
+<app-show titulo="Grupo" [carregando]="carregando" [erro]="erro" [layout]="layout"></app-show>
+<ng-template #layout>
+  <div class="row header">
+    <div class="campo id">
+      <label>ID</label>
+      <div class="valor">{{grupo.id}}</div>
+    </div>
+    <div>
+      <p-tag [severity]="grupo.ativo ? 'success' : 'danger'" [value]="grupo.ativo ? 'Ativo' : 'Inativo'"
+        rounded="true" />
+    </div>
+    <div class="timestamps">
+      <div>
+        <label>Criado em:</label>
+        <div class="valor timestamp">{{grupo.created_at | date : 'dd/MM/yyyy HH:mm:ss'}}</div>
+      </div>
+      <div>
+        <label>Atualizado em:</label>
+        <div class="valor timestamp">{{grupo.updated_at | date : 'dd/MM/yyyy HH:mm:ss'}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row nome">
+    <div class="campo">
+      <label>Código</label>
+      <div class="valor">{{grupo.codigo}}</div>
+    </div>
+    <div class="campo">
+      <label>Descricao</label>
+      <div class="valor">{{grupo.descricao}}</div>
+    </div>
+  </div>
+
+  @if (grupo.filhos) {
+  <div class="row">
+    <div class="campo subgrupos">
+      <label>Subgrupos</label>
+      <div class="tabela-subgrupos">
+        <p-table [value]="grupo.filhos">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Código</th>
+              <th>Descrição</th>
+              <th>Situação</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-subgrupo>
+            <tr class="link-grupo" [routerLink]="['..', subgrupo.id]">
+              <td>{{ subgrupo.codigo }}</td>
+              <td>{{ subgrupo.descricao }}</td>
+              <td><p-tag [severity]="subgrupo.ativo ? 'success' : 'danger'"
+                  [value]="subgrupo.ativo ? 'Ativo' : 'Inativo'" rounded="true" /></td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  }
+</ng-template>

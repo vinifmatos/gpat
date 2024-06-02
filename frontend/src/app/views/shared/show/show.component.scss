@@ -4,6 +4,17 @@
 
 :host ::ng-deep {
   #wrapper {
+    .erro {
+      color: red;
+    }
+
+    .row {
+      display: flex;
+      width: 100%;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+
     .p-card.p-component {
       .p-card-header {
         padding: 0 1rem;
@@ -26,9 +37,7 @@
     }
 
     .dados {
-      border: 1px solid var(--surface-border);
-      border-radius: var(--border-radius);
-      padding: 1rem;
+      border-bottom: 1px solid var(--surface-border);
 
       .timestamps {
         display: flex;
@@ -41,8 +50,39 @@
         }
 
         label,
-        span {
+        div.valor.timestamp {
           display: block;
+        }
+      }
+
+      .campo {
+
+        label,
+        div.valor {
+          display: block;
+        }
+
+        label {
+          font-weight: 600;
+        }
+      }
+
+      .row.header {
+        align-items: center;
+        border-bottom: 1px solid var(--surface-border);
+        padding-bottom: .5rem;
+
+        .campo.id {
+          margin-right: .5rem;
+
+          label,
+          div.valor {
+            display: inline;
+          }
+
+          label {
+            margin-right: .25rem;
+          }
         }
       }
     }

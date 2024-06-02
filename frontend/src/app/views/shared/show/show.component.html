@@ -2,11 +2,22 @@
   <ng-template pTemplate="header">
     <h1>{{titulo}}</h1>
   </ng-template>
-  <ng-container [ngTemplateOutlet]="dados"></ng-container>
+  @if (carregando) {
+  <app-spinner></app-spinner>
+  } @else if (!carregando && !erro) {
+  <div class="dados">
+    <ng-container [ngTemplateOutlet]="layout"></ng-container>
+  </div>
+  } @else {
+  <div class="erro">Não foi possível carregar as informações</div>
+  }
   <ng-template pTemplate="footer">
+    @if (!carregando && !erro) {
     <div class="botoes">
-      <button routerLink=".." pButton pRipple label="Voltar" severity="secondary" class="p-button"></button>
+      <button [routerLink]="get_url_anterior()" pButton pRipple label="Voltar" severity="secondary"
+        class="p-button"></button>
       <button routerLink="editar" pButton pRipple label="Editar" icon="pi pi-pencil" class="p-button"></button>
     </div>
+    }
   </ng-template>
 </p-card>

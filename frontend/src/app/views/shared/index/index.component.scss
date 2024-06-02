@@ -1,5 +1,9 @@
 @layer app {
   :host ::ng-deep #wrapper {
+    .erro {
+      color: red;
+    }
+
     .p-card.p-component {
       border: 1px solid var(--surface-border);
     }

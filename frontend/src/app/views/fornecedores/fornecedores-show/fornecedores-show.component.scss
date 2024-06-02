@@ -9,7 +9,7 @@
     .campo {
 
       label,
-      span {
+      span:not(.p-tag-value) {
         display: block;
       }
 
@@ -31,7 +31,7 @@
     .campo.id {
 
       label,
-      span {
+      span:not(.p-tag-value) {
         display: inline;
       }
 

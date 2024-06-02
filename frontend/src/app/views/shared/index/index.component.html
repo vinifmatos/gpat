@@ -6,17 +6,16 @@
   <div class="card">
     <p-dataView #dv [value]="dados">
       <ng-template pTemplate="empty">
-        <app-spinner *ngIf="!dados_carregados"></app-spinner>
-        <div *ngIf="dados_carregados" class="empty-message">
-          @if (this.erro) {
-          <span style="color: red;">Ocorreu um erro ao carregar os itens</span>
-          } @else {
-          Nenhum item cadastrado
-          }
-        </div>
+        @if (carregando) {
+        <app-spinner></app-spinner>
+        } @else if (!carregando && erro) {
+        <div class="erro">Não foi possível carregar as informações</div>
+        } @else {
+        Nenhum item cadastrado
+        }
       </ng-template>
       <ng-template pTemplate="list">
-        @if (dados_carregados && !erro) {
+        @if (!carregando && !erro) {
         <ng-container *ngTemplateOutlet="layout; context: { $implicit: dados}"></ng-container>
         }
       </ng-template>

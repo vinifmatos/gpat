@@ -15,23 +15,22 @@ import { ShowEnderecosComponent } from '../../shared/show-enderecos/show-enderec
   styleUrl: './fornecedores-show.component.scss'
 })
 export class FornecedoresShowComponent extends ComponentBase {
-  nome_recurso = 'fornecedores'
-  fornecedor: Fornecedor = {
-    id: null,
-    documento: '',
-    enderecos: [],
-    razao_social: '',
-    tipo: ''
-  }
+  fornecedor: Fornecedor
   constructor(
     api: ApiService,
     router: Router,
-    private route: ActivatedRoute
+    route: ActivatedRoute,
   ) {
-    super(api, router)
+    super(api, router, route)
     this.api.get<Fornecedor>([this.api.recursos['fornecedores'].rotas.show, this.route.snapshot.paramMap.get('id') as string]).subscribe(
       res => {
         this.fornecedor = res.body as Fornecedor
+        this.carregando = false
+        this.erro = false
+      },
+      (res) => {
+        this.carregando = false
+        this.erro = true
       }
     )
   }

@@ -1,0 +1,25 @@
+:host {
+  ::ng-deep {
+    .campo.subgrupos {
+      width: 100%;
+      border: 1px solid var(--surface-border);
+      border-radius: var(--border-radius);
+
+      label {
+        display: inline-block;
+        border-bottom: 1px solid var(--surface-border);
+        padding: .5rem;
+      }
+    }
+
+    .tabela-subgrupos {
+      width: 100%;
+    }
+
+    tr.link-grupo:hover {
+      cursor: pointer;
+      background-color: var(--highlight-bg);
+      color: var(--highlight-text-color);
+    }
+  }
+}

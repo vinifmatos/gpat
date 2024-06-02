@@ -1,5 +1,5 @@
-<app-show titulo="Fornecedor" [dados]="dados" [nome_recurso]="nome_recurso"></app-show>
-<ng-template #dados>
+<app-show [carregando]="carregando" [erro]="erro" titulo="Fornecedor" [layout]="layout"></app-show>
+<ng-template #layout>
   <div class="dados">
     <div class="row id">
       <div class="campo id">
