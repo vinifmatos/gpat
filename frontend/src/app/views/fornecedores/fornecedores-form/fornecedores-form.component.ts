@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Fornecedor } from '../../../interfaces/fornecedor';
 import { ImportsModule } from '../../../imports.module';
 import { FormEnderecosComponent } from '../../shared/form-enderecos/form-enderecos.component';
-import { FormComponentBase } from '../../../base-compoenents/form-component-base';
+import { FormComponentBase } from '../../../component-base/form-component-base';
 
 @Component({
   selector: 'app-fornecedores-form',

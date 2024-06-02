@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ImportsModule } from '../../../imports.module';
-import { ComponentBase } from '../../../base-compoenents/component-base';
+import { ComponentBase } from '../../../component-base/component-base';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Fornecedor } from '../../../interfaces/fornecedor';
