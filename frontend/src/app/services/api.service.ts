@@ -41,7 +41,7 @@ export class ApiService {
         get: 'grupos',
         create: 'grupos',
         update: 'grupos',
-        delete: 'grupos'
+        delete: 'grupos',
       }
     },
     responsaveis: {

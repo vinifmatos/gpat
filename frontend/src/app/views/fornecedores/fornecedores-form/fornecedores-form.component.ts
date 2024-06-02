@@ -70,7 +70,7 @@ export class FornecedoresFormComponent extends FormComponentBase {
 
   protected override before_submit(submited: boolean): void {
     this.campos.enderecos.map((endereco) => {
-      endereco.cidade_id = endereco.cidade?.id || -1
+      endereco.cidade_id = endereco.cidade?.id as number
     })
   }
 
