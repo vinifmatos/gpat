@@ -1,1 +1,7 @@
-<p>locais-index works!</p>
+<app-index [layout]="layout" titulo="Locais" [carregando]="carregando" [erro_ao_carregar]="erro_ao_carregar"
+  [dados]="locais"></app-index>
+<ng-template #layout let-locais>
+  <div class="fornecedor" *ngFor="let local of locais; let first = first" [ngClass]="{'border-top': !first}">
+    <a [routerLink]="[local.id]">{{local.codigo}} - {{local.descricao}}</a>
+  </div>
+</ng-template>

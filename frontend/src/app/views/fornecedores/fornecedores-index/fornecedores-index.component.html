@@ -1,7 +1,7 @@
 <app-index [erro_ao_carregar]="erro_ao_carregar" [layout]="layout" titulo="Fornecedores" [carregando]="carregando"
   [dados]="fornecedores"></app-index>
 <ng-template #layout>
-  <div class="fornecedor" *ngFor="let fornecedor of fornecedores; let first = first" [ngClass]="{'border-top': !first}">
+  <div class="item" *ngFor="let fornecedor of fornecedores; let first = first" [ngClass]="{'border-top': !first}">
     <a [routerLink]="[fornecedor.id]">{{fornecedor.documento}} - {{fornecedor.razao_social}}</a>
   </div>
 </ng-template>
