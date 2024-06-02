@@ -1,13 +1,14 @@
 class GruposController < ApplicationController
-  before_action :set_grupo, only: %i[ show update destroy ]
+  before_action :set_grupo, only: %i[ update destroy ]
 
   # GET /grupos
   def index
-    @grupos = Grupo.includes(:filhos).where(grupo_id: nil).all
+    @grupos = Grupo.includes(:filhos).where(grupo_id: nil).order('grupos.codigo, filhos_grupos.codigo').references(:filhos).all
   end
 
   # GET /grupos/1
   def show
+    @grupo = Grupo.includes(:filhos).order('grupos.codigo, filhos_grupos.codigo').references(:filhos).find(params[:id])
   end
 
   # POST /grupos
