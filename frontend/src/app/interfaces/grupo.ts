@@ -1,10 +1,10 @@
 export interface Grupo {
-  id?: number,
-  codigo: number,
-  grupo_id?: number,
-  descricao: string,
-  ativo: boolean,
-  created_at?: Date,
-  updated_at?: Date,
+  id?: number | null,
+  codigo: number | null,
+  grupo_id?: number | null,
+  descricao: string | null,
+  ativo: boolean | null,
+  created_at?: Date | null,
+  updated_at?: Date | null,
   filhos?: Grupo[]
 }
