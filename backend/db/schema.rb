@@ -114,7 +114,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_031604) do
     t.datetime "updated_at", null: false
     t.bigint "grupo_id"
     t.integer "numero_empenho"
-    t.integer "ano_empnho"
+    t.integer "ano_empenho"
     t.integer "numero_processo_compra"
     t.integer "ano_processo_compra"
     t.bigint "fornecedor_id"
