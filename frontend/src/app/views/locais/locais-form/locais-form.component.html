@@ -1,1 +1,31 @@
-<p>locais-form works!</p>
+<app-form [titulo]="titulo" [campos]="layout" [carregando]="carregando"
+  [erro_ao_carregar]="erro_ao_carregar"></app-form>
+<ng-template #layout>
+  <form [formGroup]="form">
+    <div class="row">
+      <div id="form-group-codigo" class="form-group">
+        <label for="codigo">Código</label>
+        <input id="codigo" formControlName="codigo" type="text" pInputText />
+      </div>
+      <div id="form-group-descricao" class="form-group">
+        <label for="descricao">Descrição</label>
+        <input id="descricao" formControlName="descricao" type="text" pInputText />
+      </div>
+      <div id="form-group-ativo" class="form-group">
+        <p-checkbox formControlName="ativo" binary="true" inputId="ativo" />
+        <label for="ativo">Ativo</label>
+      </div>
+    </div>
+    <div class="row grupo-pai">
+      <div id="form-group-grupo-pai" class="form-group">
+        <label for="grupo-pai">Grupo Pai</label>
+        <p-autoComplete inputId="grupo-pai" formControlName="subordinacao" [suggestions]="locais"
+          (completeMethod)="get_locais($event)" field="descricao" delay="500" minLength="1" forceSelection="true">
+          <ng-template let-grupo pTemplate="item">
+            <div>{{grupo.codigo}} - {{grupo.descricao}}</div>
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+  </form>
+</ng-template>
