@@ -3,7 +3,7 @@ class LocaisController < ApplicationController
 
   # GET /locais
   def index
-    @locais = Local.includes(endereco: [cidade: :estado]).all
+    @locais = Local.includes(:subordinados, :subordinacao, endereco: [cidade: :estado]).all
   end
 
   # GET /locais/1
