@@ -11,4 +11,5 @@ import { Endereco } from '../../../interfaces/endereco';
 })
 export class ShowEnderecosComponent {
   @Input() enderecos: Endereco[]
+  @Input() titulo_plural: boolean = true
 }

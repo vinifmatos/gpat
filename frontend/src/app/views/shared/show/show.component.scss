@@ -3,86 +3,83 @@
 }
 
 :host ::ng-deep {
-  #wrapper {
-    .erro {
-      color: red;
-    }
+  .erro {
+    color: red;
+  }
 
-    .row {
-      display: flex;
-      width: 100%;
-      margin-bottom: 1rem;
-      gap: 1rem;
-    }
+  .row {
+    display: flex;
+    width: 100%;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
 
-    .p-card.p-component {
-      .p-card-header {
-        padding: 0 1rem;
-        border-bottom: 1px solid var(--surface-border);
-
-        h1 {
-          margin: .5rem 0;
-        }
-      }
-
-      .p-card-body {
-        padding: 1rem;
-      }
-    }
-
-    .botoes {
-      display: flex;
-      justify-content: end;
-      gap: .75rem;
-    }
-
-    .dados {
+  .p-card.p-component {
+    .p-card-header {
+      padding: 0 1rem;
       border-bottom: 1px solid var(--surface-border);
 
-      .timestamps {
-        display: flex;
-        font-size: .8rem;
-        gap: 1rem;
-        margin-left: auto;
+      h1 {
+        margin: 0.5rem 0;
+      }
+    }
 
-        label {
-          font-weight: 600;
-        }
+    .p-card-body {
+      padding: 1rem;
+    }
+  }
 
-        label,
-        div.valor.timestamp {
-          display: block;
-        }
+  .botoes {
+    display: flex;
+    justify-content: end;
+    gap: 0.75rem;
+  }
+
+  .dados {
+    border-bottom: 1px solid var(--surface-border);
+
+    .timestamps {
+      display: flex;
+      font-size: 0.8rem;
+      gap: 1rem;
+      margin-left: auto;
+
+      label {
+        font-weight: 600;
       }
 
-      .campo {
+      label,
+      div.valor.timestamp {
+        display: block;
+      }
+    }
+
+    .campo {
+      label,
+      div.valor {
+        display: block;
+      }
+
+      label {
+        font-weight: 600;
+      }
+    }
+
+    .row.header {
+      align-items: center;
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: 0.5rem;
+
+      .campo.id {
+        margin-right: 0.5rem;
 
         label,
         div.valor {
-          display: block;
+          display: inline;
         }
 
         label {
-          font-weight: 600;
-        }
-      }
-
-      .row.header {
-        align-items: center;
-        border-bottom: 1px solid var(--surface-border);
-        padding-bottom: .5rem;
-
-        .campo.id {
-          margin-right: .5rem;
-
-          label,
-          div.valor {
-            display: inline;
-          }
-
-          label {
-            margin-right: .25rem;
-          }
+          margin-right: 0.25rem;
         }
       }
     }

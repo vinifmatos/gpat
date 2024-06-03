@@ -9,7 +9,7 @@
 
       .logradouro-label {
         display: flex;
-        gap: .5rem;
+        gap: 0.5rem;
       }
 
       .lista {
@@ -30,34 +30,36 @@
       .endereco {
         border: 1px solid var((--surface-border));
         border-radius: var(--border-radius);
-        padding: .5rem;
+        padding: 0.5rem;
       }
 
       .endereco:last-child {
         margin-bottom: 0;
       }
 
-      .header-endereco:first-child {
-        margin-bottom: .25rem;
-      }
-
       .row {
         margin-bottom: 1rem;
-        gap: .5rem;
+        gap: 0.5rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));
       }
 
       h2 {
-        margin: .5rem 0;
+        margin: 0.5rem 0;
         font-size: 1.25rem;
       }
 
       .campo {
         width: fit-content;
+        .valor {
+          white-space: nowrap;
+        }
       }
 
-      .campo.logradouro,
-      .campo.complemento {
+      .campo.principal {
         width: 100%;
+        display: flex;
+        justify-content: end;
       }
     }
   }
