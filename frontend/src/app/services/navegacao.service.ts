@@ -1,33 +1,37 @@
-import { Injectable } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { NavigationEnd, Router } from "@angular/router";
+import { filter } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class NavegacaoService {
-  private url_atual: string
-  private url_anterior: string
+  private url_atual: string;
+  private url_anterior: string;
+  private url_incial: string;
 
-  constructor(
-    private router: Router
-  ) {
-    this.url_atual = router.url
-    this.url_anterior = router.url
+  constructor(private router: Router) {
+    this.url_atual = router.url;
+    this.url_anterior = router.url;
+    this.url_incial = router.url;
 
     this.router.events
-      .pipe(filter(e => e instanceof NavigationEnd))
+      .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe((e: any) => {
-        this.url_anterior = this.url_atual
-        this.url_atual = e.url
-      })
+        this.url_incial = this.url_anterior;
+        this.url_anterior = this.url_atual;
+        this.url_atual = e.url;
+      });
   }
 
   get_url_atual(): string {
-    return this.url_atual
+    return this.url_atual;
   }
 
   get_url_anterior(): string {
-    return this.url_anterior
+    return this.url_anterior;
+  }
+  get_url_incial(): string {
+    return this.url_incial;
   }
 }
