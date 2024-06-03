@@ -1,1 +1,59 @@
-<p>locais-show works!</p>
+<app-show titulo="Local" [carregando]="carregando" [erro_ao_carregar]="erro_ao_carregar" [layout]="layout"></app-show>
+<ng-template #layout>
+  <div class="row header">
+    <div class="campo id">
+      <label>ID</label>
+      <div class="valor">{{local.id}}</div>
+    </div>
+    <div>
+      <p-tag [severity]="local.ativo ? 'success' : 'danger'" [value]="local.ativo ? 'Ativo' : 'Inativo'"
+        rounded="true" />
+    </div>
+    <div class="timestamps">
+      <div>
+        <label>Criado em:</label>
+        <div class="valor timestamp">{{local.created_at | date : 'dd/MM/yyyy HH:mm:ss'}}</div>
+      </div>
+      <div>
+        <label>Atualizado em:</label>
+        <div class="valor timestamp">{{local.updated_at | date : 'dd/MM/yyyy HH:mm:ss'}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="campo">
+      <label>Código</label>
+      <div class="valor">{{local.codigo}}</div>
+    </div>
+    <div class="campo">
+      <label>Descricao</label>
+      <div class="valor">{{local.descricao}}</div>
+    </div>
+    <div class="campo">
+      <label>Subordinação</label>
+      <div class="valor">
+        @if(local.subordinacao) {
+        {{local.subordinacao.codigo}} - {{local.subordinacao.descricao}}
+        }
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <app-show-enderecos [titulo_plural]="false" [enderecos]="[local.endereco]"></app-show-enderecos>
+  </div>
+  <div class="row">
+    <p-card class="card-subordinados">
+      <ng-template pTemplate="header">
+        <h2>Subordinados</h2>
+      </ng-template>
+      <div class="lista">
+        <div class="item" *ngFor="let subordinado of local.subordinados; let first = first"
+          [ngClass]="{'border-top': !first}">
+          <a [routerLink]="['..', subordinado.id]">{{subordinado.codigo}} - {{subordinado.descricao}}</a>
+        </div>
+      </div>
+      <ng-template pTemplate="footer">
+      </ng-template>
+    </p-card>
+  </div>
+</ng-template>

@@ -1,13 +1,14 @@
 import { Endereco } from "./endereco"
 
 export interface Local {
-  id?: number,
-  local_id?: number,
-  codigo: number,
-  descricao: string,
-  ativo: boolean,
+  id?: number | null,
+  local_id?: number | null,
+  codigo: number | null,
+  descricao: string | null,
+  ativo: boolean | null,
   created_at?: Date,
   updated_at?: Date,
   endereco: Endereco,
   subordinados?: Local[]
+  subordinacao?: Local
 }

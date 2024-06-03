@@ -1,0 +1,53 @@
+@layer app {
+  :host ::ng-deep {
+    .card-subordinados {
+      width: 100%;
+      .p-card.p-component {
+        border: 1px solid var(--surface-border);
+      }
+
+      .p-card-header {
+        display: flex;
+        border-bottom: 1px solid var(--surface-border);
+        padding: 0.75rem;
+        justify-content: space-between;
+        align-items: center;
+
+        h2 {
+          margin: 0.5rem 0;
+          font-size: 1.25rem;
+        }
+      }
+
+      .p-card-body {
+        padding: 0 !important;
+        gap: 0;
+      }
+
+      .item {
+        a {
+          border-radius: var(--border-radius);
+          color: var(--text-color);
+          text-decoration: none;
+          cursor: pointer;
+          display: block;
+          width: 100%;
+          padding: 1rem;
+        }
+
+        a:visited {
+          color: var(--text-color);
+        }
+
+        a:hover {
+          color: var(--highlight-text-color);
+          background-color: var(--highlight-bg);
+        }
+      }
+
+      .item.border-top {
+        border-top: 1px solid var(--surface-border);
+      }
+    }
+  }
+}
