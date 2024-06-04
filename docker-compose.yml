@@ -1,7 +1,6 @@
 services:
   db:
     image: postgres:latest
-    container_name: postgres
     volumes:
       - postgres_data:/varlib/postgresql/data
     command: "postgres -c 'max_connections=500'"
@@ -21,13 +20,15 @@ services:
     volumes:
       - app_storage:/rails/storage
     depends_on:
-      - db
+      db:
+        condition: service_started
     ports:
       - '3000:3000'
   web:
     build: ./frontend
     depends_on:
-      - api
+      api:
+        condition: service_started
     ports:
       - '8080:80'
 
