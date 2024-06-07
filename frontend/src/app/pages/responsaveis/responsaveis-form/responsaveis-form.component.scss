@@ -1,0 +1,7 @@
+@layer form-responsavel {
+  :host ::ng-deep {
+    #form-group-cpf {
+      width: 15ch;
+    }
+  }
+}
