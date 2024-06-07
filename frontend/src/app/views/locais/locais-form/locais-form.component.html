@@ -1,5 +1,5 @@
-<app-form [titulo]="titulo" [campos]="layout" [carregando]="carregando"
-  [erro_ao_carregar]="erro_ao_carregar"></app-form>
+<app-form [titulo]="titulo" [campos]="layout" [carregando]="carregando" [erro_ao_carregar]="erro_ao_carregar"
+  (submited)="onSubmit($event)"></app-form>
 <ng-template #layout>
   <form [formGroup]="form">
     <div class="row">
@@ -16,15 +16,20 @@
         <label for="ativo">Ativo</label>
       </div>
     </div>
-    <div class="row grupo-pai">
-      <div id="form-group-grupo-pai" class="form-group">
-        <label for="grupo-pai">Grupo Pai</label>
-        <p-autoComplete inputId="grupo-pai" formControlName="subordinacao" [suggestions]="locais"
+    <div class="row subordinacao">
+      <div id="form-group-subordinacao" class="form-group">
+        <label for="subordinacao">Subordinação</label>
+        <p-autoComplete inputId="subordinacao" formControlName="subordinacao" [suggestions]="locais"
           (completeMethod)="get_locais($event)" field="descricao" delay="500" minLength="1" forceSelection="true">
-          <ng-template let-grupo pTemplate="item">
-            <div>{{grupo.codigo}} - {{grupo.descricao}}</div>
+          <ng-template let-local pTemplate="item">
+            <div>{{local.codigo}} - {{local.descricao}}</div>
           </ng-template>
         </p-autoComplete>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="endereco">
       </div>
     </div>
   </form>

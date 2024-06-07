@@ -8,11 +8,12 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Local } from "../../../interfaces/local";
 import { StringService } from "../../../services/string.service";
 import { AutoCompleteCompleteEvent } from "primeng/autocomplete";
+import { FormEnderecosComponent } from "../../shared/form-enderecos/form-enderecos.component";
 
 @Component({
   selector: "app-locais-form",
   standalone: true,
-  imports: [ImportsModule, FormComponent],
+  imports: [ImportsModule, FormComponent, FormEnderecosComponent],
   templateUrl: "./locais-form.component.html",
   styleUrl: "./locais-form.component.scss",
 })
@@ -56,8 +57,14 @@ export class LocaisFormComponent extends FormComponentBase {
 
   protected override filtra_campos_payload(campos: any) {
     delete campos.subordinacao;
-    super.filtra_campos_payload(campos);
+    return super.filtra_campos_payload(campos);
   }
 
-  get_locais(e: AutoCompleteCompleteEvent) {}
+  get_locais(e: AutoCompleteCompleteEvent) {
+    this.api
+      .get<Local[]>([this.recurso.rotas.get], { descricao: e.query })
+      .subscribe((res) => {
+        this.locais = res.body as Local[];
+      });
+  }
 }
