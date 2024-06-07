@@ -4,10 +4,10 @@
       "path": "."
     },
     {
-      "path": "./frontend"
+      "path": "./backend"
     },
     {
-      "path": "./backend"
+      "path": "./frontend"
     }
   ]
 }
