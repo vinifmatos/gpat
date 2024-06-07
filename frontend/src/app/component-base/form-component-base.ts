@@ -30,7 +30,7 @@ export abstract class FormComponentBase extends ComponentBase {
 
   protected abstract build_form(): FormGroup;
 
-  protected before_submit(submited: boolean) {}
+  protected abstract before_submit(submited: boolean): void;
 
   onSubmit(submited: boolean) {
     this.campos = this.form.getRawValue();

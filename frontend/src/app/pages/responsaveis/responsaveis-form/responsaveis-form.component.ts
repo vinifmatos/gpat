@@ -33,6 +33,8 @@ export class ResponsaveisFormComponent extends FormComponentBase {
     super(api, campos, fb, route, router, api.recursos["responsaveis"], strs);
   }
 
+  protected override before_submit(submited: boolean): void {}
+
   protected override build_form(): FormGroup<any> {
     return this.fb.group({
       id: this.campos.id,
