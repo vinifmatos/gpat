@@ -1,0 +1,40 @@
+@layer app {
+  :host {
+    width: 100%;
+  }
+
+  :host ::ng-deep {
+    .endereco {
+      padding: 0.5rem;
+      border: 1px solid var(--surface-border);
+      border-radius: var(--border-radius);
+      box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(18, 18, 23, 0.05);
+
+      .form-group.principal {
+        flex-direction: row;
+        margin-bottom: 0.5rem;
+
+        label {
+          margin-bottom: 0;
+          margin-left: 0.5rem;
+        }
+      }
+
+      .form-group.cep {
+        width: 15ch;
+      }
+
+      .form-group.numero {
+        width: 10ch;
+      }
+
+      .form-group.cidade-autocomplete {
+        width: fit-content;
+
+        p-autocomplete {
+          width: fit-content;
+        }
+      }
+    }
+  }
+}

@@ -29,7 +29,22 @@
     </div>
 
     <div class="row">
-      <app-form-enderecos></app-form-enderecos>
+      <div id="enderecos-form-group" class="form-group">
+        <div class="enderecos">
+          <div class="header-enderecos">
+            <label>Endereços</label>
+            <p-button icon="pi pi-plus" severity="success" (click)="novo_endereco()" />
+          </div>
+          <p-dataView #dv [value]="enderecos().controls">
+            <ng-template pTemplate="list" let-enderecos>
+              <div formArrayName="enderecos" class="lista-enderecos">
+                <app-form-endereco (excluir)="excluir_endereco($event)" [endereco_id]="i" [form_group]="endereco"
+                  [exibir_excluir]="true" *ngFor="let endereco of enderecos; let first = first; let i = index" />
+              </div>
+            </ng-template>
+          </p-dataView>
+        </div>
+      </div>
     </div>
   </form>
 </ng-template>
