@@ -1,1 +1,7 @@
-<p>responsaveis-index works!</p>
+<app-index [layout]="layout" titulo="Responsáveis" [carregando]="carregando" [erro_ao_carregar]="erro_ao_carregar"
+  [dados]="responsaveis"></app-index>
+<ng-template #layout let-responsaveis>
+  <div class="item" *ngFor="let responsavel of responsaveis; let first = first" [ngClass]="{'border-top': !first}">
+    <a [routerLink]="[responsavel.id]">{{responsavel.cpf}} - {{responsavel.nome}}</a>
+  </div>
+</ng-template>
