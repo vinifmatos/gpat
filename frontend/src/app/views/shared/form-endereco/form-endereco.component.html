@@ -1,28 +1,28 @@
-<div [id]="'endereco-' + endereco_id" class="endereco" [formGroup]="form_group">
+<div [id]="gera_id_html('endereco')" class="endereco" [formGroup]="form_group">
   <div class="row">
     <div class="form-group">
-      <label [for]="'logradouro-' + endereco_id">Logradouro</label>
-      <input [id]="'logradouro-' + endereco_id" formControlName="logradouro" type="text" pInputText />
+      <label [for]="gera_id_html('logradouro')">Logradouro</label>
+      <input [id]="gera_id_html('logradouro')" formControlName="logradouro" type="text" pInputText />
     </div>
     <div class="form-group numero">
-      <label [for]="'numero-' + endereco_id">Nº</label>
-      <input [id]="'numero-' + endereco_id" formControlName="numero" type="text" pInputText />
+      <label [for]="gera_id_html('numero')">Nº</label>
+      <input [id]="gera_id_html('numero')" formControlName="numero" type="text" pInputText />
     </div>
   </div>
   <div class="row">
     <div class="form-group">
-      <label [for]="'complemento-' + endereco_id">Complemento</label>
-      <input [id]="'complemento-' + endereco_id" formControlName="complemento" type="text" pInputText />
+      <label [for]="gera_id_html('complemento')">Complemento</label>
+      <input [id]="gera_id_html('complemento')" formControlName="complemento" type="text" pInputText />
     </div>
     <div class="form-group">
-      <label [for]="'bairro-' + endereco_id">Bairro</label>
-      <input [id]="'bairro-' + endereco_id" formControlName="bairro" type="text" pInputText />
+      <label [for]="gera_id_html('bairro')">Bairro</label>
+      <input [id]="gera_id_html('bairro')" formControlName="bairro" type="text" pInputText />
     </div>
   </div>
   <div class="row">
     <div class="form-group cidade-autocomplete">
-      <label [for]="'cidade-' + endereco_id">Cidade</label>
-      <p-autoComplete [inputId]="'cidade-' + endereco_id" formControlName="cidade" group="true" [suggestions]="cidades"
+      <label [for]="gera_id_html('cidade')">Cidade</label>
+      <p-autoComplete [inputId]="gera_id_html('cidade')" formControlName="cidade" group="true" [suggestions]="cidades"
         (completeMethod)="get_cidades($event)" field="nome" optionGroupLabel="nome" optionGroupChildren="cidades"
         delay="500" minLength="3" forceSelection="true">
         <ng-template let-group pTemplate="group">
@@ -33,12 +33,12 @@
       </p-autoComplete>
     </div>
     <div class="form-group cep">
-      <label [for]="'cep-' + endereco_id">CEP</label>
-      <input [id]="'cep-' + endereco_id" formControlName="cep" type="text" pInputText />
+      <label [for]="gera_id_html('cep')">CEP</label>
+      <input [id]="gera_id_html('cep')" formControlName="cep" type="text" pInputText />
     </div>
     <div class="form-group principal">
-      <p-checkbox formControlName="principal" binary="true" [inputId]="'principal-' + endereco_id" />
-      <label [for]="'principal-' + endereco_id">Principal</label>
+      <p-checkbox formControlName="principal" binary="true" [inputId]="gera_id_html('principal')" />
+      <label [for]="gera_id_html('principal')">Principal</label>
     </div>
     <p-button icon="pi pi-trash" severity="danger" [hidden]="!exibir_excluir" (click)="excluir_endereco(endereco_id)" />
   </div>

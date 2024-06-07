@@ -2,17 +2,17 @@ import { Component } from "@angular/core";
 import { FormComponent } from "../../shared/form/form.component";
 import { ApiService } from "../../../services/api.service";
 import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { ActivatedRoute, Router } from '@angular/router';
-import { Fornecedor } from '../../../interfaces/fornecedor';
-import { ImportsModule } from '../../../imports.module';
-import { FormEnderecosComponent } from '../../shared/form-endereco/form-endereco.component';
-import { FormComponentBase } from '../../../component-base/form-component-base';
+import { ActivatedRoute, Router } from "@angular/router";
+import { Fornecedor } from "../../../interfaces/fornecedor";
+import { ImportsModule } from "../../../imports.module";
+import { FormEnderecoComponent } from "../../shared/form-endereco/form-endereco.component";
+import { FormComponentBase } from "../../../component-base/form-component-base";
 import { StringService } from "../../../services/string.service";
 
 @Component({
   selector: "app-fornecedores-form",
   standalone: true,
-  imports: [ImportsModule, FormComponent, FormEnderecosComponent],
+  imports: [ImportsModule, FormComponent, FormEnderecoComponent],
   templateUrl: "./fornecedores-form.component.html",
   styleUrl: "./fornecedores-form.component.scss",
 })
@@ -26,7 +26,7 @@ export class FornecedoresFormComponent extends FormComponentBase {
     api: ApiService,
     fb: FormBuilder,
     route: ActivatedRoute,
-    router: Router
+    router: Router,
     strs: StringService
   ) {
     let campos = {
@@ -70,21 +70,6 @@ export class FornecedoresFormComponent extends FormComponentBase {
           })
         )
       ),
-      enderecos: this.fb.array(
-        this.campos.enderecos.map((e) =>
-          this.fb.group({
-            id: e.id,
-            bairro: e.bairro,
-            cep: e.cep,
-            cidade: e.cidade,
-            complemento: e.complemento,
-            logradouro: e.logradouro,
-            numero: e.numero,
-            principal: e.principal,
-            cidade_id: e.cidade_id,
-          })
-        )
-      ),
       razao_social: new FormControl(this.campos.razao_social),
       tipo: new FormControl(this.campos.tipo),
       nome_fantasia: new FormControl(this.campos.nome_fantasia),
@@ -98,8 +83,8 @@ export class FornecedoresFormComponent extends FormComponentBase {
   }
 
   protected override filtra_campos_payload(campos: any) {
-    campos.enderecos.forEach((e: any) => delete e.cidade);;
-    return super.filtra_campos_payload(campos);;
+    campos.enderecos.forEach((e: any) => delete e.cidade);
+    return super.filtra_campos_payload(campos);
   }
 
   excluir_endereco(index: number) {

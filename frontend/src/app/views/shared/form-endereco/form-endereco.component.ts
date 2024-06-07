@@ -20,7 +20,7 @@ import { ApiService } from "../../../services/api.service";
     { provide: ControlContainer, useExisting: FormGroupDirective },
   ],
 })
-export class FormEnderecosComponent {
+export class FormEnderecoComponent {
   cidades: Cidade[] = [];
   @Input() endereco_id: number;
   @Input() form_group: FormGroup;
@@ -44,5 +44,11 @@ export class FormEnderecosComponent {
 
   excluir_endereco(id: number) {
     this.excluir.emit(id);
+  }
+
+  gera_id_html(prefixo: string): string {
+    let id = [prefixo];
+    if (this.endereco_id >= 0) id.push(String(this.endereco_id));
+    return id.join("-");
   }
 }

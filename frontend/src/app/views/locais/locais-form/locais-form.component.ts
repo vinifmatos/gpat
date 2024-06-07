@@ -8,12 +8,12 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Local } from "../../../interfaces/local";
 import { StringService } from "../../../services/string.service";
 import { AutoCompleteCompleteEvent } from "primeng/autocomplete";
-import { FormEnderecosComponent } from "../../shared/form-enderecos/form-enderecos.component";
+import { FormEnderecoComponent } from "../../shared/form-endereco/form-endereco.component";
 
 @Component({
   selector: "app-locais-form",
   standalone: true,
-  imports: [ImportsModule, FormComponent, FormEnderecosComponent],
+  imports: [ImportsModule, FormComponent, FormEnderecoComponent],
   templateUrl: "./locais-form.component.html",
   styleUrl: "./locais-form.component.scss",
 })
@@ -33,7 +33,16 @@ export class LocaisFormComponent extends FormComponentBase {
       codigo: null,
       descricao: "",
       ativo: true,
-      endereco: {},
+      endereco: {
+        bairro: "",
+        cep: "",
+        cidade: undefined,
+        complemento: "",
+        logradouro: "",
+        numero: "",
+        principal: true,
+        cidade_id: null,
+      },
       subordinacao: null,
     };
     super(api, campos, fb, route, router, api.recursos["locais"], strs);
@@ -46,17 +55,29 @@ export class LocaisFormComponent extends FormComponentBase {
       codigo: this.campos.codigo,
       descricao: this.campos.descricao,
       ativo: this.campos.ativo,
-      endereco: this.campos.endereco,
+      endereco: this.fb.group({
+        bairro: "",
+        cep: "",
+        cidade: undefined,
+        complemento: "",
+        logradouro: "",
+        numero: "",
+        principal: true,
+        cidade_id: null,
+      }),
+
       subordinacao: this.campos.subordinacao,
     });
   }
 
   protected override before_submit(submited: boolean): void {
     this.campos.local_id = this.campos.subordinacao?.id;
+    this.campos.endereco.cidade_id = this.campos.endereco.cidade?.id as number;
   }
 
   protected override filtra_campos_payload(campos: any) {
     delete campos.subordinacao;
+    delete campos.endereco.cidade;
     return super.filtra_campos_payload(campos);
   }
 
@@ -66,5 +87,9 @@ export class LocaisFormComponent extends FormComponentBase {
       .subscribe((res) => {
         this.locais = res.body as Local[];
       });
+  }
+
+  endereco(): FormGroup {
+    return this.form.controls["endereco"] as FormGroup;
   }
 }
