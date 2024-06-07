@@ -1,1 +1,34 @@
-<p>responsaveis-show works!</p>
+<app-show titulo="Responsável" [carregando]="carregando" [erro_ao_carregar]="erro_ao_carregar"
+  [layout]="layout"></app-show>
+<ng-template #layout>
+  <div class="row header">
+    <div class="campo id">
+      <label>ID</label>
+      <div class="valor">{{responsavel.id}}</div>
+    </div>
+    <div>
+      <p-tag [severity]="responsavel.ativo ? 'success' : 'danger'" [value]="responsavel.ativo ? 'Ativo' : 'Inativo'"
+        rounded="true" />
+    </div>
+    <div class="timestamps">
+      <div>
+        <label>Criado em:</label>
+        <div class="valor timestamp">{{responsavel.created_at | date : 'dd/MM/yyyy HH:mm:ss'}}</div>
+      </div>
+      <div>
+        <label>Atualizado em:</label>
+        <div class="valor timestamp">{{responsavel.updated_at | date : 'dd/MM/yyyy HH:mm:ss'}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row nome">
+    <div class="campo">
+      <label>CPF</label>
+      <div class="valor">{{responsavel.cpf}}</div>
+    </div>
+    <div class="campo">
+      <label>Nome</label>
+      <div class="valor">{{responsavel.nome}}</div>
+    </div>
+  </div>
+</ng-template>
