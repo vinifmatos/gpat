@@ -1,1 +1,20 @@
-<p>responsaveis-form works!</p>
+<app-form [titulo]="titulo" [campos]="layout" [carregando]="carregando" [erro_ao_carregar]="erro_ao_carregar"
+  (submited)="onSubmit($event)"></app-form>
+<ng-template #layout>
+  <form [formGroup]="form">
+    <div class="row">
+      <div id="form-group-cpf" class="form-group">
+        <label for="cpf">CPF</label>
+        <input id="cpf" formControlName="cpf" type="text" pInputText />
+      </div>
+      <div id="form-group-descricao" class="form-group">
+        <label for="nome">Nome</label>
+        <input id="nome" formControlName="nome" type="text" pInputText />
+      </div>
+      <div id="form-group-ativo" class="form-group checkbox">
+        <p-checkbox formControlName="ativo" binary="true" inputId="ativo" />
+        <label for="ativo">Ativo</label>
+      </div>
+    </div>
+  </form>
+</ng-template>

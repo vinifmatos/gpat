@@ -1,16 +1,5 @@
 :host {
   ::ng-deep {
-    #form-group-ativo {
-      flex-direction: row;
-      margin-bottom: .5rem;
-      width: fit-content;
-
-      label {
-        margin-bottom: 0;
-        margin-left: .5rem;
-      }
-    }
-
     #form-group-codigo {
       width: 10ch;
     }

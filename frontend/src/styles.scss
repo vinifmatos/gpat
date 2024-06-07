@@ -12,7 +12,6 @@
 }
 
 @layer app {
-
   html,
   body {
     margin: 0;
@@ -27,13 +26,24 @@
 
   main {
     flex: 1 1 auto;
-    padding: .75rem;
+    padding: 0.75rem;
     height: 100vh;
     overflow: auto;
 
     @media (max-width: 576px) {
       width: 100%;
       height: fit-content;
+    }
+  }
+
+  .form-group.checkbox {
+    flex-direction: row !important;
+    margin-bottom: 0.5rem !important;
+    width: fit-content !important;
+
+    label {
+      margin-bottom: 0 !important;
+      margin-left: 0.5rem !important;
     }
   }
 }
