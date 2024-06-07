@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ComponentBase } from "../../../component-base/component-base";
 import { ApiService } from "../../../services/api.service";
 import { ShowComponent } from "../../shared/show/show.component";
-import { ImportsModule } from "./../../../imports.module";
+import { ImportsModule } from "../../../imports.module";
 import { Component } from "@angular/core";
 import { Local } from "../../../interfaces/local";
 import { ShowEnderecosComponent } from "../../shared/show-enderecos/show-enderecos.component";
