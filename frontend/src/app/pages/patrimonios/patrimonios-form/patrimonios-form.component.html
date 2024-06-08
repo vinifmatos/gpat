@@ -47,8 +47,8 @@
 
     <div class="row">
       <div class="form-group">
-        <label for="grupo-id">Grupo</label>
-        <p-autoComplete inputId="grupo-id" formControlName="grupo_id" [suggestions]="grupos"
+        <label for="grupo">Grupo</label>
+        <p-autoComplete inputId="grupo" formControlName="grupo" [suggestions]="grupos"
           (completeMethod)="get_grupos($event)" field="descricao" [inputStyle]="{ width: '100%' }" appendTo="body">
           <ng-template let-grupo pTemplate="grupo">
             <div class="flex align-items-center">
@@ -60,9 +60,10 @@
     </div>
     <div class="row">
       <div class="form-group">
-        <label for="fornecedor-id">Fornecedor</label>
-        <p-autoComplete inputId="fornecedor-id" formControlName="fornecedor_id" [suggestions]="fornecedores"
-          (completeMethod)="get_fornecedores($event)" field="name" [inputStyle]="{ width: '100%' }" appendTo="body">
+        <label for="fornecedor">Fornecedor</label>
+        <p-autoComplete inputId="fornecedor" formControlName="fornecedor" [suggestions]="fornecedores"
+          (completeMethod)="get_fornecedores($event)" field="razao_social" [inputStyle]="{ width: '100%' }"
+          appendTo="body">
           <ng-template let-fornecedor pTemplate="fornecedor">
             <div class="flex align-items-center">
               {{fornecedor.documento}} - {{fornecedor.razao_social}}
