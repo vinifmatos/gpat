@@ -16,7 +16,7 @@ import { Local } from "../../../interfaces/local";
 export class LocaisIndexComponent extends ComponentBase {
   locais: Local[] = [];
   constructor(api: ApiService, router: Router, route: ActivatedRoute) {
-    super(api, router, route);
+    super(api, api.recursos["locais"], router, route);
     api.get<Local[]>([api.recursos["locais"].rotas.index]).subscribe(
       (res) => {
         this.locais = res.body as Local[];

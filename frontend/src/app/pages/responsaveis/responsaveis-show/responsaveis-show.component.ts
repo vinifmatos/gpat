@@ -17,25 +17,6 @@ export class ResponsaveisShowComponent extends ComponentBase {
   responsavel: Responsavel;
 
   constructor(api: ApiService, router: Router, route: ActivatedRoute) {
-    super(api, router, route);
-    this.route.params.subscribe(() => {
-      this.carregando = true;
-      this.api
-        .get<Responsavel>([
-          this.api.recursos["responsaveis"].rotas.get,
-          this.route.snapshot.paramMap.get("id") as string,
-        ])
-        .subscribe(
-          (res) => {
-            this.responsavel = res.body as Responsavel;
-            this.carregando = false;
-            this.erro_ao_carregar = false;
-          },
-          (res) => {
-            this.carregando = false;
-            this.erro_ao_carregar = true;
-          }
-        );
-    });
+    super(api, api.recursos["responsaveis"], router, route);
   }
 }

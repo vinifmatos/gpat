@@ -16,7 +16,7 @@ import { Responsavel } from "../../../interfaces/responsavel";
 export class ResponsaveisIndexComponent extends ComponentBase {
   responsaveis: Responsavel[];
   constructor(api: ApiService, router: Router, route: ActivatedRoute) {
-    super(api, router, route);
+    super(api, api.recursos["responsaveis"], router, route);
     api.get(api.recursos["responsaveis"].rotas.index).subscribe(
       (res) => {
         this.responsaveis = res.body as Responsavel[];

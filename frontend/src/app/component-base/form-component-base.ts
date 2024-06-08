@@ -16,10 +16,10 @@ export abstract class FormComponentBase extends ComponentBase {
     protected fb: FormBuilder,
     route: ActivatedRoute,
     router: Router,
-    protected recurso: Recurso,
+    recurso: Recurso,
     private strs: StringService
   ) {
-    super(api, router, route);
+    super(api, recurso, router, route);
     this.campos = campos;
     this.atualiza_form();
   }
