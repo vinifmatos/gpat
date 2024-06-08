@@ -7,12 +7,14 @@ class Patrimonio < ApplicationRecord
   enum :situacao, [:nao_incorporado, :incorporado, :em_manutencao, :desincorporado], validate: { message: "'%{value}' não é uma situação válida" }
   validates :codigo, :descricao, :data_aquisicao, :data_incorporacao, :valor_aquisicao, :vida_util, :valor_residual, :situacao, :grupo_id, presence: true
   validates :valor_aquisicao, :valor_residual, numericality: { greater_than: 0 }
-  validates :vida_util, :numero_empenho, :ano_empenho, :numero_processo_compra, :ano_processo_compra, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
+  validates :numero_empenho, :ano_empenho, :numero_processo_compra, :ano_processo_compra, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
+  validates :vida_util, numericality: { only_integer: true, greater_than: 0 }
   validate :data_desincorporacao_maior_que_incorporacao
   validate :valida_situacao
-  validate :valida_grupo_e_filho
+  validate :valida_se_grupo_e_subgrupo
   before_update :verifica_desincorporado
   validates :codigo, uniqueness: true
+  before_validation :set_situacao
 
   SQL_COM_LOCALIZACAO_ATUAL = '
   left join lateral (
@@ -41,10 +43,16 @@ class Patrimonio < ApplicationRecord
 
   private
 
-  def valida_grupo_e_filho
-    return if grupo.filho?
+  def set_situacao
+    return unless new_record?
 
-    errors.add(:grupo_id, 'não pode ser um grupo pai')
+    self.situacao = !data_incorporacao.nil? ? :incorporado : :nao_incorporado
+  end
+
+  def valida_se_grupo_e_subgrupo
+    return if grupo&.subgrupo?
+
+    errors.add(:grupo, 'não pode ser um grupo pai')
   end
 
   def verifica_desincorporado
@@ -56,6 +64,7 @@ class Patrimonio < ApplicationRecord
 
   def data_desincorporacao_maior_que_incorporacao
     return if data_desincorporacao.nil?
+
     errors.add(:data_desincorporacao, 'deve ser maior ou igual a data de incorporação') if data_desincorporacao < data_incorporacao
   end
 
