@@ -1,17 +1,7 @@
-@layer app {
-
-  :host,
-  app-formulario {
-    height: 100%;
-  }
-
-  :host ::ng-deep .formulario form {
+@layer patrimonios-form {
+  :host ::ng-deep {
     #codigo-form-group {
-      width: fit-content;
-
-      input {
-        width: 15rem;
-      }
+      width: 15ch;
     }
 
     #data-aquisicao-form-group,
