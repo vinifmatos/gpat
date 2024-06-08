@@ -1,21 +1,32 @@
 class GruposController < ApplicationController
-  before_action :set_grupo, only: %i[ update destroy ]
+  before_action :set_grupo, only: %i[update destroy]
 
   # GET /grupos
   def index
-    if params[:pais]
-      codigo = params[:query].to_i if params[:query] =~ /^\d+$/
-      descricao = params[:query]
-      @grupos = Grupo.where("grupo_id is null and ativo and (descricao ~* ? or codigo = ?)", descricao, codigo).all
-      render :pais
-    end
+    grupos if params[:grupos]
+    para_patrimonio if params[:para_patrimonio]
 
-    @grupos = Grupo.includes(:filhos).where(grupo_id: nil).order('grupos.codigo, filhos_grupos.codigo').references(:filhos).all
+    @grupos = Grupo.includes(:subgrupos).grupos.order('grupos.codigo, subgrupos_grupos.codigo').references(:subgrupos).all
+  end
+
+  def para_patrimonio
+    codigo = params[:query].to_i if params[:query] =~ /^\d+$/
+    descricao = params[:query]
+    @grupos = Grupo.subgrupos.where('ativo and (descricao ~* ? or codigo = ?)', descricao, codigo).all
+
+    render :grupos_resumido
+  end
+
+  def grupos
+    codigo = params[:query].to_i if params[:query] =~ /^\d+$/
+    descricao = params[:query]
+    @grupos = Grupo.grupos.where('ativo and (descricao ~* ? or codigo = ?)', descricao, codigo).all
+    render :grupos_resumido
   end
 
   # GET /grupos/1
   def show
-    @grupo = Grupo.includes(:filhos).order('grupos.codigo, filhos_grupos.codigo').references(:filhos).find(params[:id])
+    @grupo = Grupo.includes(:subgrupos).order('grupos.codigo, subgrupos_grupos.codigo').references(:subgrupos).find(params[:id])
   end
 
   # POST /grupos
@@ -44,9 +55,10 @@ class GruposController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_grupo
-    @grupo = Grupo.includes(:filhos).find(params[:id])
+    @grupo = Grupo.includes(:subgrupos).find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
