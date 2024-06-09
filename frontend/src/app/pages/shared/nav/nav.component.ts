@@ -58,7 +58,11 @@ export class NavComponent {
     @Inject(DOCUMENT) private document: Document,
     private ls: LocalStorageService
   ) {
-    this.tema_dark = ls.getItem("tema_dark");
+    if (ls.getItem("tema_dark") === null)
+      this.tema_dark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+    else this.tema_dark = ls.getItem("tema_dark");
     this.set_tema();
   }
 
