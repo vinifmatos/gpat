@@ -1,1 +1,99 @@
-<p>patrimonios-show works!</p>
+<app-show titulo="Patrimônio" [carregando]="carregando" [erro_ao_carregar]="erro_ao_carregar" [layout]="layout" />
+<ng-template #layout>
+  <div class="dados">
+    <div class="row id">
+      <div class="campo id">
+        <label>ID</label>
+        <span>{{patrimonio.id}}</span>
+      </div>
+      <div class="campo">
+        <label>Situação</label>
+        <div class="valor">{{patrimonio.situacao}}</div>
+      </div>
+      <div class="timestamps">
+        <div>
+          <label>Criado em:</label>
+          <span>{{patrimonio.created_at | date : 'dd/MM/yyyy HH:mm:ss'}}</span>
+        </div>
+        <div>
+          <label>Atualizado em:</label>
+          <span>{{patrimonio.updated_at | date : 'dd/MM/yyyy HH:mm:ss'}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="campo">
+        <label>Código</label>
+        <div class="valor">{{patrimonio.codigo}}</div>
+      </div>
+      <div class="campo">
+        <label>Descrição</label>
+        <div class="valor">{{patrimonio.descricao}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="campo">
+        <label>Especificação</label>
+        <div class="valor">{{patrimonio.especificacao}}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="campo">
+        <label>Data de Aquisição</label>
+        <div class="valor">{{patrimonio.data_aquisicao}}</div>
+      </div>
+      <div class="campo">
+        <label>Valor de Aquisição</label>
+        <div class="valor">{{patrimonio.valor_aquisicao}}</div>
+      </div>
+      <div class="campo">
+        <label>Data de Incorporação</label>
+        <div class="valor">{{patrimonio.data_incorporacao}}</div>
+      </div>
+      <div class="campo">
+        <label>Vida Util</label>
+        <div class="valor">{{patrimonio.vida_util}}</div>
+      </div>
+      <div class="campo">
+        <label>Valor Residual</label>
+        <div class="valor">{{patrimonio.valor_residual}}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <label>Localização Atual</label>
+      <div class="campo">{{patrimonio.localizacao_atual}}</div>
+    </div>
+
+    <div class="row">
+      <div class="campo">
+        <label>Data de Baixa</label>
+        <div class="valor">{{patrimonio.data_desincorporacao}}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="campo">
+        <label>Fornecedor</label>
+        <div class="valor">{{patrimonio.fornecedor?.documento}} - {{patrimonio.fornecedor?.razao_social}}</div>
+      </div>
+
+      <div class="campo">
+        <label>Grupo</label>
+        <div class="valor">{{patrimonio.grupo?.id}} - {{patrimonio.grupo?.descricao}}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="campo">
+        <label>Empenho</label>
+        <div class="valor">{{patrimonio.numero_empenho}}/{{patrimonio.ano_empenho}}</div>
+      </div>
+      <div class="campo">
+        <label>Processo</label>
+        <div class="valor">{{patrimonio.numero_processo_compra}}/{{patrimonio.ano_processo_compra}}</div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,3 +1,6 @@
+import { Fornecedor } from "./fornecedor";
+import { Grupo } from "./grupo";
+
 export interface Patrimonio {
   id?: number | undefined;
   codigo: string | undefined;
@@ -19,15 +22,7 @@ export interface Patrimonio {
   created_at?: Date;
   updated_at?: Date;
   localizacao_atual?: string;
-  grupo?: {
-    id: number;
-    codigo: number;
-    descricao: string;
-  };
-  fornecedor?: {
-    id: number;
-    documento: string;
-    nome: string;
-  };
+  grupo?: Grupo;
+  fornecedor?: Fornecedor;
   url_imagem?: string;
 }
