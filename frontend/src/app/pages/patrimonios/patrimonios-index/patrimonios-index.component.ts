@@ -1,29 +1,24 @@
-import { Component } from '@angular/core';
-import { DataViewModule } from 'primeng/dataview';
-import { Patrimonio } from '../../../interfaces/patrimonio';
-import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
-import { CardModule } from 'primeng/card';
-import { RouterModule } from '@angular/router';
-import { RippleModule } from 'primeng/ripple';
+import { Component } from "@angular/core";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
+import { ApiService } from "../../../services/api.service";
+import { ImportsModule } from "../../../imports.module";
+import { IndexComponent } from "../../shared/index/index.component";
+import { Patrimonio } from "../../../models/patrimonio";
+import { IndexBase } from "../../index-base";
 
 @Component({
-  selector: 'app-patrimonios-index',
+  selector: "app-patrimonios-index",
   standalone: true,
-  imports: [DataViewModule, CommonModule, TagModule, ButtonModule, CardModule, RouterModule, RippleModule],
-  templateUrl: './patrimonios-index.component.html',
-  styleUrl: './patrimonios-index.component.scss'
+  imports: [ImportsModule, IndexComponent],
+  templateUrl: "./patrimonios-index.component.html",
+  styleUrl: "./patrimonios-index.component.scss",
 })
-export class PatrimoniosIndexComponent {
-  patrimonios: Patrimonio[] = []
+export class PatrimoniosIndexComponent extends IndexBase {
+  constructor(api: ApiService, router: Router, route: ActivatedRoute) {
+    super(api, Patrimonio, router, route);
+  }
 
-  getSeverity(patrimonio: Patrimonio): 'success' | 'secondary' | 'info' | 'warning' | 'danger' | 'contrast' | undefined {
-    switch (patrimonio.situacao) {
-      case 'incorporado':
-        return 'success'
-      default:
-        return undefined
-    }
+  get patrimonios(): Patrimonio[] {
+    return this.dados as Patrimonio[];
   }
 }

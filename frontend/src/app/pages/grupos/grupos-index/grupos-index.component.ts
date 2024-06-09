@@ -1,11 +1,11 @@
 import { Component } from "@angular/core";
 import { ImportsModule } from "../../../imports.module";
 import { IndexComponent } from "../../shared/index/index.component";
-import { Grupo } from "../../../interfaces/grupo";
-import { ComponentBase } from "../../../component-base/component-base";
 import { ApiService } from "../../../services/api.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TreeNode } from "primeng/api";
+import { Grupo } from "../../../models/grupo";
+import { IndexBase } from "../../index-base";
 
 @Component({
   selector: "app-grupos-index",
@@ -14,36 +14,30 @@ import { TreeNode } from "primeng/api";
   templateUrl: "./grupos-index.component.html",
   styleUrl: "./grupos-index.component.scss",
 })
-export class GruposIndexComponent extends ComponentBase {
-  grupos: TreeNode<Grupo>[] = [];
-
+export class GruposIndexComponent extends IndexBase {
   constructor(api: ApiService, router: Router, route: ActivatedRoute) {
-    super(api, api.recursos["grupos"], router, route);
-    this.api.get<Grupo[]>([this.api.recursos["grupos"].rotas.index]).subscribe(
-      (res) => {
-        this.grupos = this.tree_node_grupos(res.body as Grupo[]);
-        this.carregando = false;
-        this.erro_ao_carregar = false;
-      },
-      (res) => {
-        this.grupos = [];
-        this.carregando = false;
-        this.erro_ao_carregar = true;
-      }
-    );
+    super(api, Grupo, router, route);
   }
 
-  tree_node_grupos(grupos: Grupo[]): TreeNode<Grupo>[] {
+  protected override before_set_dados(dados: Grupo[]) {
+    return this.tree_node_grupos(dados);
+  }
+
+  get grupos(): TreeNode<Grupo>[] {
+    return this.dados;
+  }
+
+  private tree_node_grupos(grupos: Grupo[]): TreeNode<Grupo>[] {
     return grupos.map((grupo) => {
       return {
         key: String(grupo.id),
         label: grupo.descricao,
         data: grupo,
-        children: grupo.filhos?.map((filho) => {
+        children: grupo.subgrupos?.map((subgrupo) => {
           return {
-            key: `${String(grupo.id)}-${String(filho.id)}`,
-            label: filho.descricao,
-            data: filho,
+            key: `${String(grupo.id)}-${String(subgrupo.id)}`,
+            label: subgrupo.descricao,
+            data: subgrupo,
           } as TreeNode<Grupo>;
         }),
       } as TreeNode<Grupo>;

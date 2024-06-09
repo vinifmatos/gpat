@@ -3,8 +3,8 @@ import { ApiService } from "../../../services/api.service";
 import { IndexComponent } from "../../shared/index/index.component";
 import { ImportsModule } from "../../../imports.module";
 import { Component } from "@angular/core";
-import { ComponentBase } from "../../../component-base/component-base";
-import { Local } from "../../../interfaces/local";
+import { Local } from "../../../models/local";
+import { IndexBase } from "../../index-base";
 
 @Component({
   selector: "app-locais-index",
@@ -13,20 +13,12 @@ import { Local } from "../../../interfaces/local";
   templateUrl: "./locais-index.component.html",
   styleUrl: "./locais-index.component.scss",
 })
-export class LocaisIndexComponent extends ComponentBase {
-  locais: Local[] = [];
+export class LocaisIndexComponent extends IndexBase {
   constructor(api: ApiService, router: Router, route: ActivatedRoute) {
-    super(api, api.recursos["locais"], router, route);
-    api.get<Local[]>([api.recursos["locais"].rotas.index]).subscribe(
-      (res) => {
-        this.locais = res.body as Local[];
-        this.carregando = false;
-        this.erro_ao_carregar = false;
-      },
-      (res) => {
-        this.carregando = false;
-        this.erro_ao_carregar = true;
-      }
-    );
+    super(api, Local, router, route);
+  }
+
+  get locais(): Local[] {
+    return this.dados;
   }
 }

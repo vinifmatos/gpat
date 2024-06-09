@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
-import { ComponentBase } from "../../../component-base/component-base";
 import { ImportsModule } from "../../../imports.module";
 import { ShowComponent } from "../../shared/show/show.component";
 import { ApiService } from "../../../services/api.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Patrimonio } from "../../../interfaces/patrimonio";
+import { Patrimonio } from "../../../models/patrimonio";
+import { ShowBase } from "../../show-base";
 
 @Component({
   selector: "app-patrimonios-show",
@@ -13,12 +13,12 @@ import { Patrimonio } from "../../../interfaces/patrimonio";
   templateUrl: "./patrimonios-show.component.html",
   styleUrl: "./patrimonios-show.component.scss",
 })
-export class PatrimoniosShowComponent extends ComponentBase {
+export class PatrimoniosShowComponent extends ShowBase {
   constructor(api: ApiService, router: Router, route: ActivatedRoute) {
-    super(api, api.recursos["patrimonios"], router, route);
+    super(api, Patrimonio, router, route);
   }
 
   get patrimonio(): Patrimonio {
-    return this.dados as Patrimonio;
+    return this.dados;
   }
 }

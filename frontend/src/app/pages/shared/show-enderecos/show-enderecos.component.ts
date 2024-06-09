@@ -1,15 +1,15 @@
-import { Component, Input } from '@angular/core';
-import { ImportsModule } from '../../../imports.module';
-import { Endereco } from '../../../interfaces/endereco';
+import { Component, Input } from "@angular/core";
+import { ImportsModule } from "../../../imports.module";
+import { Endereco } from "../../../models/endereco";
 
 @Component({
-  selector: 'app-show-enderecos',
+  selector: "app-show-enderecos",
   standalone: true,
   imports: [ImportsModule],
-  templateUrl: './show-enderecos.component.html',
-  styleUrl: './show-enderecos.component.scss'
+  templateUrl: "./show-enderecos.component.html",
+  styleUrl: "./show-enderecos.component.scss",
 })
 export class ShowEnderecosComponent {
-  @Input() enderecos: Endereco[]
-  @Input() titulo_plural: boolean = true
+  @Input() enderecos: Endereco[];
+  @Input() titulo_plural: boolean = true;
 }

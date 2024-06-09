@@ -1,39 +1,38 @@
 import { ActivatedRoute, Router } from "@angular/router";
+import { ComponentBase } from "./component-base";
 import { ApiService } from "../services/api.service";
-import { Recurso } from "../interfaces/recurso";
 
-export abstract class ComponentBase {
-  dados: any;
-  carregando: boolean;
-  erro_ao_carregar: boolean;
+export abstract class ShowBase extends ComponentBase {
   constructor(
-    protected api: ApiService,
-    protected recurso: Recurso,
-    protected router: Router,
-    protected route: ActivatedRoute
+    api: ApiService,
+    model: any,
+    router: Router,
+    route: ActivatedRoute
   ) {
+    super(api, model, router, route);
     this.carregando = true;
     this.erro_ao_carregar = false;
-    this.carrega_dados();
+    this.carregar_dados();
   }
 
-  protected carrega_dados() {
+  protected carregar_dados() {
     this.route.params.subscribe(() => {
       this.carregando = true;
       this.api
-        .get([
-          this.recurso.rotas.get,
+        .get<typeof this.dados>([
+          this.model.rotas.show,
           this.route.snapshot.paramMap.get("id") as string,
         ])
         .subscribe(
-          (res) => {
-            this.dados = res.body;
+          (res: typeof this.dados) => {
+            this.dados = res.body as typeof this.dados;
             this.carregando = false;
             this.erro_ao_carregar = false;
           },
-          (res) => {
+          (res: any) => {
             this.carregando = false;
             this.erro_ao_carregar = true;
+            console.error(res);
           }
         );
     });

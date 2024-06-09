@@ -31,12 +31,12 @@
     </div>
   </div>
 
-  @if (grupo.filhos) {
+  @if (grupo.subgrupos) {
   <div class="row">
     <div class="campo subgrupos">
       <label>Subgrupos</label>
       <div class="tabela-subgrupos">
-        <p-table [value]="grupo.filhos">
+        <p-table [value]="grupo.subgrupos">
           <ng-template pTemplate="header">
             <tr>
               <th>Código</th>

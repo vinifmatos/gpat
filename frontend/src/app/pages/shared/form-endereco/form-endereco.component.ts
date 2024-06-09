@@ -9,6 +9,7 @@ import {
 import { AutoCompleteCompleteEvent } from "primeng/autocomplete";
 import { Cidade } from "../../../interfaces/cidade";
 import { ApiService } from "../../../services/api.service";
+import { Endereco } from "../../../models/endereco";
 
 @Component({
   selector: "app-form-endereco",
@@ -30,7 +31,7 @@ export class FormEnderecoComponent {
 
   get_cidades(e: AutoCompleteCompleteEvent) {
     this.api
-      .get<Cidade[]>([this.api.recursos["cidades"].rotas.index], {
+      .get<Cidade[]>([Endereco.rota_cidades], {
         por_estado: true,
         nome: `${e.query}`,
       })

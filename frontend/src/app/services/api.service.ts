@@ -2,82 +2,12 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import urlJoin from "url-join";
-import { Recursos } from "../interfaces/recurso";
 
 @Injectable({
   providedIn: "root",
 })
 export class ApiService {
   url_base = "/api";
-
-  recursos: Recursos = {
-    cidades: {
-      nome: "cidade",
-      rotas: {
-        index: "cidades",
-        show: "",
-        get: "",
-        create: "",
-        update: "",
-        delete: "",
-      },
-    },
-    fornecedores: {
-      nome: "fornecedor",
-      rotas: {
-        index: "fornecedores",
-        show: "fornecedores",
-        get: "fornecedores",
-        create: "fornecedores",
-        update: "fornecedores",
-        delete: "fornecedores",
-      },
-    },
-    grupos: {
-      nome: "grupo",
-      rotas: {
-        index: "grupos",
-        show: "grupos",
-        get: "grupos",
-        create: "grupos",
-        update: "grupos",
-        delete: "grupos",
-      },
-    },
-    responsaveis: {
-      nome: "responsavel",
-      rotas: {
-        index: "responsaveis",
-        show: "responsaveis",
-        get: "responsaveis",
-        create: "responsaveis",
-        update: "responsaveis",
-        delete: "responsaveis",
-      },
-    },
-    locais: {
-      nome: "local",
-      rotas: {
-        index: "locais",
-        show: "locais",
-        get: "locais",
-        create: "locais",
-        update: "locais",
-        delete: "locais",
-      },
-    },
-    patrimonios: {
-      nome: "patrimonio",
-      rotas: {
-        index: "patrimonios",
-        show: "patrimonios",
-        get: "patrimonios",
-        create: "patrimonios",
-        update: "patrimonios",
-        delete: "patrimonios",
-      },
-    },
-  };
 
   constructor(private http: HttpClient) {}
 
