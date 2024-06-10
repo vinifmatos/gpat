@@ -25,9 +25,4 @@ export class ResponsaveisFormComponent extends FormBase {
   ) {
     super(api, fb, Responsavel, route, router, strs);
   }
-
-  protected override model_factory(dados: any): Responsavel {
-    let model = new this.model();
-    return Object.assign(model, dados);
-  }
 }

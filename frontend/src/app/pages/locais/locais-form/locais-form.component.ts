@@ -41,10 +41,4 @@ export class LocaisFormComponent extends FormBase {
   endereco(): FormGroup {
     return this.form.controls["endereco"] as FormGroup;
   }
-
-  protected override model_factory(dados: Local): Local {
-    dados.endereco = new Endereco(dados.endereco);
-    let model = new Local(dados);
-    return Object.assign(model, dados);
-  }
 }

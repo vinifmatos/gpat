@@ -60,9 +60,4 @@ export class FornecedoresFormComponent extends FormBase {
       })
     );
   }
-
-  protected override model_factory(dados: any): Fornecedor {
-    let fornecedor = new Fornecedor();
-    return Object.assign(fornecedor, dados);
-  }
 }

@@ -19,7 +19,6 @@ export class ShowComponent {
   constructor(private navegacao: NavegacaoService) {}
 
   get_url_anterior(): string {
-    console.log(this.navegacao.get_url_retorno());
     return this.navegacao.get_url_retorno();
   }
 }

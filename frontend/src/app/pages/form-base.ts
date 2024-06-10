@@ -60,7 +60,7 @@ export abstract class FormBase extends ComponentBase {
           this.titulo = `Editar ${this.strs.capitalize(
             this.strs.singularize(this.model.nome)
           )}`;
-          this.dados = this.model_factory(res.body);
+          this.dados = new this.model(res.body);
           this.form = this.dados.to_form();
           this.carregando = false;
           this.erro_ao_carregar = false;
@@ -80,6 +80,4 @@ export abstract class FormBase extends ComponentBase {
       this.erro_ao_carregar = false;
     }
   }
-
-  protected abstract model_factory(dados: any): ModelBase;
 }

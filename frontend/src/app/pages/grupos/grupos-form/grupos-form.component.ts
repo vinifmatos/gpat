@@ -36,9 +36,4 @@ export class GruposFormComponent extends FormBase {
         this.grupos = res.body as Grupo[];
       });
   }
-
-  protected override model_factory(dados: any): Grupo {
-    let grupo = new Grupo();
-    return Object.assign(grupo, dados);
-  }
 }

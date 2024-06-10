@@ -52,9 +52,4 @@ export class PatrimoniosFormComponent extends FormBase {
         this.fornecedores = res.body as Fornecedor[];
       });
   }
-
-  protected override model_factory(dados: any): Patrimonio {
-    let model = new this.model();
-    return Object.assign(model, dados);
-  }
 }
