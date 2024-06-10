@@ -3,7 +3,11 @@ class PatrimoniosController < ApplicationController
 
   # GET /patrimonios
   def index
-    @patrimonios = Patrimonio.com_localizacao_atual.includes(:grupo, :fornecedor).all
+    filtro = params[:filtro]
+    @patrimonios = case filtro.to_sym
+                   when :pendentes then Patrimonio.pendente
+                   else Patrimonio.com_localizacao_atual.includes(:grupo, :fornecedor).all
+                   end
   end
 
   def movimentacoes
@@ -51,6 +55,6 @@ class PatrimoniosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def patrimonio_params
-      params.require(:patrimonio).permit(:codigo, :descricao, :especificacao, :data_aquisicao, :data_incorporacao, :valor_aquisicao, :vida_util, :valor_residual, :data_desincorporacao, :situacao, :grupo_id, :numero_empenho, :ano_empenho, :numero_processo_compra, :ano_processo_compra, :fornecedor_id)
+      params.require(:patrimonio).permit(:codigo, :descricao, :especificacao, :data_aquisicao, :data_incorporacao, :valor_aquisicao, :vida_util, :valor_residual, :data_baixa, :grupo_id, :numero_empenho, :ano_empenho, :numero_processo_compra, :ano_processo_compra, :fornecedor_id, :local_id)
     end
 end

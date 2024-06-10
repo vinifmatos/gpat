@@ -9,7 +9,7 @@ class CreatePatrimonios < ActiveRecord::Migration[7.1]
       t.decimal :valor_aquisicao, null: false
       t.integer :vida_util, null: false
       t.decimal :valor_residual, null: false
-      t.date :data_desincorporacao
+      t.date :data_baixa
       t.integer :situacao, null: false
 
       t.timestamps

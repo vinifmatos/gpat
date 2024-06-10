@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_27_031604) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_10_174717) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -211,7 +211,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_031604) do
     t.decimal "valor_aquisicao", null: false
     t.integer "vida_util", null: false
     t.decimal "valor_residual", null: false
-    t.date "data_desincorporacao"
+    t.date "data_baixa"
     t.integer "situacao", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -221,9 +221,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_031604) do
     t.integer "numero_processo_compra"
     t.integer "ano_processo_compra"
     t.bigint "fornecedor_id"
+    t.bigint "local_id"
     t.index ["codigo"], name: "index_patrimonios_on_codigo", unique: true
     t.index ["fornecedor_id"], name: "index_patrimonios_on_fornecedor_id"
     t.index ["grupo_id"], name: "index_patrimonios_on_grupo_id"
+    t.index ["local_id"], name: "index_patrimonios_on_local_id"
   end
 
   create_table "responsaveis", force: :cascade do |t|
@@ -264,6 +266,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_031604) do
   add_foreign_key "movimentacao_itens", "patrimonios"
   add_foreign_key "movimentacoes", "locais"
   add_foreign_key "patrimonios", "fornecedores"
+  add_foreign_key "patrimonios", "locais"
   add_foreign_key "responsavel_locais", "locais"
   add_foreign_key "responsavel_locais", "responsaveis"
   add_foreign_key "responsavel_patrimonios", "patrimonios"

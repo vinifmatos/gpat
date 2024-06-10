@@ -4,49 +4,36 @@ class Patrimonio < ApplicationRecord
   belongs_to :fornecedor
   has_many :movimentacao_itens
   has_many :movimentacoes, through: :movimentacao_itens
-  enum :situacao, [:nao_incorporado, :incorporado, :em_manutencao, :desincorporado], validate: { message: "'%{value}' não é uma situação válida" }
-  validates :codigo, :descricao, :data_aquisicao, :data_incorporacao, :valor_aquisicao, :vida_util, :valor_residual, :situacao, :grupo_id, presence: true
+  enum :situacao, %i[pendente ativo em_manutencao inativo],
+       validate: { message: "'%<value>s' não é uma situação válida" }
+  validates :codigo, :descricao, :data_aquisicao, :data_incorporacao, :valor_aquisicao, :vida_util, :valor_residual,
+            :situacao, :grupo_id, presence: true
   validates :valor_aquisicao, :valor_residual, numericality: { greater_than: 0 }
-  validates :numero_empenho, :ano_empenho, :numero_processo_compra, :ano_processo_compra, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
+  validates :numero_empenho, :ano_empenho, :numero_processo_compra, :ano_processo_compra,
+            numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :vida_util, numericality: { only_integer: true, greater_than: 0 }
-  validate :data_desincorporacao_maior_que_incorporacao
+  validate :data_baixa_maior_que_incorporacao
   validate :valida_situacao
   validate :valida_se_grupo_e_subgrupo
   before_update :verifica_desincorporado
   validates :codigo, uniqueness: true
   before_validation :set_situacao
-
-  SQL_COM_LOCALIZACAO_ATUAL = '
-  left join lateral (
-    select
-      locais.descricao localizacao_atual
-    from
-      movimentacao_itens
-      left join movimentacoes on
-        movimentacoes.id = movimentacao_itens.movimentacao_id
-      left join locais on
-        locais.id = movimentacoes.local_id
-    where
-      movimentacao_itens.patrimonio_id = patrimonios.id
-    order by
-    movimentacoes."data" desc
-    limit 1
-  ) localizacao_atual on true'.freeze
-
-  scope :com_localizacao_atual, -> {
-    joins(SQL_COM_LOCALIZACAO_ATUAL).select('patrimonios.*, localizacao_atual.localizacao_atual')
-  }
-
-  def get_localizacao_atual
-    Patrimonio.com_localizacao_atual.select('localizacao_atual.localizacao_atual').find(id)&.localizacao_atual
-  end
+  belongs_to :localizacao_atual, class_name: 'Local', foreign_key: 'local_id', optional: true
 
   private
 
-  def set_situacao
-    return unless new_record?
+  def atualiza_localizacao_atual
+    self.local_id = movimentacoes.order('data desc').limit(1).first.local_id
+  end
 
-    self.situacao = !data_incorporacao.nil? ? :incorporado : :nao_incorporado
+  def set_situacao
+    return unless situacao&.changed?
+
+    self.situacao = case
+                    when new_record? && data_incorporacao.nil? then :pendente
+                    when (new_record? && !data_incorporacao.nil?) || (data_baixa.nil? && !data_incorporacao.nil?) then :ativo
+                    when data_baixa.present? && data_incorporacao.nil? then :inativo
+                    end
   end
 
   def valida_se_grupo_e_subgrupo
@@ -56,36 +43,35 @@ class Patrimonio < ApplicationRecord
   end
 
   def verifica_desincorporado
-    return unless desincorporado? || situacao_was == 'desincorporado' || data_desincorporacao != data_desincorporacao_was
+    return unless desativo? || situacao_was == 'desincorporado' || data_baixa != data_baixa_was
 
     errors.add(:error, 'O patrimônio já foi desincorporado')
     throw(:abort)
   end
 
-  def data_desincorporacao_maior_que_incorporacao
-    return if data_desincorporacao.nil?
+  def data_baixa_maior_que_incorporacao
+    return if data_baixa.nil?
 
-    errors.add(:data_desincorporacao, 'deve ser maior ou igual a data de incorporação') if data_desincorporacao < data_incorporacao
+    errors.add(:data_baixa, 'deve ser maior ou igual a data de incorporação') if data_baixa < data_incorporacao
   end
 
   def valida_situacao
-    case
-      when nao_incorporado? && (!data_incorporacao.nil? || !data_desincorporacao.nil?)
-        errors.add(:situacao, 'é invalida')
-        errors.add(:data_incorporacao, 'precisa estar vazia para a sitação atual') unless data_incorporacao.nil?
-        errors.add(:data_desincorporacao, 'precisa estar vazia para a sitação atual') unless data_desincorporacao.nil?
-      when incorporado? && (data_incorporacao.nil? || !data_desincorporacao.nil?)
-        errors.add(:situacao, 'é invalida')
-        errors.add(:data_incorporacao, 'precisa estar preenchida para a sitação atual') if data_incorporacao.nil?
-        errors.add(:data_desincorporacao, 'precisa estar vazia para a sitação atual') unless data_desincorporacao.nil?
-      when em_manutencao? && (data_incorporacao.nil? || !data_desincorporacao.nil?)
-        errors.add(:situacao, 'é invalida')
-        errors.add(:data_incorporacao, 'precisa estar preenchida para a sitação atual') if data_incorporacao.nil?
-        errors.add(:data_desincorporacao, 'precisa estar vazia para a sitação atual') unless data_desincorporacao.nil?
-      when desincorporado? && (data_incorporacao.nil? || data_desincorporacao.nil?)
-        errors.add(:situacao, 'é invalida')
-        errors.add(:data_incorporacao, 'precisa estar preenchida para a sitação atual') if data_incorporacao.nil?
-        errors.add(:data_desincorporacao, 'precisa estar preenchida para a sitação atual') if data_desincorporacao.nil?
+    if pendente? && (!data_incorporacao.nil? || !data_baixa.nil?)
+      errors.add(:situacao, 'é invalida')
+      errors.add(:data_incorporacao, 'precisa estar vazia para a sitação atual') unless data_incorporacao.nil?
+      errors.add(:data_baixa, 'precisa estar vazia para a sitação atual') unless data_baixa.nil?
+    elsif ativo? && (data_incorporacao.nil? || !data_baixa.nil?)
+      errors.add(:situacao, 'é invalida')
+      errors.add(:data_incorporacao, 'precisa estar preenchida para a sitação atual') if data_incorporacao.nil?
+      errors.add(:data_baixa, 'precisa estar vazia para a sitação atual') unless data_baixa.nil?
+    elsif em_manutencao? && (data_incorporacao.nil? || !data_baixa.nil?)
+      errors.add(:situacao, 'é invalida')
+      errors.add(:data_incorporacao, 'precisa estar preenchida para a sitação atual') if data_incorporacao.nil?
+      errors.add(:data_baixa, 'precisa estar vazia para a sitação atual') unless data_baixa.nil?
+    elsif inativo? && (data_incorporacao.nil? || data_baixa.nil?)
+      errors.add(:situacao, 'é invalida')
+      errors.add(:data_incorporacao, 'precisa estar preenchida para a sitação atual') if data_incorporacao.nil?
+      errors.add(:data_baixa, 'precisa estar preenchida para a sitação atual') if data_baixa.nil?
     end
   end
 end
