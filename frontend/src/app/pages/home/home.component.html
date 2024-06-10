@@ -1,9 +1,27 @@
 <div class="secoes">
   <section *ngFor="let secao of secoes" [id]="secao.id" class="secao">
     <p-card [header]="secao.titulo">
-      <p class="m-0">
-        Lorem ipsum dolor sit amet...
-      </p>
+      <ng-container *ngTemplateOutlet="secao.template"></ng-container>
     </p-card>
   </section>
 </div>
+
+<ng-template #template_patrimonios>
+  <div class="patrimonios">
+    <div class="patrimonio" *ngFor="let patrimonio of patrimonios">
+      <a [routerLink]="get_url_instancia(patrimonio)">{{patrimonio.codigo}} - {{patrimonio.descricao}}</a>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #template_baixas>
+  teste
+</ng-template>
+
+<ng-template #template_depreciacao>
+  teste
+</ng-template>
+
+<ng-template #template_pendentes>
+  teste
+</ng-template>

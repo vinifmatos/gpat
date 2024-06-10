@@ -34,4 +34,28 @@ export class NavegacaoService {
   get_url_incial(): string {
     return this.url_incial;
   }
+
+  get_url_retorno(): string {
+    let url_atual = this.get_url_atual();
+    let url_anterior = this.get_url_anterior();
+    let url_inicial = this.get_url_incial();
+    let base_url_atual = url_atual.match(/^\/\w+/)?.[0] as string;
+    let base_url_anterior = url_anterior.match(/^\/\w+/)?.[0] as string;
+
+    if (
+      base_url_atual === base_url_anterior &&
+      url_atual !== url_anterior &&
+      url_atual !== url_inicial
+    ) {
+      return url_anterior;
+    } else if (url_atual !== url_anterior && url_atual === url_inicial) {
+      return base_url_atual;
+    } else if (url_atual === url_anterior && url_atual === url_inicial) {
+      return base_url_atual;
+    } else if (url_anterior === "") {
+      return base_url_atual;
+    } else {
+      return url_anterior;
+    }
+  }
 }

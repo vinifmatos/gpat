@@ -6,7 +6,6 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 export class NumeroAno implements PipeTransform {
   transform(value: (number | undefined)[], ...args: any[]): string {
-    console.log(value);
     if (!value[0] || !value[1]) return "";
     return value.join("/");
   }
