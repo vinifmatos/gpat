@@ -3,6 +3,7 @@ import { Rotas } from "../interfaces/rotas";
 import { Fornecedor } from "./fornecedor";
 import { Grupo } from "./grupo";
 import { ModelBase } from "./model-base";
+import { formatDate } from "date-fns";
 
 export class Patrimonio extends ModelBase {
   static override nome: string = "patrimonio";
@@ -108,6 +109,11 @@ export class Patrimonio extends ModelBase {
     this.url_thumb = url_thumb;
   }
 
+  private formata_data(data?: Date): string | undefined {
+    if (data) return formatDate(data, "dd/MM/yyyy");
+    else return undefined;
+  }
+
   override to_payload(): Partial<this> {
     let payload = super.to_payload();
     payload.grupo_id = payload.grupo?.id;
@@ -122,12 +128,16 @@ export class Patrimonio extends ModelBase {
       codigo: new FormControl(this.codigo),
       descricao: new FormControl(this.descricao),
       especificacao: new FormControl(this.especificacao),
-      data_aquisicao: new FormControl(this.data_aquisicao),
-      data_incorporacao: new FormControl(this.data_incorporacao),
+      data_aquisicao: new FormControl(this.formata_data(this.data_aquisicao)),
+      data_incorporacao: new FormControl(
+        this.formata_data(this.data_incorporacao)
+      ),
       valor_aquisicao: new FormControl(this.valor_aquisicao),
       vida_util: new FormControl(this.vida_util),
       valor_residual: new FormControl(this.valor_residual),
-      data_desincorporacao: new FormControl(this.data_desincorporacao),
+      data_desincorporacao: new FormControl(
+        this.formata_data(this.data_desincorporacao)
+      ),
       situacao: new FormControl(this.situacao),
       numero_empenho: new FormControl(this.numero_empenho),
       ano_empenho: new FormControl(this.ano_empenho),
