@@ -50,6 +50,7 @@ export class HomeComponent implements AfterViewInit {
       .get<Patrimonio[]>(Patrimonio.rotas.index, {
         situacao: "inativos",
         pagina: 1,
+        limite_pagina: 5,
         ordenar_por: ["data_baixa"],
         ordenacao: ["desc"],
       })
