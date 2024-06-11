@@ -16,7 +16,8 @@
     <div class="botoes">
       <button [routerLink]="get_url_anterior()" pButton pRipple label="Voltar" severity="secondary"
         class="p-button"></button>
-      <button routerLink="editar" pButton pRipple label="Editar" icon="pi pi-pencil" class="p-button"></button>
+      <button routerLink="editar" pButton pRipple label="Editar" icon="pi pi-pencil" class="p-button"
+        [disabled]="desabilita_edicao"></button>
     </div>
     }
   </ng-template>

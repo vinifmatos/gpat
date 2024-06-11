@@ -1,4 +1,5 @@
-<app-show titulo="Patrimônio" [carregando]="carregando" [erro_ao_carregar]="erro_ao_carregar" [layout]="layout" />
+<app-show titulo="Patrimônio" [carregando]="carregando" [erro_ao_carregar]="erro_ao_carregar" [layout]="layout"
+  [desabilita_edicao]="patrimonio.situacao === 'inativo'" />
 <ng-template #layout>
   <div class="dados">
     <div class="row id">

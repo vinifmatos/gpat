@@ -15,6 +15,7 @@ export class ShowComponent {
   @Input() layout: TemplateRef<any>;
   @Input() carregando: boolean = true;
   @Input() erro_ao_carregar: boolean = false;
+  @Input() desabilita_edicao: boolean = false;
 
   constructor(private navegacao: NavegacaoService) {}
 
