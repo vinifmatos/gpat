@@ -1,17 +1,17 @@
 class PatrimoniosController < ApplicationController
   before_action :set_patrimonio, only: %i[ show update destroy ]
+  include FiltrosPaginacao
 
   # GET /patrimonios
   def index
-    filtro = params[:filtro]
-    pagina = params[:pagina] || 1
-    por_pagina = params[:limite] || 10
-    @patrimonios = case filtro&.to_sym
-                   when :pendentes then Patrimonio.pendente.includes(:grupo, :fornecedor).order(:created_at).page(pagina).per(por_pagina).all
-                   when :inativos then Patrimonio.inativo.includes(:grupo, :fornecedor).order(:created_at).page(pagina).per(por_pagina).all
-                   when :manutencao then Patrimonio.em_manutencao.includes(:grupo, :fornecedor).order(:created_at).page(pagina).per(por_pagina).all
-                   when :todos then Patrimonio.includes(:grupo, :fornecedor).order(:created_at).page(pagina).per(por_pagina).all
-                   else Patrimonio.ativo.includes(:grupo, :fornecedor).order(:created_at).page(pagina).per(por_pagina).all
+    filtro_situacao = @filtros.delete(:situacao)&.to_sym
+    @patrimonios = case filtro_situacao
+                   when :pendentes then
+                     Patrimonio.pendente.includes(:grupo, :fornecedor).where(@filtros).order(@ordernacao).page(@pagina).per(@limite_pagina).all
+                   when :inativos then Patrimonio.inativo.includes(:grupo, :fornecedor).where(@filtros).order(@ordernacao).page(@pagina).per(@limite_pagina).all
+                   when :manutencao then Patrimonio.em_manutencao.includes(:grupo, :fornecedor).where(@filtros).order(@ordernacao).page(@pagina).per(@limite_pagina).all
+                   when :todos then Patrimonio.includes(:grupo, :fornecedor).where(@filtros).order(@ordernacao).page(@pagina).per(@limite_pagina).all
+                   else Patrimonio.ativo.includes(:grupo, :fornecedor).where(@filtros).order(@ordernacao).page(@pagina).per(@limite_pagina).all
                    end
   end
 
