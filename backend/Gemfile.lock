@@ -59,6 +59,8 @@ GEM
       activemodel (= 7.1.3.3)
       activesupport (= 7.1.3.3)
       timeout (>= 0.4.0)
+    activerecord-import (1.7.0)
+      activerecord (>= 4.2)
     activestorage (7.1.3.3)
       actionpack (= 7.1.3.3)
       activejob (= 7.1.3.3)
@@ -95,6 +97,13 @@ GEM
     drb (2.2.1)
     e2mmap (0.1.0)
     erubi (1.12.0)
+    factory_bot (6.4.6)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
+    faker (3.4.1)
+      i18n (>= 1.8.11, < 2)
     fx (0.8.0)
       activerecord (>= 6.0.0)
       railties (>= 6.0.0)
@@ -266,8 +275,11 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  activerecord-import
   bootsnap
   debug
+  factory_bot_rails
+  faker
   fx
   jbuilder
   pg (~> 1.1)

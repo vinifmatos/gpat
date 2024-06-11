@@ -147,7 +147,7 @@ estados = JSON.parse <<~JSON
 ]
 JSON
 
-estados.each { |e| Estado.create(e) }
+Estado.import(%w[id nome sigla], estados)
 
 cidades = JSON.parse <<~JSON
 [
@@ -28003,4 +28003,4 @@ cidades = JSON.parse <<~JSON
   }
 ]
 JSON
-cidades.each { |c| Cidade.create(c) }
+Cidade.import(%w[id nome estado_id], cidades)
