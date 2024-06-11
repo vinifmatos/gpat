@@ -1,1 +1,21 @@
-<p>configuracoes-index works!</p>
+<p-card id="wrapper">
+  <ng-template pTemplate="header">
+    <h1>{{titulo}}</h1>
+  </ng-template>
+  @if (carregando) {
+  <app-spinner></app-spinner>
+  } @else if (!carregando && !erro_ao_carregar) {
+  <div class="dados">
+  </div>
+  } @else {
+  <div class="erro">Não foi possível carregar as informações</div>
+  }
+  <ng-template pTemplate="footer">
+    @if (!carregando && !erro_ao_carregar) {
+    <div class="botoes">
+      <button [routerLink]="get_url_anterior()" pButton pRipple label="Voltar" severity="secondary"
+        class="p-button"></button>
+    </div>
+    }
+  </ng-template>
+</p-card>
