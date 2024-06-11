@@ -5,8 +5,11 @@ class PatrimoniosController < ApplicationController
   def index
     filtro = params[:filtro]
     @patrimonios = case filtro.to_sym
-                   when :pendentes then Patrimonio.pendente
-                   else Patrimonio.com_localizacao_atual.includes(:grupo, :fornecedor).all
+                   when :pendentes then Patrimonio.pendente.includes(:grupo, :fornecedor).all
+                   when :inativos then Patrimonio.inativo.includes(:grupo, :fornecedor).all
+                   when :manutencao then Patrimonio.em_manutencao.includes(:grupo, :fornecedor).all
+                   when :todos then Patrimonio.includes(:grupo, :fornecedor).all
+                   else Patrimonio.ativo.includes(:grupo, :fornecedor).all
                    end
   end
 
