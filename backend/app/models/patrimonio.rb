@@ -6,7 +6,7 @@ class Patrimonio < ApplicationRecord
   has_many :movimentacoes, through: :movimentacao_itens
   enum :situacao, %i[pendente ativo em_manutencao inativo],
        validate: { message: "'%<value>s' não é uma situação válida" }
-  validates :codigo, :descricao, :data_aquisicao, :data_incorporacao, :valor_aquisicao, :vida_util, :valor_residual,
+  validates :descricao, :data_aquisicao, :valor_aquisicao, :vida_util, :valor_residual,
             :situacao, :grupo_id, presence: true
   validates :valor_aquisicao, :valor_residual, numericality: { greater_than: 0 }
   validates :numero_empenho, :ano_empenho, :numero_processo_compra, :ano_processo_compra,
@@ -27,12 +27,11 @@ class Patrimonio < ApplicationRecord
   end
 
   def set_situacao
-    return unless situacao&.changed?
-
     self.situacao = case
                     when new_record? && data_incorporacao.nil? then :pendente
-                    when (new_record? && !data_incorporacao.nil?) || (data_baixa.nil? && !data_incorporacao.nil?) then :ativo
-                    when data_baixa.present? && data_incorporacao.nil? then :inativo
+                    when (new_record? && data_incorporacao.present? && data_baixa.nil?) || (data_baixa.nil? && data_incorporacao.present?) then :ativo
+                    when data_baixa.present? && data_incorporacao.present? then :inativo
+                    else :pendente
                     end
   end
 
@@ -56,22 +55,22 @@ class Patrimonio < ApplicationRecord
   end
 
   def valida_situacao
-    if pendente? && (!data_incorporacao.nil? || !data_baixa.nil?)
+    if pendente? && (data_incorporacao.present? || data_baixa.present?)
       errors.add(:situacao, 'é invalida')
-      errors.add(:data_incorporacao, 'precisa estar vazia para a sitação atual') unless data_incorporacao.nil?
-      errors.add(:data_baixa, 'precisa estar vazia para a sitação atual') unless data_baixa.nil?
-    elsif ativo? && (data_incorporacao.nil? || !data_baixa.nil?)
+      errors.add(:data_incorporacao, "precisa estar vazia para a situação #{situacao}") unless data_incorporacao.nil?
+      errors.add(:data_baixa, "precisa estar vazia para a situação #{situacao}") unless data_baixa.nil?
+    elsif ativo? && (data_incorporacao.nil? || data_baixa.present?)
       errors.add(:situacao, 'é invalida')
-      errors.add(:data_incorporacao, 'precisa estar preenchida para a sitação atual') if data_incorporacao.nil?
-      errors.add(:data_baixa, 'precisa estar vazia para a sitação atual') unless data_baixa.nil?
-    elsif em_manutencao? && (data_incorporacao.nil? || !data_baixa.nil?)
+      errors.add(:data_incorporacao, "precisa estar preenchida para a situação #{situacao}") if data_incorporacao.nil?
+      errors.add(:data_baixa, "precisa estar vazia para a situação #{situacao}") unless data_baixa.nil?
+    elsif em_manutencao? && (data_incorporacao.nil? || data_baixa.present?)
       errors.add(:situacao, 'é invalida')
-      errors.add(:data_incorporacao, 'precisa estar preenchida para a sitação atual') if data_incorporacao.nil?
-      errors.add(:data_baixa, 'precisa estar vazia para a sitação atual') unless data_baixa.nil?
+      errors.add(:data_incorporacao, "precisa estar preenchida para a situação #{situacao}") if data_incorporacao.nil?
+      errors.add(:data_baixa, "precisa estar vazia para a situação #{situacao}") unless data_baixa.nil?
     elsif inativo? && (data_incorporacao.nil? || data_baixa.nil?)
       errors.add(:situacao, 'é invalida')
-      errors.add(:data_incorporacao, 'precisa estar preenchida para a sitação atual') if data_incorporacao.nil?
-      errors.add(:data_baixa, 'precisa estar preenchida para a sitação atual') if data_baixa.nil?
+      errors.add(:data_incorporacao, "precisa estar preenchida para a situação #{situacao}") if data_incorporacao.nil?
+      errors.add(:data_baixa, "precisa estar preenchida para a situação #{situacao}") if data_baixa.nil?
     end
   end
 end

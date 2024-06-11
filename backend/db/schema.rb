@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_10_174717) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_10_205213) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -115,6 +115,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_10_174717) do
         return false;
       end;
       $function$
+  SQL
+  create_function :gera_codigo_patrimonio_tg, sql_definition: <<-'SQL'
+      CREATE OR REPLACE FUNCTION public.gera_codigo_patrimonio_tg()
+       RETURNS trigger
+       LANGUAGE plpgsql
+      AS $function$
+      begin
+        if nullif(trim(new.codigo), '') is null then
+          new.codigo = (select coalesce(max(regexp_replace(codigo, '\D', '', 'g')::int), 0) + 1 from patrimonios);
+        end if;
+
+        return new;
+      end $function$
   SQL
 
   create_table "cidades", force: :cascade do |t|
@@ -271,4 +284,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_10_174717) do
   add_foreign_key "responsavel_locais", "responsaveis"
   add_foreign_key "responsavel_patrimonios", "patrimonios"
   add_foreign_key "responsavel_patrimonios", "responsaveis"
+
+  create_trigger :gera_codigo_patrimonio, sql_definition: <<-SQL
+      CREATE TRIGGER gera_codigo_patrimonio BEFORE INSERT ON public.patrimonios FOR EACH ROW EXECUTE PROCEDURE gera_codigo_patrimonio_tg()
+  SQL
 end

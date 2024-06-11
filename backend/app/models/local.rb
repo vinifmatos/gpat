@@ -9,8 +9,15 @@ class Local < ApplicationRecord
   has_many :responsaveis, through: :responsavel_locais
   has_many :movimentacao_itens
   has_many :patrimonios, through: :movimentacao_itens
+  before_validation :gerar_codigo
 
   def ja_possui_endereco?
     endereco.present?
+  end
+
+  def gerar_codigo
+    return unless new_record?
+
+    self.codigo ||= (Local.maximum(:codigo) || 0) + 1
   end
 end
