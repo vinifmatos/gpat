@@ -4,12 +4,14 @@ class PatrimoniosController < ApplicationController
   # GET /patrimonios
   def index
     filtro = params[:filtro]
-    @patrimonios = case filtro.to_sym
-                   when :pendentes then Patrimonio.pendente.includes(:grupo, :fornecedor).all
-                   when :inativos then Patrimonio.inativo.includes(:grupo, :fornecedor).all
-                   when :manutencao then Patrimonio.em_manutencao.includes(:grupo, :fornecedor).all
-                   when :todos then Patrimonio.includes(:grupo, :fornecedor).all
-                   else Patrimonio.ativo.includes(:grupo, :fornecedor).all
+    pagina = params[:pagina] || 1
+    por_pagina = params[:limite] || 10
+    @patrimonios = case filtro&.to_sym
+                   when :pendentes then Patrimonio.pendente.includes(:grupo, :fornecedor).order(:created_at).page(pagina).per(por_pagina).all
+                   when :inativos then Patrimonio.inativo.includes(:grupo, :fornecedor).order(:created_at).page(pagina).per(por_pagina).all
+                   when :manutencao then Patrimonio.em_manutencao.includes(:grupo, :fornecedor).order(:created_at).page(pagina).per(por_pagina).all
+                   when :todos then Patrimonio.includes(:grupo, :fornecedor).order(:created_at).page(pagina).per(por_pagina).all
+                   else Patrimonio.ativo.includes(:grupo, :fornecedor).order(:created_at).page(pagina).per(por_pagina).all
                    end
   end
 
