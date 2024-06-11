@@ -147,7 +147,7 @@ estados = JSON.parse <<~JSON
 ]
 JSON
 
-Estado.import(%w[id nome sigla], estados)
+Estado.import(%w[id nome sigla], estados, on_duplicate_key_ignore: true)
 
 cidades = JSON.parse <<~JSON
 [
@@ -28003,4 +28003,6 @@ cidades = JSON.parse <<~JSON
   }
 ]
 JSON
-Cidade.import(%w[id nome estado_id], cidades)
+Cidade.import(%w[id nome estado_id], cidades, on_duplicate_key_ignore: true)
+
+Configuracao.create if Configuracao.count.zero?

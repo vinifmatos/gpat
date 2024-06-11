@@ -11,23 +11,8 @@ Rails.application.routes.draw do
     resources :locais
     resources :grupos
     resources :movimentacoes
-    resources :patrimonios do
-      get '/movimentacoes', to: 'patrimonios#movimentacoes'
-    end
+    resources :patrimonios
     resources :cidades, only: :index
-
-    scope 'descritivos' do
-      scope 'patrimonios' do
-        get 'situacoes', to: 'patrimonios#situacoes'
-      end
-
-      scope 'fornecedores' do
-        get 'tipos', to: 'fornecedores#tipos'
-      end
-
-      scope 'movimentacoes' do
-        get 'motivos', to: 'movimentacoes#motivos'
-      end
-    end
+    resource :configuracao, only: %i[show update]
   end
 end
