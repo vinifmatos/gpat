@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     resources :movimentacoes
     resources :patrimonios
     resources :cidades, only: :index
-    resource :configuracao, only: %i[show update]
+    get 'configuracao', to: 'configuracoes#show'
+    put 'configuracao', to: 'configuracoes#update'
+    patch 'configuracao', to: 'configuracoes#update'
   end
 end
