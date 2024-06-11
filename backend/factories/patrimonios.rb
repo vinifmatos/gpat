@@ -5,9 +5,9 @@ FactoryBot.define do
     especificacao { Faker::Lorem.paragraph }
     data_aquisicao { Faker::Date.between(from: 2.years.ago, to: Date.today) }
     data_incorporacao { data_aquisicao }
-    valor_aquisicao { Faker::Number.between(from: 100.0, to: 10000.0) }
+    valor_aquisicao { Faker::Number.between(from: 100.0, to: 10000.0).round(2) }
     vida_util { 120 }
-    valor_residual { valor_aquisicao * 0.1 }
+    valor_residual { (valor_aquisicao * 0.1).round(2) }
     data_baixa { nil }
     grupo { create(:subgrupo) }
     numero_empenho { Faker::Number.between(from: 1, to: 5000) }
