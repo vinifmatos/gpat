@@ -17,16 +17,28 @@
   }
 }
 
-:host ::ng-deep p-card.p-element {
-  width: 100%;
-  height: 100%;
-
-  .p-card.p-component {
+:host ::ng-deep {
+  p-card.p-element {
+    width: 100%;
     height: 100%;
-    border: 1px solid var(--surface-border);
+
+    .p-card.p-component {
+      height: 100%;
+      border: 1px solid var(--surface-border);
+    }
+
+    .p-card-body {
+      height: 100%;
+      gap: 0;
+    }
   }
 
-  .p-card-body {
-    height: 100%;
+  p-table.patrimonios {
+    tbody tr {
+      cursor: pointer;
+    }
+    tbody tr:hover {
+      background-color: var(--surface-hover);
+    }
   }
 }

@@ -24,7 +24,7 @@ export class Patrimonio extends ModelBase {
   valor_aquisicao?: number;
   vida_util?: number;
   valor_residual?: number;
-  data_desincorporacao?: Date;
+  data_baixa?: Date;
   situacao?: string;
   grupo_id?: number;
   numero_empenho?: number;
@@ -46,7 +46,7 @@ export class Patrimonio extends ModelBase {
     valor_aquisicao,
     vida_util,
     valor_residual,
-    data_desincorporacao,
+    data_baixa,
     situacao,
     grupo_id,
     numero_empenho,
@@ -70,7 +70,7 @@ export class Patrimonio extends ModelBase {
     valor_aquisicao?: number;
     vida_util?: number;
     valor_residual?: number;
-    data_desincorporacao?: Date;
+    data_baixa?: Date;
     situacao?: string;
     grupo_id?: number;
     numero_empenho?: number;
@@ -95,7 +95,7 @@ export class Patrimonio extends ModelBase {
     this.valor_aquisicao = valor_aquisicao;
     this.vida_util = vida_util;
     this.valor_residual = valor_residual;
-    this.data_desincorporacao = data_desincorporacao;
+    this.data_baixa = data_baixa;
     this.situacao = situacao;
     this.grupo_id = grupo_id;
     this.numero_empenho = numero_empenho;
@@ -135,9 +135,7 @@ export class Patrimonio extends ModelBase {
       valor_aquisicao: new FormControl(this.valor_aquisicao),
       vida_util: new FormControl(this.vida_util),
       valor_residual: new FormControl(this.valor_residual),
-      data_desincorporacao: new FormControl(
-        this.formata_data(this.data_desincorporacao)
-      ),
+      data_baixa: new FormControl(this.formata_data(this.data_baixa)),
       situacao: new FormControl(this.situacao),
       numero_empenho: new FormControl(this.numero_empenho),
       ano_empenho: new FormControl(this.ano_empenho),

@@ -7,21 +7,77 @@
 </div>
 
 <ng-template #template_patrimonios>
-  <div class="patrimonios">
-    <div class="patrimonio" *ngFor="let patrimonio of patrimonios">
-      <a [routerLink]="get_url_instancia(patrimonio)">{{patrimonio.codigo}} - {{patrimonio.descricao}}</a>
-    </div>
-  </div>
+  <p-table [value]="ultimos" class="patrimonios">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Código</th>
+        <th>Descrção</th>
+        <th>Criado em</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-patrimonio>
+      <tr [routerLink]="get_url_instancia(patrimonio)">
+        <td>{{ patrimonio.codigo }}</td>
+        <td>{{ patrimonio.descricao }}</td>
+        <td>{{ patrimonio.created_at | date : 'dd/MM/yyyy' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </ng-template>
 
 <ng-template #template_baixas>
-  teste
+  <p-table [value]="baixas" class="patrimonios">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Código</th>
+        <th>Descrção</th>
+        <th>Baixado em</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-patrimonio>
+      <tr [routerLink]="get_url_instancia(patrimonio)">
+        <td>{{ patrimonio.codigo }}</td>
+        <td>{{ patrimonio.descricao }}</td>
+        <td>{{ patrimonio.data_baixa | date : 'dd/MM/yyyy' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </ng-template>
 
 <ng-template #template_depreciacao>
-  teste
+  <p-table [value]="depreciacao" class="patrimonios">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Código</th>
+        <th>Descrção</th>
+        <th>Criado em</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-patrimonio>
+      <tr [routerLink]="get_url_instancia(patrimonio)">
+        <td>{{ patrimonio.codigo }}</td>
+        <td>{{ patrimonio.descricao }}</td>
+        <td>{{ patrimonio.created_at | date : 'dd/MM/yyyy' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </ng-template>
 
 <ng-template #template_pendentes>
-  teste
+  <p-table [value]="pendentes" class="patrimonios">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Código</th>
+        <th>Descrção</th>
+        <th>Criado em</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-patrimonio>
+      <tr [routerLink]="get_url_instancia(patrimonio)">
+        <td>{{ patrimonio.codigo }}</td>
+        <td>{{ patrimonio.descricao }}</td>
+        <td>{{ patrimonio.created_at | date : 'dd/MM/yyyy' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </ng-template>

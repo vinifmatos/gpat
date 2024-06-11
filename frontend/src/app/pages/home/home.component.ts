@@ -7,7 +7,6 @@ import {
 } from "@angular/core";
 import { Patrimonio } from "../../models/patrimonio";
 import { ImportsModule } from "../../imports.module";
-import { ModelBase } from "../../models/model-base";
 import { ApiService } from "../../services/api.service";
 
 @Component({
@@ -27,23 +26,62 @@ export class HomeComponent implements AfterViewInit {
     titulo: string;
     template: TemplateRef<any>;
   }[] = [];
-  patrimonios: Patrimonio[] = [];
+  ultimos: Patrimonio[] = [];
+  baixas: Patrimonio[] = [];
+  depreciacao = [];
+  pendentes: Patrimonio[] = [];
 
   constructor(private cdr: ChangeDetectorRef, api: ApiService) {
-    api.get<Patrimonio[]>(Patrimonio.rotas.index).subscribe((res) => {
-      this.patrimonios = res.body?.map((p) => {
-        return new Patrimonio(p);
-      }) as Patrimonio[];
-    });
+    api
+      .get<Patrimonio[]>(Patrimonio.rotas.index, {
+        pagina: 1,
+        limite_pagina: 5,
+        ordenar_por: ["created_at"],
+        ordenacao: ["desc"],
+        situacao: "todas",
+      })
+      .subscribe((res) => {
+        this.ultimos = res.body?.map((p) => {
+          return new Patrimonio(p);
+        }) as Patrimonio[];
+      });
+
+    api
+      .get<Patrimonio[]>(Patrimonio.rotas.index, {
+        situacao: "inativos",
+        pagina: 1,
+        ordenar_por: ["data_baixa"],
+        ordenacao: ["desc"],
+      })
+      .subscribe((res) => {
+        this.baixas = res.body?.map((p) => {
+          return new Patrimonio(p);
+        }) as Patrimonio[];
+      });
+
+    api
+      .get<Patrimonio[]>(Patrimonio.rotas.index, {
+        situacao: "pendentes",
+        limite_pagina: 5,
+      })
+      .subscribe((res) => {
+        this.pendentes = res.body?.map((p) => {
+          return new Patrimonio(p);
+        }) as Patrimonio[];
+      });
   }
   ngAfterViewInit(): void {
     this.secoes = [
       {
         id: "secao1",
-        titulo: "Ultimos Patrimônios",
+        titulo: "Últimos Cadastros",
         template: this.template_patrimonios,
       },
-      { id: "secao2", titulo: "Baixas", template: this.template_baixas },
+      {
+        id: "secao2",
+        titulo: "Últimas Baixas",
+        template: this.template_baixas,
+      },
       {
         id: "secao3",
         titulo: "Depreciação",
@@ -51,7 +89,7 @@ export class HomeComponent implements AfterViewInit {
       },
       {
         id: "secao4",
-        titulo: "Incorporações Pendentes",
+        titulo: "Pendentes",
         template: this.template_pendentes,
       },
     ];
@@ -59,6 +97,6 @@ export class HomeComponent implements AfterViewInit {
   }
 
   get_url_instancia(obj: any): string[] {
-    return ["/", obj.constructor.rotas.get, obj.id];
+    return ["/", obj.constructor.rotas.get, obj.id as string];
   }
 }
