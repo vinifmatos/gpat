@@ -10,7 +10,7 @@ class PatrimoniosController < ApplicationController
                      Patrimonio.pendente.includes(:grupo, :fornecedor).where(@filtros).order(@ordernacao).page(@pagina).per(@limite_pagina).all
                    when :inativos then Patrimonio.inativo.includes(:grupo, :fornecedor).where(@filtros).order(@ordernacao).page(@pagina).per(@limite_pagina).all
                    when :manutencao then Patrimonio.em_manutencao.includes(:grupo, :fornecedor).where(@filtros).order(@ordernacao).page(@pagina).per(@limite_pagina).all
-                   when :todos then Patrimonio.includes(:grupo, :fornecedor).where(@filtros).order(@ordernacao).page(@pagina).per(@limite_pagina).all
+                   when :todas then Patrimonio.includes(:grupo, :fornecedor).where(@filtros).order(@ordernacao).page(@pagina).per(@limite_pagina).all
                    else Patrimonio.ativo.includes(:grupo, :fornecedor).where(@filtros).order(@ordernacao).page(@pagina).per(@limite_pagina).all
                    end
   end
@@ -55,7 +55,7 @@ class PatrimoniosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_patrimonio
-      @patrimonio = Patrimonio.com_localizacao_atual.includes(:grupo, :fornecedor).find(params[:id])
+      @patrimonio = Patrimonio.includes(:grupo, :fornecedor).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
