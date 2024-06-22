@@ -3,11 +3,15 @@ class ResponsaveisController < ApplicationController
 
   # GET /responsaveis
   def index
+    @incluir_patrimonios = params[:incluir_patrimonios]
+    @incluir_locais = params[:incluir_locais]
     @responsaveis = Responsavel.all
   end
 
   # GET /responsaveis/1
   def show
+    @incluir_patrimonios = params[:incluir_patrimonios] || true
+    @incluir_locais = params[:incluir_locais] || true
   end
 
   # POST /responsaveis
