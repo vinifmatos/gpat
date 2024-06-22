@@ -291,6 +291,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_11_145818) do
   add_foreign_key "responsavel_patrimonios", "responsaveis"
 
   create_trigger :gera_codigo_patrimonio, sql_definition: <<-SQL
-      CREATE TRIGGER gera_codigo_patrimonio BEFORE INSERT ON public.patrimonios FOR EACH ROW EXECUTE PROCEDURE gera_codigo_patrimonio_tg()
+      CREATE TRIGGER gera_codigo_patrimonio BEFORE INSERT ON public.patrimonios FOR EACH ROW EXECUTE FUNCTION gera_codigo_patrimonio_tg()
   SQL
 end
