@@ -7,7 +7,8 @@ class Local < ApplicationRecord
   accepts_nested_attributes_for :endereco, reject_if: :ja_possui_endereco?
   validates :endereco, presence: true
   has_many :responsaveis, through: :responsavel_locais
-  has_many :movimentacao_itens
+  has_many :movimentacoes
+  has_many :movimentacao_itens, through: :movimentacao
   has_many :patrimonios, through: :movimentacao_itens
   before_validation :gerar_codigo
 

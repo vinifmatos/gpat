@@ -6,7 +6,6 @@ class Movimentacao < ApplicationRecord
   validates :data, :local_id, presence: true
   validate :itens_vazio
   accepts_nested_attributes_for :movimentacao_itens, allow_destroy: true
-  after_create :atualizar_localizacao_patrimonios
 
   private
 
@@ -14,9 +13,5 @@ class Movimentacao < ApplicationRecord
     return unless movimentacao_itens.reject(&:marked_for_destruction?).blank?
 
     errors.add(:movimentacao_itens, 'Ao menos um patrimonio deve ser informado')
-  end
-
-  def atualizar_localizacao_patrimonios
-    patrimonios.each { |patrimonio| patrimonio.atualizar_localizacao_atual!(local_id) }
   end
 end

@@ -239,11 +239,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_11_145818) do
     t.integer "numero_processo_compra"
     t.integer "ano_processo_compra"
     t.bigint "fornecedor_id"
-    t.bigint "local_id"
     t.index ["codigo"], name: "index_patrimonios_on_codigo", unique: true
     t.index ["fornecedor_id"], name: "index_patrimonios_on_fornecedor_id"
     t.index ["grupo_id"], name: "index_patrimonios_on_grupo_id"
-    t.index ["local_id"], name: "index_patrimonios_on_local_id"
   end
 
   create_table "responsaveis", force: :cascade do |t|
@@ -284,7 +282,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_11_145818) do
   add_foreign_key "movimentacao_itens", "patrimonios"
   add_foreign_key "movimentacoes", "locais"
   add_foreign_key "patrimonios", "fornecedores"
-  add_foreign_key "patrimonios", "locais"
   add_foreign_key "responsavel_locais", "locais"
   add_foreign_key "responsavel_locais", "responsaveis"
   add_foreign_key "responsavel_patrimonios", "patrimonios"
