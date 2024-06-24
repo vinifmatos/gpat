@@ -94,8 +94,7 @@ class PatrimoniosController < ApplicationController
       :ano_empenho,
       :numero_processo_compra,
       :ano_processo_compra,
-      :fornecedor_id,
-      :local_id
+      :fornecedor_id
     )
   end
 end
