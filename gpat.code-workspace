@@ -1,16 +1,30 @@
 {
   "folders": [
     {
+      "name": "gpat",
       "path": "."
     },
     {
-      "path": "./backend"
+      "name": "backend",
+      "path": "backend"
     },
     {
-      "path": "./frontend"
+      "name": "frontend",
+      "path": "frontend"
     }
   ],
   "settings": {
-    "ruby.rubocop.configFilePath": "./.rubocop.yml"
+    "ruby.rubocop.configFilePath": "./.rubocop.yml",
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      "**/.ruby-lsp": true,
+      "frontend": true,
+      "backend": true
+    }
   }
 }
