@@ -21,11 +21,15 @@ import { ListboxFilterEvent } from "primeng/listbox";
   styleUrl: "./patrimonios-form.component.scss",
 })
 export class PatrimoniosFormComponent extends FormBase {
-  grupos: Grupo[] = [];
   fornecedores: Fornecedor[] = [];
-  exibir_selecao_local: boolean = false;
+  grupos: Grupo[] = [];
   locais: Local[] = [];
-  id_local_selecionado: number;
+  exibir_selecao_fornecedor: boolean = false;
+  exibir_selecao_grupo: boolean = false;
+  exibir_selecao_local: boolean = false;
+  fornecedor_selecionado: Fornecedor;
+  grupo_selecionado: Grupo;
+  local_selecionado: Local;
 
   constructor(
     api: ApiService,
@@ -37,21 +41,23 @@ export class PatrimoniosFormComponent extends FormBase {
     super(api, fb, Patrimonio, route, router, strs);
   }
 
-  get_grupos(event: AutoCompleteCompleteEvent) {
+  get_grupos(event: ListboxFilterEvent) {
     this.api
       .get<Grupo[]>(Grupo.rotas.index, {
-        para_patrimonio: true,
-        query: event.query,
+        descricao: event.filter,
+        ordenar_por: ["descricao"],
       })
       .subscribe((res) => {
         this.grupos = res.body as Grupo[];
       });
   }
 
-  get_fornecedores(event: AutoCompleteCompleteEvent) {
+  get_fornecedores(event: ListboxFilterEvent) {
     this.api
       .get<Fornecedor[]>(Fornecedor.rotas.index, {
-        descricao: event.query,
+        razao_social: `~*${event.filter}`,
+        documento: `=${event.filter}`,
+        ordenar_por: ["razao_social"],
       })
       .subscribe((res) => {
         this.fornecedores = res.body as Fornecedor[];
@@ -61,7 +67,7 @@ export class PatrimoniosFormComponent extends FormBase {
   get_locais(event: ListboxFilterEvent) {
     this.api
       .get<Local[]>(Local.rotas.index, {
-        descricao: `~${event.filter}`,
+        descricao: `~*${event.filter}`,
         ativo: "=true",
         ordenar_por: ["descricao"],
       })
@@ -69,21 +75,30 @@ export class PatrimoniosFormComponent extends FormBase {
         this.locais = res.body as Local[];
       });
   }
+  on_selecionar_fornecedor() {
+    this.form.controls["fornecedor_id"].setValue(
+      this.fornecedor_selecionado.id
+    );
+    this.exibir_selecao_fornecedor = false;
+    let input = document.getElementById(
+      "fornecedor-inicial"
+    ) as HTMLInputElement;
+    input.value = `${this.fornecedor_selecionado.documento} - ${this.fornecedor_selecionado.razao_social}`;
+  }
 
-  on_exibir_selecao_local() {
-    this.exibir_selecao_local = true;
-    this.api
-      .get<Local[]>(Local.rotas.index, {
-        ativo: "=true",
-        ordenar_por: ["descricao"],
-      })
-      .subscribe((res) => {
-        this.locais = res.body as Local[];
-      });
+  on_selecionar_grupo() {
+    this.form.controls["grupo_id"].setValue(this.grupo_selecionado.id);
+    this.exibir_selecao_grupo = false;
+    let input = document.getElementById("grupo-inicial") as HTMLInputElement;
+    input.value = `${this.grupo_selecionado.codigo} - ${this.grupo_selecionado.descricao}`;
   }
 
   on_selecionar_local() {
-    this.form.controls["id_local_inicial"].setValue(this.id_local_selecionado);
+    this.form.controls["local_inicial_id"].setValue(this.local_selecionado.id);
     this.exibir_selecao_local = false;
+    let input = document.getElementById(
+      "localizacao-inicial"
+    ) as HTMLInputElement;
+    input.value = `${this.local_selecionado.codigo} - ${this.local_selecionado.descricao}`;
   }
 }

@@ -12,6 +12,7 @@
         <input id="descricao" formControlName="descricao" type="text" pInputText />
       </div>
     </div>
+
     <div class="row">
       <div class="form-group">
         <label for="especificacao">Especificação</label>
@@ -19,6 +20,7 @@
           rows="5"></textarea>
       </div>
     </div>
+
     <div class="row ">
       <div id="data-aquisicao-form-group" class="form-group">
         <label for="data-aquisicao">Data de Aquisição</label>
@@ -48,30 +50,27 @@
     <div class="row">
       <div class="form-group">
         <label for="grupo">Grupo</label>
-        <p-autoComplete inputId="grupo" formControlName="grupo" [suggestions]="grupos"
-          (completeMethod)="get_grupos($event)" field="descricao" [inputStyle]="{ width: '100%' }" appendTo="body">
-          <ng-template let-grupo pTemplate="grupo">
-            <div class="flex align-items-center">
-              {{grupo.codigo}} - {{grupo.descricao}}
-            </div>
-          </ng-template>
-        </p-autoComplete>
+        <p-inputGroup>
+          <input id="grupo" type="text" pInputText placeholder='Clique em "Selecionar" para selecionar um grupo'
+            disabled="true" />
+          <button type="button" pButton label="Selecionar" class="p-button"
+            (click)="exibir_selecao_grupo = true"></button>
+        </p-inputGroup>
       </div>
     </div>
+
     <div class="row">
       <div class="form-group">
         <label for="fornecedor">Fornecedor</label>
-        <p-autoComplete inputId="fornecedor" formControlName="fornecedor" [suggestions]="fornecedores"
-          (completeMethod)="get_fornecedores($event)" field="razao_social" [inputStyle]="{ width: '100%' }"
-          appendTo="body">
-          <ng-template let-fornecedor pTemplate="fornecedor">
-            <div class="flex align-items-center">
-              {{fornecedor.documento}} - {{fornecedor.razao_social}}
-            </div>
-          </ng-template>
-        </p-autoComplete>
+        <p-inputGroup>
+          <input id="fornecedor" type="text" pInputText
+            placeholder='Clique em "Selecionar" para selecionar um fornecedor' disabled="true" />
+          <button type="button" pButton label="Selecionar" class="p-button"
+            (click)="exibir_selecao_fornecedor = true"></button>
+        </p-inputGroup>
       </div>
     </div>
+
     <div class="row row-wrap">
       <div id="numero-empenho-form-group" class="form-group">
         <label for="numero-empenho">Nº do Empenho</label>
@@ -90,6 +89,7 @@
         <input id="ano-processo-compra" formControlName="ano_processo_compra" type="text" pInputText />
       </div>
     </div>
+
     <div class="row">
       <div class="form-group">
         <label for="localizacao-inicial">Localização Inicial</label>
@@ -97,20 +97,58 @@
           <input id="localizacao-inicial" type="text" pInputText
             placeholder='Clique em "Selecionar" para selecionar um Local' disabled="true" />
           <button type="button" pButton label="Selecionar" class="p-button"
-            (click)="on_exibir_selecao_local()"></button>
+            (click)="exibir_selecao_local = true"></button>
         </p-inputGroup>
       </div>
     </div>
   </form>
 </ng-template>
+
+<p-dialog header="Selecionar Fornecedor" [modal]="true" [(visible)]="exibir_selecao_fornecedor"
+  [style]="{ width: '720px' }">
+  <div class="lista-locais">
+    <p-listbox [options]="fornecedores" [(ngModel)]="fornecedor_selecionado" optionLabel="descricao" [filter]="true"
+      [style]="{ width: '100%' }" [listStyle]="{'height': '300px'}" (onFilter)="get_fornecedores($event)"
+      filterPlaceHolder="Digite o documento ou nome de um Fornecedor" emptyFilterMessage="Nenhum fornecedor encontrado">
+      <ng-template let-fornecedor pTemplate="item">
+        <div>{{fornecedor.documento}} - {{ fornecedor.razao_social }}</div>
+      </ng-template>
+    </p-listbox>
+  </div>
+  <div class="botoes-modal">
+    <p-button label="Cancelar" severity="secondary" (click)="exibir_selecao_fornecedor = false" />
+    <p-button label="Confirmar" (click)="on_selecionar_fornecedor()" [disabled]="!fornecedor_selecionado" />
+  </div>
+</p-dialog>
+
+<p-dialog header="Selecionar Grupo" [modal]="true" [(visible)]="exibir_selecao_grupo" [style]="{ width: '720px' }">
+  <div class="lista-locais">
+    <p-listbox [options]="grupos" [(ngModel)]="grupo_selecionado" optionLabel="descricao" [filter]="true"
+      [style]="{ width: '100%' }" [listStyle]="{'height': '300px'}" (onFilter)="get_grupos($event)"
+      filterPlaceHolder="Digite o nome de um grupo" emptyFilterMessage="Nenhum grupo encontrado">
+      <ng-template let-grupo pTemplate="item">
+        <div>{{grupo.codigo}} - {{ grupo.descricao }}</div>
+      </ng-template>
+    </p-listbox>
+  </div>
+  <div class="botoes-modal">
+    <p-button label="Cancelar" severity="secondary" (click)="exibir_selecao_grupo = false" />
+    <p-button label="Confirmar" (click)="on_selecionar_grupo()" [disabled]="!grupo_selecionado" />
+  </div>
+</p-dialog>
+
 <p-dialog header="Selecionar Local" [modal]="true" [(visible)]="exibir_selecao_local" [style]="{ width: '720px' }">
   <div class="lista-locais">
-    <p-listbox [options]="locais" [(ngModel)]="id_local_selecionado" optionValue="id" optionLabel="descricao"
-      [filter]="true" [style]="{ width: '100%' }" [listStyle]="{'height': '300px'}" (onFilter)="get_locais($event)"
-      filterPlaceHolder="Digite o nome de um Local" />
+    <p-listbox [options]="locais" [(ngModel)]="local_selecionado" optionLabel="descricao" [filter]="true"
+      [style]="{ width: '100%' }" [listStyle]="{'height': '300px'}" (onFilter)="get_locais($event)"
+      filterPlaceHolder="Digite o nome de um local" emptyFilterMessage="Nenhum local encontrado">
+      <ng-template let-local pTemplate="item">
+        <div>{{local.codigo}} - {{ local.descricao }}</div>
+      </ng-template>
+    </p-listbox>
   </div>
   <div class="botoes-modal">
     <p-button label="Cancelar" severity="secondary" (click)="exibir_selecao_local = false" />
-    <p-button label="Confirmar" (click)="on_selecionar_local()" />
+    <p-button label="Confirmar" (click)="on_selecionar_local()" [disabled]="!local_selecionado" />
   </div>
 </p-dialog>
