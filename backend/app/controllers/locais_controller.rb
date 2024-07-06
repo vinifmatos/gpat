@@ -1,13 +1,12 @@
 class LocaisController < ApplicationController
-  before_action :set_local, only: %i[ show update destroy ]
+  before_action :set_local, only: %i[show update destroy]
+  include FiltrosPaginacao
 
   # GET /locais
   def index
-    if params[:descricao].present?
-      @locais = Local.where('ativo and descricao ~* ?', params[:descricao]).all
-    else
-      @locais = Local.includes(:subordinados, :subordinacao, endereco: [cidade: :estado]).all
-    end
+    @locais = Local.includes(:subordinados, :subordinacao, endereco: [cidade: :estado])
+                   .where(@filtros.order(@ordernacao)
+                   .page(@pagina).per(@limite_pagina)).all
   end
 
   # GET /locais/1
@@ -48,7 +47,8 @@ class LocaisController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def local_params
-    local = params.require(:local).permit(:codigo, :descricao, :local_id, :ativo, endereco: %i[id logradouro numero bairro complemento cep cidade_id principal])
+    local = params.require(:local).permit(:codigo, :descricao, :local_id, :ativo,
+                                          endereco: %i[id logradouro numero bairro complemento cep cidade_id principal])
     local[:endereco_attributes] = local.delete(:endereco) if local[:endereco]
     local
   end
