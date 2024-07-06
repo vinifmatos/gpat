@@ -5,11 +5,12 @@ import { ImportsModule } from "../../../imports.module";
 import { IndexComponent } from "../../shared/index/index.component";
 import { Patrimonio } from "../../../models/patrimonio";
 import { IndexBase } from "../../index-base";
+import { SituacaoPatrimonioPipe } from "../../../pipes/situacao-patrimonio.pipe";
 
 @Component({
   selector: "app-patrimonios-index",
   standalone: true,
-  imports: [ImportsModule, IndexComponent],
+  imports: [ImportsModule, IndexComponent, SituacaoPatrimonioPipe],
   templateUrl: "./patrimonios-index.component.html",
   styleUrl: "./patrimonios-index.component.scss",
 })

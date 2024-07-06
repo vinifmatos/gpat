@@ -5,7 +5,7 @@ import { ApiService } from "../../../services/api.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Patrimonio } from "../../../models/patrimonio";
 import { ShowBase } from "../../show-base";
-import { NumeroAno } from "../../../pipes/numero_ano";
+import { NumeroAno } from "../../../pipes/numero-ano";
 
 @Component({
   selector: "app-patrimonios-show",

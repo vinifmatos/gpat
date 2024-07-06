@@ -1,7 +1,42 @@
 <app-index [layout]="layout" [carregando]="carregando" [erro_ao_carregar]="erro_ao_carregar" [dados]="patrimonios"
   titulo="Patrimônios" />
 <ng-template #layout>
-  <div class="item" *ngFor="let patrimonio of patrimonios; let first = first" [ngClass]="{'border-top': !first}">
-    <a [routerLink]="[patrimonio.id]">{{patrimonio.codigo}} - {{patrimonio.descricao}}</a>
+  <div class="lista-patrimonios">
+    <div class="card-patrimonio" *ngFor="let patrimonio of patrimonios;">
+      <div class="header" [routerLink]="[patrimonio.id]">{{patrimonio.codigo}} - {{patrimonio.descricao}}</div>
+      <div class="body">
+        <img [src]="patrimonio.url_thumb" alt="Imagem patrimônio" class="thumb-patrimonio">
+        <div class="detalhes">
+          <div class="row">
+            <div class="data-aquisicao">
+              <label>Data de Aquisição</label>
+              <div>{{patrimonio.data_aquisicao | date : 'shortDate' : 'pt-BR' }}</div>
+            </div>
+            <div class="situacao">
+              <label>Situação</label>
+              <div>{{patrimonio.situacao | situacao_patrimonio }}</div>
+            </div>
+            <div class="data-baixa" *ngIf="patrimonio.situacao === 'inativo'">
+              <label>Data de Baixa</label>
+              <div>{{patrimonio.data_baixa | date : 'shortDate' : 'pt-BR' }}</div>
+            </div>
+            <div class="valor-aquisicao">
+              <label>Valor de Aquisição</label>
+              <div>{{patrimonio.valor_aquisicao | number : '1.2' : 'pt-BR' }}</div>
+            </div>
+            <div class="valor-atual">
+              <label>Valor Atual</label>
+              <div>{{0 | number : '1.2' : 'pt-BR' }}</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="localizacao">
+              <label>Localização Atual</label>
+              <div>{{patrimonio.localizacao_atual}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </ng-template>
