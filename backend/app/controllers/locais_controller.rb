@@ -4,9 +4,15 @@ class LocaisController < ApplicationController
 
   # GET /locais
   def index
-    @locais = Local.includes(:subordinados, :subordinacao, endereco: [cidade: :estado])
-                   .where(@filtros.order(@ordernacao)
-                   .page(@pagina).per(@limite_pagina)).all
+    @locais = if @filtros.empty?
+                Local.includes(:subordinados, :subordinacao, endereco: [cidade: :estado])
+                     .order(@ordernacao)
+                     .page(@pagina).per(@limite_pagina).all
+              else
+                Local.includes(:subordinados, :subordinacao, endereco: [cidade: :estado])
+                     .where('descricao ~ ?', @filtros[:descricao]).order(@ordernacao)
+                     .page(@pagina).per(@limite_pagina).all
+              end
   end
 
   # GET /locais/1

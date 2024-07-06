@@ -21,6 +21,8 @@ import { TreeTableModule } from "primeng/treetable";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { InputGroupModule } from "primeng/inputgroup";
 import { InputGroupAddonModule } from "primeng/inputgroupaddon";
+import { DialogModule } from "primeng/dialog";
+import { ListboxModule } from "primeng/listbox";
 
 @NgModule({
   declarations: [],
@@ -48,6 +50,8 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon";
     FormsModule,
     InputGroupModule,
     InputGroupAddonModule,
+    DialogModule,
+    ListboxModule,
   ],
   exports: [
     CommonModule,
@@ -73,6 +77,8 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon";
     FormsModule,
     InputGroupModule,
     InputGroupAddonModule,
+    DialogModule,
+    ListboxModule,
   ],
 })
 export class ImportsModule {}

@@ -10,6 +10,8 @@ import { FormBase } from "../../form-base";
 import { Grupo } from "../../../models/grupo";
 import { Fornecedor } from "../../../models/fornecedor";
 import { Patrimonio } from "../../../models/patrimonio";
+import { Local } from "../../../models/local";
+import { ListboxFilterEvent } from "primeng/listbox";
 
 @Component({
   selector: "app-patrimonios-form",
@@ -21,6 +23,9 @@ import { Patrimonio } from "../../../models/patrimonio";
 export class PatrimoniosFormComponent extends FormBase {
   grupos: Grupo[] = [];
   fornecedores: Fornecedor[] = [];
+  exibir_selecao_local: boolean = false;
+  locais: Local[] = [];
+  id_local_selecionado: number;
 
   constructor(
     api: ApiService,
@@ -51,5 +56,31 @@ export class PatrimoniosFormComponent extends FormBase {
       .subscribe((res) => {
         this.fornecedores = res.body as Fornecedor[];
       });
+  }
+
+  get_locais(event: ListboxFilterEvent) {
+    this.api
+      .get<Local[]>(Local.rotas.index, {
+        descricao: event.filter,
+      })
+      .subscribe((res) => {
+        this.locais = res.body as Local[];
+      });
+  }
+
+  on_exibir_selecao_local() {
+    this.exibir_selecao_local = true
+    this.api
+      .get<Local[]>(Local.rotas.index, {
+        descricao: event.filter,
+      })
+      .subscribe((res) => {
+        this.locais = res.body as Local[];
+      });
+  }
+
+  on_selecionar_local() {
+    this.form.controls["id_local_inicial"].setValue(this.id_local_selecionado);
+    this.exibir_selecao_local = false;
   }
 }

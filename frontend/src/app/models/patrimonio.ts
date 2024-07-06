@@ -36,6 +36,7 @@ export class Patrimonio extends ModelBase {
   grupo?: Grupo;
   fornecedor?: Fornecedor;
   url_thumb?: string;
+  id_local_inicial?: number;
 
   constructor({
     codigo,
@@ -61,6 +62,7 @@ export class Patrimonio extends ModelBase {
     id,
     created_at,
     updated_at,
+    id_local_inicial,
   }: {
     codigo?: string;
     descricao?: string;
@@ -85,6 +87,7 @@ export class Patrimonio extends ModelBase {
     id?: number;
     created_at?: Date;
     updated_at?: Date;
+    id_local_inicial?: number;
   } = {}) {
     super(id, created_at, updated_at);
     this.codigo = codigo;
@@ -107,6 +110,7 @@ export class Patrimonio extends ModelBase {
     this.grupo = grupo;
     this.fornecedor = fornecedor;
     this.url_thumb = url_thumb;
+    this.id_local_inicial = id_local_inicial;
   }
 
   private formata_data(data?: Date): string | undefined {
@@ -143,6 +147,7 @@ export class Patrimonio extends ModelBase {
       ano_processo_compra: new FormControl(this.ano_processo_compra),
       grupo: new FormControl(this.grupo),
       fornecedor: new FormControl(this.fornecedor),
+      id_local_inicial: new FormControl(this.id_local_inicial),
     });
   }
 }

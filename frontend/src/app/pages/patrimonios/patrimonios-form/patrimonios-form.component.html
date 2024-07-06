@@ -94,10 +94,23 @@
       <div class="form-group">
         <label for="localizacao-inicial">Localização Inicial</label>
         <p-inputGroup>
-          <input id="localizacao-inicial" type="text" pInputText placeholder="Keyword" />
-          <button type="button" pButton icon="pi pi-search" class="p-button"></button>
+          <input id="localizacao-inicial" type="text" pInputText
+            placeholder='Clique em "Selecionar" para selecionar um Local' disabled="true" />
+          <button type="button" pButton label="Selecionar" class="p-button"
+            (click)="exibir_selecao_local=true"></button>
         </p-inputGroup>
       </div>
     </div>
   </form>
 </ng-template>
+<p-dialog header="Selecionar Local" [modal]="true" [(visible)]="exibir_selecao_local" [style]="{ width: '720px' }">
+  <div class="lista-locais">
+    <p-listbox [options]="locais" [(ngModel)]="id_local_selecionado" optionValue="id" optionLabel="descricao"
+      [filter]="true" [style]="{ width: '100%' }" [listStyle]="{'height': '300px'}" (onFilter)="get_locais($event)"
+      filterPlaceHolder="Digite o nome de um Local" />
+  </div>
+  <div class="botoes-modal">
+    <p-button label="Cancelar" severity="secondary" (click)="exibir_selecao_local = false" />
+    <p-button label="Confirmar" (click)="on_selecionar_local()" />
+  </div>
+</p-dialog>
