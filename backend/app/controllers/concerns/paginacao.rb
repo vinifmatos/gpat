@@ -1,16 +1,15 @@
-module FiltrosPaginacao
+module Paginacao
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_params_filtros_paginacao, only: :index
+    before_action :set_paginacao, only: :index
   end
 
   private
 
-  def set_params_filtros_paginacao
+  def set_paginacao
     @pagina = params[:pagina] || 1
     @limite_pagina = params[:limite_pagina] || 25
-    set_filtros
     set_ordernacao(params[:ordenar_por], params[:ordenacao])
   end
 
@@ -26,10 +25,6 @@ module FiltrosPaginacao
       ordem_valida = %w[asc desc].include?(ordem) ? ordem : 'asc'
       "#{coluna_valida} #{ordem_valida}"
     end.join(', ')
-  end
-
-  def set_filtros
-    @filtros = params.permit(model.column_names)
   end
 
   def coluna_valida?(coluna)

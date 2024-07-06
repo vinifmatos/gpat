@@ -61,7 +61,9 @@ export class PatrimoniosFormComponent extends FormBase {
   get_locais(event: ListboxFilterEvent) {
     this.api
       .get<Local[]>(Local.rotas.index, {
-        descricao: event.filter,
+        descricao: `~${event.filter}`,
+        ativo: "=true",
+        ordenar_por: ["descricao"],
       })
       .subscribe((res) => {
         this.locais = res.body as Local[];
@@ -69,10 +71,11 @@ export class PatrimoniosFormComponent extends FormBase {
   }
 
   on_exibir_selecao_local() {
-    this.exibir_selecao_local = true
+    this.exibir_selecao_local = true;
     this.api
       .get<Local[]>(Local.rotas.index, {
-        descricao: event.filter,
+        ativo: "=true",
+        ordenar_por: ["descricao"],
       })
       .subscribe((res) => {
         this.locais = res.body as Local[];

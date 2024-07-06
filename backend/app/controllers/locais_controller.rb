@@ -1,16 +1,15 @@
 class LocaisController < ApplicationController
   before_action :set_local, only: %i[show update destroy]
-  include FiltrosPaginacao
+  include Paginacao
+  include Filtros
 
   # GET /locais
   def index
     @locais = if @filtros.empty?
-                Local.includes(:subordinados, :subordinacao, endereco: [cidade: :estado])
-                     .order(@ordernacao)
+                Local.order(@ordernacao)
                      .page(@pagina).per(@limite_pagina).all
               else
-                Local.includes(:subordinados, :subordinacao, endereco: [cidade: :estado])
-                     .where('descricao ~ ?', @filtros[:descricao]).order(@ordernacao)
+                Local.where(@filtros).order(@ordernacao)
                      .page(@pagina).per(@limite_pagina).all
               end
   end

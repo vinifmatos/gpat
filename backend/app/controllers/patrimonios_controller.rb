@@ -1,6 +1,7 @@
 class PatrimoniosController < ApplicationController
   before_action :set_patrimonio, only: %i[show update destroy movimentacoes]
-  include FiltrosPaginacao
+  include Filtros
+  include Paginacao
 
   # GET /patrimonios
   def index
