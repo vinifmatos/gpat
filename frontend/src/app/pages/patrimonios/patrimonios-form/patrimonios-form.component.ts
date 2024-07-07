@@ -3,7 +3,6 @@ import { FormComponent } from "../../shared/form/form.component";
 import { ApiService } from "../../../services/api.service";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { AutoCompleteCompleteEvent } from "primeng/autocomplete";
 import { ImportsModule } from "../../../imports.module";
 import { StringService } from "../../../services/string.service";
 import { FormBase } from "../../form-base";
@@ -44,7 +43,9 @@ export class PatrimoniosFormComponent extends FormBase {
   get_grupos(event: ListboxFilterEvent) {
     this.api
       .get<Grupo[]>(Grupo.rotas.index, {
+        subgrupos: true,
         descricao: event.filter,
+        ativo: "=true",
         ordenar_por: ["descricao"],
       })
       .subscribe((res) => {
@@ -80,16 +81,14 @@ export class PatrimoniosFormComponent extends FormBase {
       this.fornecedor_selecionado.id
     );
     this.exibir_selecao_fornecedor = false;
-    let input = document.getElementById(
-      "fornecedor-inicial"
-    ) as HTMLInputElement;
+    let input = document.getElementById("fornecedor") as HTMLInputElement;
     input.value = `${this.fornecedor_selecionado.documento} - ${this.fornecedor_selecionado.razao_social}`;
   }
 
   on_selecionar_grupo() {
     this.form.controls["grupo_id"].setValue(this.grupo_selecionado.id);
     this.exibir_selecao_grupo = false;
-    let input = document.getElementById("grupo-inicial") as HTMLInputElement;
+    let input = document.getElementById("grupo") as HTMLInputElement;
     input.value = `${this.grupo_selecionado.codigo} - ${this.grupo_selecionado.descricao}`;
   }
 

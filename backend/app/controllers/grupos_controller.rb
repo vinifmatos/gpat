@@ -1,27 +1,24 @@
 class GruposController < ApplicationController
   before_action :set_grupo, only: %i[update destroy]
+  include Paginacao::Grupos
+  include Filtros::Grupos
 
   # GET /grupos
   def index
-    grupos if params[:grupos]
-    para_patrimonio if params[:para_patrimonio]
-
-    @grupos = Grupo.includes(:subgrupos).grupos.order('grupos.codigo, subgrupos_grupos.codigo').references(:subgrupos).all
-  end
-
-  def para_patrimonio
-    codigo = params[:query].to_i if params[:query] =~ /^\d+$/
-    descricao = params[:query]
-    @grupos = Grupo.subgrupos.where('ativo and (descricao ~* ? or codigo = ?)', descricao, codigo).all
-
-    render :grupos_resumido
-  end
-
-  def grupos
-    codigo = params[:query].to_i if params[:query] =~ /^\d+$/
-    descricao = params[:query]
-    @grupos = Grupo.grupos.where('ativo and (descricao ~* ? or codigo = ?)', descricao, codigo).all
-    render :grupos_resumido
+    if params[:subgrupos]
+      @grupos = Grupo.includes(:grupo).subgrupos
+                     .where(@filtros)
+                     .order(@ordernacao)
+                     .page(@pagina).per(@limite_pagina).all
+      render :subgrupos
+    else
+      params[:grupos] = true
+      @grupos = Grupo.includes(:subgrupos).grupos
+                     .where(@filtros)
+                     .order(@ordernacao).references(:subgrupos)
+                     .page(@pagina).per(@limite_pagina).all
+      render :grupos
+    end
   end
 
   # GET /grupos/1

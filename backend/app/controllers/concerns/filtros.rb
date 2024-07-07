@@ -9,22 +9,17 @@ module Filtros
   private
 
   def set_filtros
-    filtros = params.permit(*model.column_names, :all)
-    @filtros = if filtros.keys.include?(:all)
-                 ['1 = 1']
-               else
-                 campos = []
-                 valores = []
-                 filtros.each do |k, v|
-                   match = v.match(OPERADORES_PERMITIDOS)
-                   if match && coluna_valida?(k)
-                     campos << "#{k} #{match[:operador]} ?"
-                     valores << match[:valor]
-                   end
-                 end
-
-                 campos.empty? ? [] : [campos.join(' and ')] + valores
-               end
+    filtros = params.permit(*model.column_names)
+    campos = []
+    valores = []
+    filtros.each do |k, v|
+      match = v.to_s.match(OPERADORES_PERMITIDOS)
+      if match && coluna_valida?(k)
+        campos << "#{k} #{match[:operador]} ?"
+        valores << match[:valor]
+      end
+    end
+    @filtros = campos.empty? ? [] : [campos.join(' and ')] + valores
   end
 
   def coluna_valida?(coluna)
@@ -33,5 +28,30 @@ module Filtros
 
   def model
     controller_name.classify.constantize
+  end
+
+  module Grupos
+    extend Filtros
+
+    private
+
+    def set_filtros
+      filtros = params.permit(*model.column_names.reject { |k| %i[grupos subgrupos].include?(k) })
+      campos = []
+      valores = []
+      filtros.each do |k, v|
+        match = v.to_s.match(OPERADORES_PERMITIDOS)
+        next unless match && coluna_valida?(k)
+
+        if params[:grupos] && k == 'descricao'
+          campos << "(grupos.#{k} #{match[:operador]} ? or subgrupos_grupos.#{k} #{match[:operador]} ?)"
+          valores << match[:valor]
+        else
+          campos << "grupos.#{k} #{match[:operador]} ?"
+        end
+        valores << match[:valor]
+      end
+      @filtros = campos.empty? ? [] : [campos.join(' and ')] + valores
+    end
   end
 end
