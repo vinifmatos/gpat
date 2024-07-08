@@ -1,9 +1,10 @@
 class FornecedoresController < ApplicationController
-  before_action :set_fornecedor, only: %i[ show update destroy ]
+  before_action :set_fornecedor, only: %i[show update destroy]
 
   # GET /fornecedores
   def index
-    @fornecedores = Fornecedor.includes(enderecos: [cidade: :estado]).all
+    @q = Fornecedor.ransack(params[:q])
+    @fornecedores = @q.result(distinct: true)
   end
 
   def tipos
@@ -40,15 +41,17 @@ class FornecedoresController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_fornecedor
-      @fornecedor = Fornecedor.includes(enderecos: [cidade: :estado]).find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def fornecedor_params
-      fornecedor_params = params.require(:fornecedor).permit(:tipo, :documento, :razao_social, :nome_fantasia, enderecos: %i[id logradouro numero bairro complemento cep cidade_id principal _destroy])
-      fornecedor_params[:enderecos_attributes] = fornecedor_params.delete(:enderecos) if fornecedor_params[:enderecos]
-      fornecedor_params
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_fornecedor
+    @fornecedor = Fornecedor.includes(enderecos: [cidade: :estado]).find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def fornecedor_params
+    fornecedor_params = params.require(:fornecedor).permit(:tipo, :documento, :razao_social, :nome_fantasia,
+                                                           enderecos: %i[id logradouro numero bairro complemento cep cidade_id principal _destroy])
+    fornecedor_params[:enderecos_attributes] = fornecedor_params.delete(:enderecos) if fornecedor_params[:enderecos]
+    fornecedor_params
+  end
 end

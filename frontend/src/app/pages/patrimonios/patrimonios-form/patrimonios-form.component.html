@@ -107,9 +107,10 @@
 <p-dialog header="Selecionar Fornecedor" [modal]="true" [(visible)]="exibir_selecao_fornecedor"
   [style]="{ width: '720px' }">
   <div class="lista-locais">
-    <p-listbox [options]="fornecedores" [(ngModel)]="fornecedor_selecionado" optionLabel="descricao" [filter]="true"
-      [style]="{ width: '100%' }" [listStyle]="{'height': '300px'}" (onFilter)="get_fornecedores($event)"
-      filterPlaceHolder="Digite o documento ou nome de um Fornecedor" emptyFilterMessage="Nenhum fornecedor encontrado">
+    <p-listbox [options]="fornecedores" [(ngModel)]="fornecedor_selecionado" [filter]="true"
+      [filterFields]="['documento', 'razao_social']" [style]=" { width: '100%' }" [listStyle]="{'height': '300px'}"
+      (onFilter)="get_fornecedores($event)" filterPlaceHolder="Digite o documento ou nome de um Fornecedor"
+      emptyFilterMessage="Nenhum fornecedor encontrado">
       <ng-template let-fornecedor pTemplate="item">
         <div>{{fornecedor.documento}} - {{ fornecedor.razao_social }}</div>
       </ng-template>

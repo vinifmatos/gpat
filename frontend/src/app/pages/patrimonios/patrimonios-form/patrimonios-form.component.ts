@@ -54,12 +54,17 @@ export class PatrimoniosFormComponent extends FormBase {
   }
 
   get_fornecedores(event: ListboxFilterEvent) {
+    event.originalEvent.preventDefault();
     this.api
-      .get<Fornecedor[]>(Fornecedor.rotas.index, {
-        razao_social: `~*${event.filter}`,
-        documento: `=${event.filter}`,
-        ordenar_por: ["razao_social"],
-      })
+      .get<Fornecedor[]>(
+        Fornecedor.rotas.index,
+        {
+          razao_social_regex_insensitive: event.filter,
+          documento_eq: event.filter,
+          m: "or",
+        },
+        { razao_social: "asc" }
+      )
       .subscribe((res) => {
         this.fornecedores = res.body as Fornecedor[];
       });

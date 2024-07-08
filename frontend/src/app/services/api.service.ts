@@ -13,9 +13,24 @@ export class ApiService {
 
   get<T>(
     path: string | string[],
-    params: any = {}
+    query_params?: any,
+    sort_params?: any
   ): Observable<HttpResponse<T>> {
     if (!Array.isArray(path)) path = [path];
+    let params = new HttpParams();
+    for (const k in query_params) {
+      if (query_params.hasOwnProperty(k)) {
+        params = params.set(`q[${k}]`, query_params[k]);
+      }
+    }
+    const ordenacoes: string[] = [];
+    for (const k in sort_params) {
+      if (sort_params.hasOwnProperty(k)) {
+        ordenacoes.push(`${k} ${sort_params[k]}`);
+      }
+    }
+    if (ordenacoes.length > 0)
+      params = params.set("q[s]", ordenacoes.join(","));
     return this.http.get<T>(
       urlJoin(this.url_base, ...path.map((p) => String(p))),
       { observe: "response", params: params }
