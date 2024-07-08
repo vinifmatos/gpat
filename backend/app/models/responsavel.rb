@@ -8,7 +8,11 @@ class Responsavel < ApplicationRecord
   validates :cpf, uniqueness: { message: 'já cadastrado' }
   validate :valida_cpf
 
-  private 
+  def self.ransackable_attributes(_auth_object = nil)
+    column_names
+  end
+
+  private
   def valida_cpf
     errors.add(:cpf, 'não é válido.') unless validar_cpf(cpf)
   end

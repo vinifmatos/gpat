@@ -13,7 +13,7 @@ class Fornecedor < ApplicationRecord
   end
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at documento id id_value nome_fantasia razao_social tipo updated_at]
+    self.column_names
   end
 
   private

@@ -21,4 +21,8 @@ class Local < ApplicationRecord
 
     self.codigo ||= (Local.maximum(:codigo) || 0) + 1
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    column_names
+  end
 end

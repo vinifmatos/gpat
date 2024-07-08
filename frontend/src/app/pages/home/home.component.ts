@@ -33,13 +33,18 @@ export class HomeComponent implements AfterViewInit {
 
   constructor(private cdr: ChangeDetectorRef, api: ApiService) {
     api
-      .get<Patrimonio[]>(Patrimonio.rotas.index, {
-        pagina: 1,
-        limite_pagina: 5,
-        ordenar_por: ["created_at"],
-        ordenacao: ["desc"],
-        situacao: "todas",
-      })
+      .get<Patrimonio[]>(
+        Patrimonio.rotas.index,
+        {},
+        {
+          created_at: "desc",
+          codigo: "asc",
+        },
+        {
+          pagina: 1,
+          limite_pagina: 5,
+        }
+      )
       .subscribe((res) => {
         this.ultimos = res.body?.map((p) => {
           return new Patrimonio(p);
@@ -47,13 +52,20 @@ export class HomeComponent implements AfterViewInit {
       });
 
     api
-      .get<Patrimonio[]>(Patrimonio.rotas.index, {
-        situacao: "inativos",
-        pagina: 1,
-        limite_pagina: 5,
-        ordenar_por: ["data_baixa"],
-        ordenacao: ["desc"],
-      })
+      .get<Patrimonio[]>(
+        Patrimonio.rotas.index,
+        {
+          situacao_eq: "inativo",
+        },
+        {
+          data_baixa: "desc",
+          codigo: "asc",
+        },
+        {
+          pagina: 1,
+          limite_pagina: 5,
+        }
+      )
       .subscribe((res) => {
         this.baixas = res.body?.map((p) => {
           return new Patrimonio(p);
@@ -61,10 +73,20 @@ export class HomeComponent implements AfterViewInit {
       });
 
     api
-      .get<Patrimonio[]>(Patrimonio.rotas.index, {
-        situacao: "pendentes",
-        limite_pagina: 5,
-      })
+      .get<Patrimonio[]>(
+        Patrimonio.rotas.index,
+        {
+          situacao_eq: "pendente",
+        },
+        {
+          created_at: "desc",
+          id: "desc",
+        },
+        {
+          pagina: 1,
+          limite_pagina: 5,
+        }
+      )
       .subscribe((res) => {
         this.pendentes = res.body?.map((p) => {
           return new Patrimonio(p);

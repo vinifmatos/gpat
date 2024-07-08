@@ -7,6 +7,10 @@ class Movimentacao < ApplicationRecord
   validate :itens_vazio
   accepts_nested_attributes_for :movimentacao_itens, allow_destroy: true
 
+  def self.ransackable_attributes(_auth_object = nil)
+    column_names
+  end
+
   private
 
   def itens_vazio

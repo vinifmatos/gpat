@@ -10,11 +10,19 @@ class Patrimonio < ApplicationRecord
       .order('movimentacoes."data" desc, movimentacao_itens.created_at desc')
   }, class_name: 'MovimentacaoItem'
   has_one :ultima_movimentacao, through: :ultima_movimentacao_item, source: :movimentacao
-  enum :situacao, %i[pendente ativo em_manutencao inativo],
+  enum :situacao, { pendente: 0, ativo: 1, em_manutencao: 2, inativo: 3 },
        validate: { message: "'%<value>s' não é uma situação válida" }
   before_update :verifica_desincorporado
 
   def localizacao_atual
     ultima_movimentacao.local
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    column_names
+  end
+
+  ransacker :situacao, formatter: proc { |v| situacoes[v] } do |parent|
+    parent.table[:situacao]
   end
 end

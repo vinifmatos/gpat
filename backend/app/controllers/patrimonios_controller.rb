@@ -1,37 +1,13 @@
 class PatrimoniosController < ApplicationController
   before_action :set_patrimonio, only: %i[show update destroy movimentacoes]
-  include Filtros
   include Paginacao
 
   # GET /patrimonios
   def index
-    filtro_situacao = @filtros.delete(:situacao)&.to_sym
-    @patrimonios = case filtro_situacao
-                   when :pendentes
-                     Patrimonio.pendente
-                               .includes(:grupo, :fornecedor)
-                               .where(@filtros).order(@ordernacao)
-                               .page(@pagina).per(@limite_pagina).all
-                   when :inativos
-                     Patrimonio.inativo
-                               .includes(:grupo, :fornecedor)
-                               .where(@filtros).order(@ordernacao)
-                               .page(@pagina).per(@limite_pagina).all
-                   when :manutencao
-                     Patrimonio.em_manutencao
-                               .includes(:grupo, :fornecedor)
-                               .where(@filtros).order(@ordernacao)
-                               .page(@pagina).per(@limite_pagina).all
-                   when :todas
-                     Patrimonio.includes(:grupo, :fornecedor)
-                               .where(@filtros).order(@ordernacao)
-                               .page(@pagina).per(@limite_pagina).all
-                   else
-                     Patrimonio.ativo
-                               .includes(:grupo, :fornecedor)
-                               .where(@filtros).order(@ordernacao)
-                               .page(@pagina).per(@limite_pagina).all
-                   end
+    @q = Patrimonio.ransack(params[:q])
+    @patrimonios = @q.result(distinct: true)
+                     .page(@pagina)
+                     .per(@limite_pagina)
   end
 
   def movimentacoes
