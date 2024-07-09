@@ -13,6 +13,8 @@ class Patrimonio < ApplicationRecord
   enum :situacao, { pendente: 0, ativo: 1, em_manutencao: 2, inativo: 3 },
        validate: { message: "'%<value>s' não é uma situação válida" }
   before_update :verifica_desincorporado
+  attr_accessor :local_inicial_id
+  after_create :cria_movimentacao_inicial
 
   def localizacao_atual
     ultima_movimentacao.local
@@ -24,5 +26,14 @@ class Patrimonio < ApplicationRecord
 
   ransacker :situacao, formatter: proc { |v| situacoes[v] } do |parent|
     parent.table[:situacao]
+  end
+
+  def cria_movimentacao_inicial
+    Movimentacao.create(
+      data: data_incorporacao,
+      local_id: local_inicial_id,
+      motivo: Movimentacao.motivos[:incorporacao],
+      movimentacao_itens: [MovimentacaoItem.new(patrimonio_id: id)]
+    )
   end
 end

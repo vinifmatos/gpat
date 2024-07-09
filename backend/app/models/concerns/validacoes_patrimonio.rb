@@ -3,19 +3,27 @@ module ValidacoesPatrimonio
 
   included do
     validates :descricao, :data_aquisicao, :valor_aquisicao, :vida_util, :valor_residual,
-    :situacao, :grupo_id, presence: true
+              :situacao, :grupo_id, presence: true
     validates :valor_aquisicao, :valor_residual, numericality: { greater_than: 0 }
     validates :numero_empenho, :ano_empenho, :numero_processo_compra, :ano_processo_compra,
-        numericality: { only_integer: true, greater_than: 0, allow_nil: true }
+              numericality: { only_integer: true, greater_than: 0, allow_nil: true }
     validates :vida_util, numericality: { only_integer: true, greater_than: 0 }
     validate :data_baixa_maior_que_incorporacao
     validate :valida_situacao
     validate :valida_se_grupo_e_subgrupo
     validates :codigo, uniqueness: true
     before_validation :set_situacao
+    validate :localizacao_inicial
   end
 
   private
+
+  def localizacao_inicial
+    return unless new_record? && local_inicial_id.nil? && data_incorporacao.present?
+
+    errors.add(:local_inicial_id,
+               'deve ser informado para os patrimonios incorporados')
+  end
 
   def set_situacao
     self.situacao = case
