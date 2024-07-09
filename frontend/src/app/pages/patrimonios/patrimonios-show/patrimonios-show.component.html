@@ -1,5 +1,5 @@
 <app-show titulo="Patrimônio" [carregando]="carregando" [erro_ao_carregar]="erro_ao_carregar" [layout]="layout"
-  [desabilita_edicao]="patrimonio.situacao === 'inativo'" />
+  [desabilita_edicao]="patrimonio?.situacao === 'inativo'" />
 <ng-template #layout>
   <div class="dados">
     <div class="row id">
@@ -63,8 +63,10 @@
     </div>
 
     <div class="row">
-      <label>Localização Atual</label>
-      <div class="campo">{{patrimonio.localizacao_atual}}</div>
+      <div class="campo">
+        <label>Localização Atual</label>
+        <div class="valor">{{patrimonio.localizacao_atual?.codigo}} - {{patrimonio.localizacao_atual?.descricao}}</div>
+      </div>
     </div>
 
     <div class="row">

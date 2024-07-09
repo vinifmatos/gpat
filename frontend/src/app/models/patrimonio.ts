@@ -4,6 +4,7 @@ import { Fornecedor } from "./fornecedor";
 import { Grupo } from "./grupo";
 import { ModelBase } from "./model-base";
 import { formatDate } from "date-fns";
+import { Local } from "./local";
 
 export class Patrimonio extends ModelBase {
   static override nome: string = "patrimonio";
@@ -32,7 +33,7 @@ export class Patrimonio extends ModelBase {
   numero_processo_compra?: number;
   ano_processo_compra?: number;
   fornecedor_id?: number;
-  localizacao_atual?: string;
+  localizacao_atual?: Local;
   grupo?: Grupo;
   fornecedor?: Fornecedor;
   url_thumb?: string;
@@ -80,7 +81,7 @@ export class Patrimonio extends ModelBase {
     numero_processo_compra?: number;
     ano_processo_compra?: number;
     fornecedor_id?: number;
-    localizacao_atual?: string;
+    localizacao_atual?: Local;
     grupo?: Grupo;
     fornecedor?: Fornecedor;
     url_thumb?: string;

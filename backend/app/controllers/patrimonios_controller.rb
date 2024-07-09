@@ -51,7 +51,7 @@ class PatrimoniosController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_patrimonio
-    @patrimonio = Patrimonio.includes(:grupo, :fornecedor).find(params[:id])
+    @patrimonio = Patrimonio.includes(:grupo, :fornecedor, :ultima_movimentacao).find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
