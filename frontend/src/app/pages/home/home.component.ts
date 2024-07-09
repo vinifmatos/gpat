@@ -35,10 +35,7 @@ export class HomeComponent implements AfterViewInit {
     api
       .get<Patrimonio[]>(Patrimonio.rotas.index, {
         q: {
-          s: {
-            created_at: "desc",
-            codigo: "asc",
-          },
+          s: ["created_at desc", "codigo asc"],
         },
         pagina: 1,
         limite_pagina: 5,
@@ -53,10 +50,7 @@ export class HomeComponent implements AfterViewInit {
       .get<Patrimonio[]>(Patrimonio.rotas.index, {
         q: {
           situacao_eq: "inativo",
-          s: {
-            data_baixa: "desc",
-            codigo: "asc",
-          },
+          s: ["data_baixa desc", "codigo asc"],
         },
         pagina: 1,
         limite_pagina: 5,
@@ -71,10 +65,7 @@ export class HomeComponent implements AfterViewInit {
       .get<Patrimonio[]>(Patrimonio.rotas.index, {
         q: {
           situacao_eq: "pendente",
-          s: {
-            created_at: "desc",
-            id: "desc",
-          },
+          s: ["created_at desc", "id desc"],
         },
         pagina: 1,
         limite_pagina: 5,
