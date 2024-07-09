@@ -62,10 +62,17 @@ export class ApiService {
   ): HttpParams {
     for (const k in parametros) {
       let chave = chave_pai ? `${chave_pai}[${k}]` : `${k}`;
-      if (Array.isArray(parametros[k])) {
+      if (
+        Array.isArray(parametros[k]) &&
+        Object.prototype.toString.call(parametros[k]) !== "[object String]"
+      ) {
         parametros[k].forEach((v: any) => {
-          for (const kk in v) {
-            http_params = http_params.append(`${chave}[][${kk}]`, v[kk]);
+          if (Object.prototype.toString.call(v) === "[object Object]") {
+            for (const kk in v) {
+              http_params = http_params.append(`${chave}[][${kk}]`, v[kk]);
+            }
+          } else {
+            http_params = http_params.append(`${chave}[]`, v);
           }
         });
       } else if (
