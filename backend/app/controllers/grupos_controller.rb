@@ -4,11 +4,16 @@ class GruposController < ApplicationController
 
   # GET /grupos
   def index
+    unless params[:q] && (params[:q].keys.include?(:subgrupos) || params[:q].keys.include?(:grupos))
+      params[:q] ||= {}
+      params[:q][:grupos] = true
+    end
+
     @q = Grupo.ransack(params[:q])
     @grupos = @q.result(distinct: true)
                 .page(@pagina)
                 .per(@limite_pagina)
-    if params[:q][:subgrupos]
+    if params[:q] && params[:q][:subgrupos]
       render :subgrupos
     else
       render :grupos

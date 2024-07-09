@@ -10,7 +10,8 @@ class Grupo < ApplicationRecord
                         .where.not(grupo_id: nil)
                     }
   scope :grupos, lambda { |_grupo = true|
-                   where(grupo_id: nil)
+                   includes(:subgrupos)
+                     .where(grupo_id: nil)
                  }
 
   def grupo?
