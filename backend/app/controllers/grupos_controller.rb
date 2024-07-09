@@ -1,22 +1,16 @@
 class GruposController < ApplicationController
   before_action :set_grupo, only: %i[update destroy]
   include Paginacao::Grupos
-  include Filtros::Grupos
 
   # GET /grupos
   def index
-    if params[:subgrupos]
-      @grupos = Grupo.includes(:grupo).subgrupos
-                     .where(@filtros)
-                     .order(@ordernacao)
-                     .page(@pagina).per(@limite_pagina).all
+    @q = Grupo.ransack(params[:q])
+    @grupos = @q.result(distinct: true)
+                .page(@pagina)
+                .per(@limite_pagina)
+    if params[:q][:subgrupos]
       render :subgrupos
     else
-      params[:grupos] = true
-      @grupos = Grupo.includes(:subgrupos).grupos
-                     .where(@filtros)
-                     .order(@ordernacao).references(:subgrupos)
-                     .page(@pagina).per(@limite_pagina).all
       render :grupos
     end
   end

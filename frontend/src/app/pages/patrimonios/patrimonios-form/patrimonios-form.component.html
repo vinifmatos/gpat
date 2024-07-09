@@ -124,11 +124,15 @@
 
 <p-dialog header="Selecionar Grupo" [modal]="true" [(visible)]="exibir_selecao_grupo" [style]="{ width: '720px' }">
   <div class="lista-locais">
-    <p-listbox [options]="grupos" [(ngModel)]="grupo_selecionado" optionLabel="descricao" [filter]="true"
-      [style]="{ width: '100%' }" [listStyle]="{'height': '300px'}" (onFilter)="get_grupos($event)"
-      filterPlaceHolder="Digite o nome de um grupo" emptyFilterMessage="Nenhum grupo encontrado">
-      <ng-template let-grupo pTemplate="item">
-        <div>{{grupo.codigo}} - {{ grupo.descricao }}</div>
+    <p-listbox [options]="grupos" [group]="true" [(ngModel)]="grupo_selecionado" [filter]="true"
+      [filterFields]="['label']" [style]="{ width: '100%' }" [listStyle]="{'height': '300px'}"
+      (onFilter)="get_grupos($event)" filterPlaceHolder="Digite o nome de um grupo"
+      emptyFilterMessage="Nenhum grupo encontrado">
+      <ng-template let-grupo pTemplate="group">
+        <div>{{grupo.label}}</div>
+      </ng-template>
+      <ng-template let-grupo>
+        <div>{{grupo.label}}</div>
       </ng-template>
     </p-listbox>
   </div>
@@ -140,8 +144,8 @@
 
 <p-dialog header="Selecionar Local" [modal]="true" [(visible)]="exibir_selecao_local" [style]="{ width: '720px' }">
   <div class="lista-locais">
-    <p-listbox [options]="locais" [(ngModel)]="local_selecionado" optionLabel="descricao" [filter]="true"
-      [style]="{ width: '100%' }" [listStyle]="{'height': '300px'}" (onFilter)="get_locais($event)"
+    <p-listbox [options]="locais" [(ngModel)]="local_selecionado" [filterFields]="['codigo', 'descricao']"
+      [filter]="true" [style]="{ width: '100%' }" [listStyle]="{'height': '300px'}" (onFilter)="get_locais($event)"
       filterPlaceHolder="Digite o nome de um local" emptyFilterMessage="Nenhum local encontrado">
       <ng-template let-local pTemplate="item">
         <div>{{local.codigo}} - {{ local.descricao }}</div>

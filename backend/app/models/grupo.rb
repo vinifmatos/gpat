@@ -5,8 +5,13 @@ class Grupo < ApplicationRecord
   has_many :subgrupos, class_name: 'Grupo', foreign_key: 'grupo_id', inverse_of: :grupo
   before_validation :gerar_codigo
 
-  scope :subgrupos, -> { where.not(grupo_id: nil) }
-  scope :grupos, -> { where(grupo_id: nil) }
+  scope :subgrupos, lambda { |_subgrupo = true|
+                      includes(:grupo)
+                        .where.not(grupo_id: nil)
+                    }
+  scope :grupos, lambda { |_grupo = true|
+                   where(grupo_id: nil)
+                 }
 
   def grupo?
     grupo_id.nil?
@@ -18,6 +23,10 @@ class Grupo < ApplicationRecord
 
   def self.ransackable_attributes(_auth_object = nil)
     column_names
+  end
+
+  def self.ransackable_scopes(_auth_object = nil)
+    %i[subgrupos grupos]
   end
 
   private

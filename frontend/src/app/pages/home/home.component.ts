@@ -33,18 +33,16 @@ export class HomeComponent implements AfterViewInit {
 
   constructor(private cdr: ChangeDetectorRef, api: ApiService) {
     api
-      .get<Patrimonio[]>(
-        Patrimonio.rotas.index,
-        {},
-        {
-          created_at: "desc",
-          codigo: "asc",
+      .get<Patrimonio[]>(Patrimonio.rotas.index, {
+        q: {
+          s: {
+            created_at: "desc",
+            codigo: "asc",
+          },
         },
-        {
-          pagina: 1,
-          limite_pagina: 5,
-        }
-      )
+        pagina: 1,
+        limite_pagina: 5,
+      })
       .subscribe((res) => {
         this.ultimos = res.body?.map((p) => {
           return new Patrimonio(p);
@@ -52,20 +50,17 @@ export class HomeComponent implements AfterViewInit {
       });
 
     api
-      .get<Patrimonio[]>(
-        Patrimonio.rotas.index,
-        {
+      .get<Patrimonio[]>(Patrimonio.rotas.index, {
+        q: {
           situacao_eq: "inativo",
+          s: {
+            data_baixa: "desc",
+            codigo: "asc",
+          },
         },
-        {
-          data_baixa: "desc",
-          codigo: "asc",
-        },
-        {
-          pagina: 1,
-          limite_pagina: 5,
-        }
-      )
+        pagina: 1,
+        limite_pagina: 5,
+      })
       .subscribe((res) => {
         this.baixas = res.body?.map((p) => {
           return new Patrimonio(p);
@@ -73,20 +68,17 @@ export class HomeComponent implements AfterViewInit {
       });
 
     api
-      .get<Patrimonio[]>(
-        Patrimonio.rotas.index,
-        {
+      .get<Patrimonio[]>(Patrimonio.rotas.index, {
+        q: {
           situacao_eq: "pendente",
+          s: {
+            created_at: "desc",
+            id: "desc",
+          },
         },
-        {
-          created_at: "desc",
-          id: "desc",
-        },
-        {
-          pagina: 1,
-          limite_pagina: 5,
-        }
-      )
+        pagina: 1,
+        limite_pagina: 5,
+      })
       .subscribe((res) => {
         this.pendentes = res.body?.map((p) => {
           return new Patrimonio(p);

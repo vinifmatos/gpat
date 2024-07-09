@@ -11,6 +11,7 @@ import { Fornecedor } from "../../../models/fornecedor";
 import { Patrimonio } from "../../../models/patrimonio";
 import { Local } from "../../../models/local";
 import { ListboxFilterEvent } from "primeng/listbox";
+import { SelectItemGroup } from "primeng/api";
 
 @Component({
   selector: "app-patrimonios-form",
@@ -21,7 +22,7 @@ import { ListboxFilterEvent } from "primeng/listbox";
 })
 export class PatrimoniosFormComponent extends FormBase {
   fornecedores: Fornecedor[] = [];
-  grupos: Grupo[] = [];
+  grupos: SelectItemGroup[] = [];
   locais: Local[] = [];
   exibir_selecao_fornecedor: boolean = false;
   exibir_selecao_grupo: boolean = false;
@@ -43,28 +44,54 @@ export class PatrimoniosFormComponent extends FormBase {
   get_grupos(event: ListboxFilterEvent) {
     this.api
       .get<Grupo[]>(Grupo.rotas.index, {
-        subgrupos: true,
-        descricao: event.filter,
-        ativo: "=true",
-        ordenar_por: ["descricao"],
+        q: {
+          g: [
+            {
+              codigo_eq: event.filter,
+              descricao_regex_insensitive: event.filter,
+              m: "or",
+            },
+          ],
+          ativo_eq: true,
+          subgrupos: true,
+        },
+        descricao: "asc",
       })
       .subscribe((res) => {
-        this.grupos = res.body as Grupo[];
+        const grupos = res.body as Grupo[];
+
+        this.grupos = Object.values(
+          grupos.reduce((a: any, i: any) => {
+            const { id, codigo, descricao } = i.grupo;
+            if (!a[id])
+              a[id] = {
+                label: `${codigo} - ${descricao}`,
+                value: id,
+                items: [],
+              };
+
+            a[id].items.push({
+              label: `${i.codigo} - ${i.descricao}`,
+              value: i,
+            });
+            return a;
+          }, {})
+        );
+        console.log(this.grupos);
       });
   }
 
   get_fornecedores(event: ListboxFilterEvent) {
     event.originalEvent.preventDefault();
     this.api
-      .get<Fornecedor[]>(
-        Fornecedor.rotas.index,
-        {
+      .get<Fornecedor[]>(Fornecedor.rotas.index, {
+        q: {
           razao_social_regex_insensitive: event.filter,
           documento_eq: event.filter,
           m: "or",
         },
-        { razao_social: "asc" }
-      )
+        razao_social: "asc",
+      })
       .subscribe((res) => {
         this.fornecedores = res.body as Fornecedor[];
       });
@@ -73,9 +100,17 @@ export class PatrimoniosFormComponent extends FormBase {
   get_locais(event: ListboxFilterEvent) {
     this.api
       .get<Local[]>(Local.rotas.index, {
-        descricao: `~*${event.filter}`,
-        ativo: "=true",
-        ordenar_por: ["descricao"],
+        q: {
+          g: [
+            {
+              codigo_eq: event.filter,
+              descricao_regex_insensitive: event.filter,
+              m: "or",
+            },
+          ],
+          ativo_eq: true,
+        },
+        descricao: "asc",
       })
       .subscribe((res) => {
         this.locais = res.body as Local[];

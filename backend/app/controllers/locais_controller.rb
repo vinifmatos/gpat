@@ -1,17 +1,13 @@
 class LocaisController < ApplicationController
   before_action :set_local, only: %i[show update destroy]
   include Paginacao
-  include Filtros
 
   # GET /locais
   def index
-    @locais = if @filtros.empty?
-                Local.order(@ordernacao)
-                     .page(@pagina).per(@limite_pagina).all
-              else
-                Local.where(@filtros).order(@ordernacao)
-                     .page(@pagina).per(@limite_pagina).all
-              end
+    @q = Local.ransack(params[:q])
+    @locais = @q.result(distinct: true)
+                .page(@pagina)
+                .per(@limite_pagina)
   end
 
   # GET /locais/1
