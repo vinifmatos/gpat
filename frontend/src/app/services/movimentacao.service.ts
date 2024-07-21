@@ -11,7 +11,7 @@ export class MovimentacaoService {
   private apiService = inject(ApiService);
   private url = "movimentacoes";
 
-  listarMovimentacoes(parametrosBusca: any): Observable<Movimentacao[]> {
+  listarMovimentacoes(parametrosBusca: any = {}): Observable<Movimentacao[]> {
     return this.apiService
       .get<Movimentacao[]>(this.url, parametrosBusca)
       .pipe(map((res) => res.body!.map(Movimentacao.build)));

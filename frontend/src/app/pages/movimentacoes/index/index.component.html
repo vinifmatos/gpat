@@ -1,1 +1,38 @@
-<p>movimentacao-index works!</p>
+<p-card>
+  <ng-template pTemplate="header">
+    <h1 class="p-card-title">{{titulo}}</h1>
+    <button routerLink="novo" pButton pRipple label="Novo" class="p-button"></button>
+  </ng-template>
+  <div class="card">
+    @if (movimentacoes$ | async; as movimentacoes) {
+    <p-dataView #dv [value]="movimentacoes">
+      <ng-template pTemplate="empty">
+        Nenhum item cadastrado
+      </ng-template>
+      <ng-template pTemplate="list">
+        <div class="movimentacao" *ngFor="let movimentacao of movimentacoes;">
+          <div class="conteudo">
+            <div>
+              <span># </span>
+              {{movimentacao.id}}
+            </div>
+            <div>
+              <span>Data</span><br>
+              {{movimentacao.data | date : "shortDate":"pt-BR" }}
+            </div>
+            <div class="local">
+              <span>Local</span><br>
+              {{movimentacao.local?.codigo}} - {{movimentacao.local?.descricao}}
+            </div>
+          </div>
+          <div class="acoes">
+            <button [routerLink]="[movimentacao.id, 'editar']" pButton pRipple label="Editar" class="p-button"></button>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataView>
+    } @else {
+    <app-spinner></app-spinner>
+    }
+  </div>
+</p-card>
