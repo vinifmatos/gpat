@@ -1,0 +1,61 @@
+<p-card>
+  <ng-template pTemplate="header">
+    <h1>{{titulo}}</h1>
+  </ng-template>
+  @if(carregando) {
+  <app-spinner></app-spinner>
+  } @else if (!carregando && carregado_com_erro) {
+  <div class="erro">Não foi possível carregar as informações</div>
+  } @else {
+  <form [formGroup]="form">
+    <div class="row">
+      <div id="form-group-data" class="form-group">
+        <label for="data">Data</label>
+        <p-calendar inputId="data" formControlName="data" dateFormat="dd/mm/yy" appendTo="body" />
+      </div>
+      <div id="form-group-motivo" class="form-group">
+        <label for="motivo">Descrição</label>
+        <input id="motivo" formControlName="motivo" type="text" pInputText />
+      </div>
+    </div>
+    <div class="row">
+      <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+          <p-button severity="success" label="New" icon="pi pi-plus" class="mr-2" />
+          <p-button severity="danger" label="Delete" icon="pi pi-trash" />
+        </ng-template>
+      </p-toolbar>
+      <p-table [value]="itens()" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 4rem">
+              <p-tableHeaderCheckbox />
+            </th>
+            <th>Código</th>
+            <th>Descrição</th>
+            <th>Localização Atual</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="item" />
+            </td>
+            <td>{{ item.patrimonio.codigo }}</td>
+            <td>{{ item.patrimonio.descricao }}</td>
+            <td>{{ item.patrimonio.localizacao_atual }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </form>
+  }
+
+  <ng-template pTemplate="footer">
+    @if (!carregando && !carregado_com_erro) {
+    <button [routerLink]="get_url_anterior()" pButton pRipple label="Cancelar" severity="secondary"
+      class="p-button"></button>
+    <p-button label="Salvar" severity="success" (onClick)="onSubmit()" />
+    }
+  </ng-template>
+</p-card>

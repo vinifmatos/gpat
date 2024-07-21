@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
-import { ImportsModule } from "../../../imports.module";
-import { ShowComponent } from "../../shared/show/show.component";
-import { ApiService } from "../../../services/api.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ImportsModule } from "../../../imports.module";
+import { Grupo } from "../../../models/grupo.model";
+import { ApiService } from "../../../services/api.service";
+import { ShowComponent } from "../../shared/show/show.component";
 import { ShowBase } from "../../show-base";
-import { Grupo } from "../../../models/grupo";
 
 @Component({
   selector: "app-grupos-show",

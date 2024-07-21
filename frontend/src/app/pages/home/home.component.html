@@ -16,7 +16,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-patrimonio>
-      <tr [routerLink]="get_url_instancia(patrimonio)">
+      <tr [routerLink]="['patrimonios', patrimonio.id]">
         <td>{{ patrimonio.codigo }}</td>
         <td>{{ patrimonio.descricao }}</td>
         <td>{{ patrimonio.created_at | date : 'dd/MM/yyyy HH:mm' }}</td>
@@ -35,7 +35,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-patrimonio>
-      <tr [routerLink]="get_url_instancia(patrimonio)">
+      <tr [routerLink]="['patrimonios', patrimonio.id]">
         <td>{{ patrimonio.codigo }}</td>
         <td>{{ patrimonio.descricao }}</td>
         <td>{{ patrimonio.data_baixa | date : 'dd/MM/yyyy' }}</td>
@@ -54,7 +54,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-patrimonio>
-      <tr [routerLink]="get_url_instancia(patrimonio)">
+      <tr [routerLink]="['patrimonios', patrimonio.id]">
         <td>{{ patrimonio.codigo }}</td>
         <td>{{ patrimonio.descricao }}</td>
         <td>{{ patrimonio.created_at | date : 'dd/MM/yyyy HH:mm' }}</td>
@@ -73,7 +73,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-patrimonio>
-      <tr [routerLink]="get_url_instancia(patrimonio)">
+      <tr [routerLink]="['patrimonios', patrimonio.id]">
         <td>{{ patrimonio.codigo }}</td>
         <td>{{ patrimonio.descricao }}</td>
         <td>{{ patrimonio.created_at | date : 'dd/MM/yyyy HH:mm' }}</td>

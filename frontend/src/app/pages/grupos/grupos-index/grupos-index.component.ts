@@ -1,11 +1,11 @@
 import { Component } from "@angular/core";
-import { ImportsModule } from "../../../imports.module";
-import { IndexComponent } from "../../shared/index/index.component";
-import { ApiService } from "../../../services/api.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TreeNode } from "primeng/api";
-import { Grupo } from "../../../models/grupo";
+import { ImportsModule } from "../../../imports.module";
+import { Grupo } from "../../../models/grupo.model";
+import { ApiService } from "../../../services/api.service";
 import { IndexBase } from "../../index-base";
+import { IndexComponent } from "../../shared/index/index.component";
 
 @Component({
   selector: "app-grupos-index",

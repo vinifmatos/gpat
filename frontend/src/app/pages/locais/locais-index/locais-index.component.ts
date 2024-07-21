@@ -1,10 +1,10 @@
-import { ActivatedRoute, Router } from "@angular/router";
-import { ApiService } from "../../../services/api.service";
-import { IndexComponent } from "../../shared/index/index.component";
-import { ImportsModule } from "../../../imports.module";
 import { Component } from "@angular/core";
-import { Local } from "../../../models/local";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ImportsModule } from "../../../imports.module";
+import { Local } from "../../../models/local.model";
+import { ApiService } from "../../../services/api.service";
 import { IndexBase } from "../../index-base";
+import { IndexComponent } from "../../shared/index/index.component";
 
 @Component({
   selector: "app-locais-index",

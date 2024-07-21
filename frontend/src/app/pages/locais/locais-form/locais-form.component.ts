@@ -1,15 +1,14 @@
 import { Component } from "@angular/core";
-import { ImportsModule } from "../../../imports.module";
-import { FormComponent } from "../../shared/form/form.component";
-import { ApiService } from "../../../services/api.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { StringService } from "../../../services/string.service";
 import { AutoCompleteCompleteEvent } from "primeng/autocomplete";
-import { FormEnderecoComponent } from "../../shared/form-endereco/form-endereco.component";
-import { Local } from "../../../models/local";
+import { ImportsModule } from "../../../imports.module";
+import { Local } from "../../../models/local.model";
+import { ApiService } from "../../../services/api.service";
+import { StringService } from "../../../services/string.service";
 import { FormBase } from "../../form-base";
-import { Endereco } from "../../../models/endereco";
+import { FormEnderecoComponent } from "../../shared/form-endereco/form-endereco.component";
+import { FormComponent } from "../../shared/form/form.component";
 
 @Component({
   selector: "app-locais-form",

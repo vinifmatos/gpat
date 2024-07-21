@@ -1,28 +1,29 @@
-import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { InputTextModule } from "primeng/inputtext";
-import { InputTextareaModule } from "primeng/inputtextarea";
-import { CalendarModule } from "primeng/calendar";
-import { InputNumberModule } from "primeng/inputnumber";
-import { AutoCompleteModule } from "primeng/autocomplete";
-import { RadioButtonModule } from "primeng/radiobutton";
-import { TableModule } from "primeng/table";
-import { TagModule } from "primeng/tag";
-import { DataViewModule } from "primeng/dataview";
-import { CheckboxModule } from "primeng/checkbox";
-import { RippleModule } from "primeng/ripple";
-import { CardModule } from "primeng/card";
-import { SkeletonModule } from "primeng/skeleton";
-import { RouterModule } from "@angular/router";
-import { ProgressSpinnerModule } from "primeng/progressspinner";
-import { BadgeModule } from "primeng/badge";
-import { TreeModule } from "primeng/tree";
-import { TreeTableModule } from "primeng/treetable";
+import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
+import { AutoCompleteModule } from "primeng/autocomplete";
+import { BadgeModule } from "primeng/badge";
+import { CalendarModule } from "primeng/calendar";
+import { CardModule } from "primeng/card";
+import { CheckboxModule } from "primeng/checkbox";
+import { DataViewModule } from "primeng/dataview";
+import { DialogModule } from "primeng/dialog";
 import { InputGroupModule } from "primeng/inputgroup";
 import { InputGroupAddonModule } from "primeng/inputgroupaddon";
-import { DialogModule } from "primeng/dialog";
+import { InputNumberModule } from "primeng/inputnumber";
+import { InputTextModule } from "primeng/inputtext";
+import { InputTextareaModule } from "primeng/inputtextarea";
 import { ListboxModule } from "primeng/listbox";
+import { ProgressSpinnerModule } from "primeng/progressspinner";
+import { RadioButtonModule } from "primeng/radiobutton";
+import { RippleModule } from "primeng/ripple";
+import { SkeletonModule } from "primeng/skeleton";
+import { TableModule } from "primeng/table";
+import { TagModule } from "primeng/tag";
+import { ToolbarModule } from "primeng/toolbar";
+import { TreeModule } from "primeng/tree";
+import { TreeTableModule } from "primeng/treetable";
 
 @NgModule({
   declarations: [],
@@ -52,6 +53,7 @@ import { ListboxModule } from "primeng/listbox";
     InputGroupAddonModule,
     DialogModule,
     ListboxModule,
+    ToolbarModule,
   ],
   exports: [
     CommonModule,
@@ -79,6 +81,7 @@ import { ListboxModule } from "primeng/listbox";
     InputGroupAddonModule,
     DialogModule,
     ListboxModule,
+    ToolbarModule,
   ],
 })
 export class ImportsModule {}

@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
-import { ImportsModule } from "../../../imports.module";
-import { ApiService } from "../../../services/api.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Configuracao } from "../../../models/configuracao";
-import { ComponentBase } from "../../component-base";
+import { ImportsModule } from "../../../imports.module";
+import { Configuracao } from "../../../models/configuracao.model";
+import { ApiService } from "../../../services/api.service";
 import { NavegacaoService } from "../../../services/navegacao.service";
+import { ComponentBase } from "../../component-base";
 import { SpinnerComponent } from "../../shared/spinner/spinner.component";
 
 @Component({

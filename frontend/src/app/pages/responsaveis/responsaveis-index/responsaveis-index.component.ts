@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
-import { ImportsModule } from "../../../imports.module";
-import { IndexComponent } from "../../shared/index/index.component";
-import { ApiService } from "../../../services/api.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ImportsModule } from "../../../imports.module";
+import { Responsavel } from "../../../models/responsavel.model";
+import { ApiService } from "../../../services/api.service";
 import { IndexBase } from "../../index-base";
-import { Responsavel } from "../../../models/responsavel";
+import { IndexComponent } from "../../shared/index/index.component";
 
 @Component({
   selector: "app-responsaveis-index",

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { ImportsModule } from "../../../imports.module";
 import {
   ControlContainer,
   FormGroup,
@@ -7,9 +6,10 @@ import {
   ReactiveFormsModule,
 } from "@angular/forms";
 import { AutoCompleteCompleteEvent } from "primeng/autocomplete";
+import { ImportsModule } from "../../../imports.module";
 import { Cidade } from "../../../interfaces/cidade";
+import { Endereco } from "../../../models/endereco.model";
 import { ApiService } from "../../../services/api.service";
-import { Endereco } from "../../../models/endereco";
 
 @Component({
   selector: "app-form-endereco",

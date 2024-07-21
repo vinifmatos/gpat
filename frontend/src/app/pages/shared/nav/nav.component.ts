@@ -2,7 +2,7 @@ import { CommonModule, DOCUMENT } from "@angular/common";
 import { Component, Inject } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { ButtonModule } from "primeng/button";
-import { LocalStorageService } from "../../../services/local_storage";
+import { LocalStorageService } from "../../../services/local-storage.service";
 
 @Component({
   selector: "app-nav",
@@ -26,6 +26,11 @@ export class NavComponent {
       label: "Patrimônios",
       icon: "pi pi-building-columns",
       link: "/patrimonios",
+    },
+    {
+      label: "Movimentações",
+      icon: "pi pi-sort-alt",
+      link: "/movimentacoes",
     },
     {
       label: "Grupos",

@@ -2,12 +2,13 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  inject,
   TemplateRef,
   ViewChild,
 } from "@angular/core";
-import { Patrimonio } from "../../models/patrimonio";
 import { ImportsModule } from "../../imports.module";
-import { ApiService } from "../../services/api.service";
+import { Patrimonio } from "../../models/patrimonio.model";
+import { PatrimonioService } from "../../services/patrimonio.service";
 
 @Component({
   selector: "app-home",
@@ -21,6 +22,9 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild("template_baixas") template_baixas: TemplateRef<any>;
   @ViewChild("template_depreciacao") template_depreciacao: TemplateRef<any>;
   @ViewChild("template_pendentes") template_pendentes: TemplateRef<any>;
+  private cdr = inject(ChangeDetectorRef);
+  private patrimonioService = inject(PatrimonioService);
+
   secoes: {
     id: string;
     titulo: string;
@@ -31,23 +35,19 @@ export class HomeComponent implements AfterViewInit {
   depreciacao = [];
   pendentes: Patrimonio[] = [];
 
-  constructor(private cdr: ChangeDetectorRef, api: ApiService) {
-    api
-      .get<Patrimonio[]>(Patrimonio.rotas.index, {
+  constructor() {
+    this.patrimonioService
+      .listar_patrimonios({
         q: {
           s: ["created_at desc", "codigo asc"],
         },
         pagina: 1,
         limite_pagina: 5,
       })
-      .subscribe((res) => {
-        this.ultimos = res.body?.map((p) => {
-          return new Patrimonio(p);
-        }) as Patrimonio[];
-      });
+      .subscribe((patrimonios) => (this.ultimos = patrimonios));
 
-    api
-      .get<Patrimonio[]>(Patrimonio.rotas.index, {
+    this.patrimonioService
+      .listar_patrimonios({
         q: {
           situacao_eq: "inativo",
           s: ["data_baixa desc", "codigo asc"],
@@ -55,14 +55,10 @@ export class HomeComponent implements AfterViewInit {
         pagina: 1,
         limite_pagina: 5,
       })
-      .subscribe((res) => {
-        this.baixas = res.body?.map((p) => {
-          return new Patrimonio(p);
-        }) as Patrimonio[];
-      });
+      .subscribe((patrimonios) => (this.baixas = patrimonios));
 
-    api
-      .get<Patrimonio[]>(Patrimonio.rotas.index, {
+    this.patrimonioService
+      .listar_patrimonios({
         q: {
           situacao_eq: "pendente",
           s: ["created_at desc", "id desc"],
@@ -70,11 +66,7 @@ export class HomeComponent implements AfterViewInit {
         pagina: 1,
         limite_pagina: 5,
       })
-      .subscribe((res) => {
-        this.pendentes = res.body?.map((p) => {
-          return new Patrimonio(p);
-        }) as Patrimonio[];
-      });
+      .subscribe((patrimonios) => (this.pendentes = patrimonios));
   }
   ngAfterViewInit(): void {
     this.secoes = [
@@ -100,9 +92,5 @@ export class HomeComponent implements AfterViewInit {
       },
     ];
     this.cdr.detectChanges();
-  }
-
-  get_url_instancia(obj: any): string[] {
-    return ["/", obj.constructor.rotas.get, obj.id as string];
   }
 }

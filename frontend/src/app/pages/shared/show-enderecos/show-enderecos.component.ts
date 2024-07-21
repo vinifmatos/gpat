@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { ImportsModule } from "../../../imports.module";
-import { Endereco } from "../../../models/endereco";
+import { Endereco } from "../../../models/endereco.model";
 
 @Component({
   selector: "app-show-enderecos",

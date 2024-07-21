@@ -1,32 +1,20 @@
-import { FormControl, FormGroup } from "@angular/forms";
-import { Rotas } from "../interfaces/rotas";
-import { Fornecedor } from "./fornecedor";
-import { Grupo } from "./grupo";
-import { ModelBase } from "./model-base";
 import { formatDate } from "date-fns";
-import { Local } from "./local";
+import { Fornecedor } from "./fornecedor.model";
+import { Grupo } from "./grupo.model";
+import { Local } from "./local.model";
+import { ModelBase } from "./model-base.model";
 
 export class Patrimonio extends ModelBase {
-  static override nome: string = "patrimonio";
-  static override rotas: Rotas = {
-    index: "patrimonios",
-    get: "patrimonios",
-    show: "patrimonios",
-    create: "patrimonios",
-    update: "patrimonios",
-    delete: "patrimonios",
-  };
-
   codigo?: string;
   descricao: string;
   especificacao?: string;
-  data_aquisicao?: Date;
+  data_aquisicao: Date;
   data_incorporacao?: Date;
-  valor_aquisicao?: number;
-  vida_util?: number;
-  valor_residual?: number;
+  valor_aquisicao: number;
+  vida_util: number;
+  valor_residual: number;
   data_baixa?: Date;
-  situacao?: string;
+  situacao: "pendente" | "ativo" | "em_manutencao" | "inativo";
   grupo_id?: number;
   numero_empenho?: number;
   ano_empenho?: number;
@@ -36,7 +24,7 @@ export class Patrimonio extends ModelBase {
   localizacao_atual?: Local;
   grupo?: Grupo;
   fornecedor?: Fornecedor;
-  url_thumb?: string;
+  thumb?: string;
   local_inicial_id?: number;
 
   constructor({
@@ -45,11 +33,11 @@ export class Patrimonio extends ModelBase {
     especificacao,
     data_aquisicao = new Date(),
     data_incorporacao,
-    valor_aquisicao,
-    vida_util,
-    valor_residual,
+    valor_aquisicao = 0,
+    vida_util = 0,
+    valor_residual = 0,
     data_baixa,
-    situacao,
+    situacao = "pendente",
     grupo_id,
     numero_empenho,
     ano_empenho,
@@ -59,7 +47,7 @@ export class Patrimonio extends ModelBase {
     localizacao_atual,
     grupo,
     fornecedor,
-    url_thumb,
+    thumb,
     id,
     created_at,
     updated_at,
@@ -74,7 +62,7 @@ export class Patrimonio extends ModelBase {
     vida_util?: number;
     valor_residual?: number;
     data_baixa?: Date;
-    situacao?: string;
+    situacao?: "pendente" | "ativo" | "em_manutencao" | "inativo";
     grupo_id?: number;
     numero_empenho?: number;
     ano_empenho?: number;
@@ -84,7 +72,7 @@ export class Patrimonio extends ModelBase {
     localizacao_atual?: Local;
     grupo?: Grupo;
     fornecedor?: Fornecedor;
-    url_thumb?: string;
+    thumb?: string;
     id?: number;
     created_at?: Date;
     updated_at?: Date;
@@ -110,41 +98,12 @@ export class Patrimonio extends ModelBase {
     this.localizacao_atual = localizacao_atual;
     this.grupo = grupo;
     this.fornecedor = fornecedor;
-    this.url_thumb = url_thumb;
+    this.thumb = thumb;
     this.local_inicial_id = local_inicial_id;
   }
 
   private formata_data(data?: Date): string | undefined {
     if (data) return formatDate(data, "dd/MM/yyyy");
     else return undefined;
-  }
-
-  override to_payload(): Partial<this> {
-    let payload = super.to_payload();
-    return payload;
-  }
-
-  override to_form(): FormGroup<any> {
-    return new FormGroup({
-      codigo: new FormControl(this.codigo),
-      descricao: new FormControl(this.descricao),
-      especificacao: new FormControl(this.especificacao),
-      data_aquisicao: new FormControl(this.formata_data(this.data_aquisicao)),
-      data_incorporacao: new FormControl(
-        this.formata_data(this.data_incorporacao)
-      ),
-      valor_aquisicao: new FormControl(this.valor_aquisicao),
-      vida_util: new FormControl(this.vida_util),
-      valor_residual: new FormControl(this.valor_residual),
-      data_baixa: new FormControl(this.formata_data(this.data_baixa)),
-      situacao: new FormControl(this.situacao),
-      numero_empenho: new FormControl(this.numero_empenho),
-      ano_empenho: new FormControl(this.ano_empenho),
-      numero_processo_compra: new FormControl(this.numero_processo_compra),
-      ano_processo_compra: new FormControl(this.ano_processo_compra),
-      grupo_id: new FormControl(this.grupo_id),
-      fornecedor_id: new FormControl(this.fornecedor_id),
-      local_inicial_id: new FormControl(this.local_inicial_id),
-    });
   }
 }

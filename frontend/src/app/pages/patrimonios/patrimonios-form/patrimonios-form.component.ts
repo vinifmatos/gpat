@@ -1,17 +1,17 @@
 import { Component } from "@angular/core";
-import { FormComponent } from "../../shared/form/form.component";
-import { ApiService } from "../../../services/api.service";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { SelectItemGroup } from "primeng/api";
+import { ListboxFilterEvent } from "primeng/listbox";
 import { ImportsModule } from "../../../imports.module";
+import { Fornecedor } from "../../../models/fornecedor.model";
+import { Grupo } from "../../../models/grupo.model";
+import { Local } from "../../../models/local.model";
+import { Patrimonio } from "../../../models/patrimonio.model";
+import { ApiService } from "../../../services/api.service";
 import { StringService } from "../../../services/string.service";
 import { FormBase } from "../../form-base";
-import { Grupo } from "../../../models/grupo";
-import { Fornecedor } from "../../../models/fornecedor";
-import { Patrimonio } from "../../../models/patrimonio";
-import { Local } from "../../../models/local";
-import { ListboxFilterEvent } from "primeng/listbox";
-import { SelectItemGroup } from "primeng/api";
+import { FormComponent } from "../../shared/form/form.component";
 
 @Component({
   selector: "app-patrimonios-form",

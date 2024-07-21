@@ -35,10 +35,7 @@ export class ApiService {
     );
   }
 
-  update<T>(
-    path: string | string[],
-    payload: any
-  ): Observable<HttpResponse<T>> {
+  put<T>(path: string | string[], payload: any): Observable<HttpResponse<T>> {
     if (!Array.isArray(path)) path = [path];
     return this.http.put<T>(
       urlJoin(this.url_base, ...path.map((p) => String(p))),

@@ -1,13 +1,13 @@
 import { Component } from "@angular/core";
-import { FormComponent } from "../../shared/form/form.component";
-import { ApiService } from "../../../services/api.service";
 import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ImportsModule } from "../../../imports.module";
-import { FormEnderecoComponent } from "../../shared/form-endereco/form-endereco.component";
+import { Fornecedor } from "../../../models/fornecedor.model";
+import { ApiService } from "../../../services/api.service";
 import { StringService } from "../../../services/string.service";
 import { FormBase } from "../../form-base";
-import { Fornecedor } from "../../../models/fornecedor";
+import { FormEnderecoComponent } from "../../shared/form-endereco/form-endereco.component";
+import { FormComponent } from "../../shared/form/form.component";
 
 @Component({
   selector: "app-fornecedores-form",

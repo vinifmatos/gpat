@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
-import { ApiService } from "../../../services/api.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ImportsModule } from "../../../imports.module";
+import { Responsavel } from "../../../models/responsavel.model";
+import { ApiService } from "../../../services/api.service";
 import { ShowComponent } from "../../shared/show/show.component";
 import { ShowBase } from "../../show-base";
-import { Responsavel } from "../../../models/responsavel";
 
 @Component({
   selector: "app-responsaveis-show",

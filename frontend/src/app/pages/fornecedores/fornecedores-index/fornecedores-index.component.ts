@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { Fornecedor } from "../../../models/fornecedor";
 import { ImportsModule } from "../../../imports.module";
+import { Fornecedor } from "../../../models/fornecedor.model";
 import { ApiService } from "../../../services/api.service";
-import { IndexComponent } from "../../shared/index/index.component";
 import { IndexBase } from "../../index-base";
+import { IndexComponent } from "../../shared/index/index.component";
 
 @Component({
   selector: "app-fornecedores-index",

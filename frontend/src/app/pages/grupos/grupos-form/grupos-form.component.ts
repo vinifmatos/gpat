@@ -1,13 +1,13 @@
 import { Component } from "@angular/core";
-import { FormComponent } from "../../shared/form/form.component";
-import { ImportsModule } from "../../../imports.module";
-import { ApiService } from "../../../services/api.service";
 import { FormBuilder } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AutoCompleteCompleteEvent } from "primeng/autocomplete";
+import { ImportsModule } from "../../../imports.module";
+import { Grupo } from "../../../models/grupo.model";
+import { ApiService } from "../../../services/api.service";
 import { StringService } from "../../../services/string.service";
 import { FormBase } from "../../form-base";
-import { Grupo } from "../../../models/grupo";
+import { FormComponent } from "../../shared/form/form.component";
 
 @Component({
   selector: "app-grupos-form",

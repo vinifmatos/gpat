@@ -1,11 +1,11 @@
 import { Component } from "@angular/core";
-import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { ApiService } from "../../../services/api.service";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ImportsModule } from "../../../imports.module";
-import { IndexComponent } from "../../shared/index/index.component";
-import { Patrimonio } from "../../../models/patrimonio";
-import { IndexBase } from "../../index-base";
+import { Patrimonio } from "../../../models/patrimonio.model";
 import { SituacaoPatrimonioPipe } from "../../../pipes/situacao-patrimonio.pipe";
+import { ApiService } from "../../../services/api.service";
+import { IndexBase } from "../../index-base";
+import { IndexComponent } from "../../shared/index/index.component";
 
 @Component({
   selector: "app-patrimonios-index",

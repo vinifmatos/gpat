@@ -1,11 +1,11 @@
-import { ActivatedRoute, Router } from "@angular/router";
-import { ApiService } from "../../../services/api.service";
-import { ShowComponent } from "../../shared/show/show.component";
-import { ImportsModule } from "../../../imports.module";
 import { Component } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ImportsModule } from "../../../imports.module";
+import { Local } from "../../../models/local.model";
+import { ApiService } from "../../../services/api.service";
 import { ShowEnderecosComponent } from "../../shared/show-enderecos/show-enderecos.component";
+import { ShowComponent } from "../../shared/show/show.component";
 import { ShowBase } from "../../show-base";
-import { Local } from "../../../models/local";
 
 @Component({
   selector: "app-locais-show",

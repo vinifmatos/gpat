@@ -1,12 +1,12 @@
-import { FormBuilder } from "@angular/forms";
-import { ApiService } from "../../../services/api.service";
 import { Component } from "@angular/core";
+import { FormBuilder } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { StringService } from "../../../services/string.service";
 import { ImportsModule } from "../../../imports.module";
-import { FormComponent } from "../../shared/form/form.component";
+import { Responsavel } from "../../../models/responsavel.model";
+import { ApiService } from "../../../services/api.service";
+import { StringService } from "../../../services/string.service";
 import { FormBase } from "../../form-base";
-import { Responsavel } from "../../../models/responsavel";
+import { FormComponent } from "../../shared/form/form.component";
 
 @Component({
   selector: "app-responsaveis-form",
